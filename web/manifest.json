@@ -1,6 +1,6 @@
 {
-    "name": "capital24_2",
-    "short_name": "capital24_2",
+    "name": "capital24",
+    "short_name": "capital24",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

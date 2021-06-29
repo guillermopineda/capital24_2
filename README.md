@@ -1,4 +1,4 @@
-# capital24_2
+# capital24
 
 A new Flutter project.
 

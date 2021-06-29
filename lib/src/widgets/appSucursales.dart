@@ -1,7 +1,18 @@
+import 'package:capital24_2/src/bloc/mapa/mapa_bloc.dart';
+import 'package:capital24_2/src/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
+import 'package:capital24_2/src/services/traffic_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:polyline/polyline.dart' as Poly;
 
-class AppTarjetaSucursales extends StatelessWidget {
+class AppTarjetaSucursales extends StatefulWidget {
+  @override
+  _AppTarjetaSucursalesState createState() => _AppTarjetaSucursalesState();
+}
+
+class _AppTarjetaSucursalesState extends State<AppTarjetaSucursales> {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -50,23 +61,32 @@ class AppTarjetaSucursales extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5.0),
               child: Column(
                 children: <Widget>[
-                  GestureDetector(
-                    child: new ListTile(
-                      subtitle: Text(
-                          '"ID: " + plantillaColaboradoresModel[index].numeroEmpleado.toString()'),
-                      title: Text(
-                        'plantillaColaboradoresModel[index].nombre',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: Icon(
-                        Icons.keyboard_arrow_right,
-                        color: Theme.of(context).dividerColor,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/sucursalesMapa');
-                      // arguments: plantillaColaboradoresModel[index]);
+                  BlocBuilder<MapaBloc, MapaState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        child: new ListTile(
+                          subtitle: Text(
+                              '"ID: " + plantillaColaboradoresModel[index].numeroEmpleado.toString()'),
+                          title: Text(
+                            'plantillaColaboradoresModel[index].nombre',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Theme.of(context).dividerColor,
+                          ),
+                        ),
+                        onTap: () async {
+                          Navigator.pushNamed(
+                            context,
+                            '/mapa',
+                          );
+                          this.calcularDestino(context);
+
+                          // arguments: plantillaColaboradoresModel[index]);
+                        },
+                      );
                     },
                   ),
                   new Divider(
@@ -80,5 +100,25 @@ class AppTarjetaSucursales extends StatelessWidget {
             );
           });
     }
+  }
+
+  Future calcularDestino(BuildContext context) async {
+    final trafficService = new TrafficService();
+    final mapaBloc = context.read<MapaBloc>();
+    final inicio = context.read<MiUbicacionBloc>().state.ubicacion;
+    final destino = mapaBloc.state.ubicacionCentral;
+    final trafficResponse =
+        await trafficService.getCoordsInicioYDestino(inicio, destino);
+    final geometry = trafficResponse.routes[0].geometry;
+    final duracion = trafficResponse.routes[0].duration;
+    final distancia = trafficResponse.routes[0].distance;
+    final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6)
+        .decodedCoords;
+    final List<LatLng> rutaCoordenadas =
+        points.map((point) => LatLng(point[0], point[1])).toList();
+    mapaBloc
+        .add(OnCrearRutaInicioDestino(rutaCoordenadas, distancia, duracion));
+    print("---------------SHALA--------------------");
+    print(rutaCoordenadas);
   }
 }

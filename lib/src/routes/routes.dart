@@ -1,8 +1,11 @@
+import 'package:capital24_2/src/screens/conexion/accesoGPS.dart';
 import 'package:capital24_2/src/screens/conexionRemota.dart';
 import 'package:capital24_2/src/screens/kardexCliente.dart';
 import 'package:capital24_2/src/screens/kardexClienteDetalle.dart';
+import 'package:capital24_2/src/screens/conexion/loadingMapa.dart';
+import 'package:capital24_2/src/screens/conexion/mapa.dart';
 import 'package:capital24_2/src/screens/registro.dart';
-import 'package:capital24_2/src/screens/sucursalesMapa.dart';
+import 'package:capital24_2/src/screens/conexion/sucursalesMapa.dart';
 import 'package:capital24_2/src/screens/vencimientoContratos.dart';
 import 'package:flutter/material.dart';
 import 'package:capital24_2/src/screens/indicadoresNegocio.dart';
@@ -43,6 +46,7 @@ import 'package:capital24_2/src/screens/kardexEmpleado.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
   return <String, WidgetBuilder>{
+    AccesoGPS.routeName: (BuildContext context) => AccesoGPS(),
     AltasBajas.routeName: (BuildContext context) => AltasBajas(),
     AtencionClientes.routeName: (BuildContext context) => AtencionClientes(),
     Asismed.routeName: (BuildContext context) => Asismed(),
@@ -76,6 +80,8 @@ Map<String, WidgetBuilder> getRoutes() {
     KardexCliente.routeName: (BuildContext context) => KardexCliente(),
     KardexClienteDetalle.routeName: (BuildContext context) =>
         KardexClienteDetalle(),
+    LoadingMapa.routeName: (BuildContext context) => LoadingMapa(),
+    Mapa.routeName: (BuildContext context) => Mapa(),
     LoginCliente.routeName: (BuildContext context) => LoginCliente(),
     LoginEmpleado.routeName: (BuildContext context) => LoginEmpleado(),
     LoginInicio.routeName: (BuildContext context) => LoginInicio(),

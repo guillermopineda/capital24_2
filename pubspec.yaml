@@ -36,18 +36,33 @@ dependencies:
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   table_calendar: ^3.0.0
   http: ^0.13.3
-  carousel_pro: ^1.0.0
   location: ^4.3.0
   flutter_map: ^0.13.1
   latlng: ^0.1.0
   latlong: ^0.6.1
   latlong2: ^0.8.0
   flutter_echarts: ^2.1.0
+  geolocator: ^7.1.1
+  permission_handler: ^8.1.1
+  flutter_bloc: ^7.0.1
+  google_maps_flutter: ^2.0.6
+  dio: ^4.0.0
+  animate_do: ^2.0.0
+  carousel_pro_nullsafety: ^1.0.2
+  polyline: ^1.0.2
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.9.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/icon/cap24.png"
+  adaptive_icon_background: "images/icon/cap24.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

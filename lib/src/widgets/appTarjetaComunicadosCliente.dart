@@ -106,7 +106,9 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
                                                 // image: widget
                                                 //     .comunicadoModel[index]
                                                 //     .getImagenComunicado(),
-                                                image: "images/logo.png",
+                                                image:
+                                                    "https://gn10.sfo3.digitaloceanspaces.com/gn10/intranet/bienestar/2021/06/21/WhatsApp_Image_2021-06-21_at_10.04.32.jpeg",
+
                                                 fit: BoxFit.cover,
                                                 width: double.infinity,
                                                 fadeInDuration:

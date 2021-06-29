@@ -1,9 +1,28 @@
+import 'package:capital24_2/src/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appSucursales.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Sucursales extends StatelessWidget {
+class Sucursales extends StatefulWidget {
   static const String routeName = '/sucursales';
+
+  @override
+  _SucursalesState createState() => _SucursalesState();
+}
+
+class _SucursalesState extends State<Sucursales> {
+  @override
+  void initState() {
+    BlocProvider.of<MiUbicacionBloc>(context).iniciarSeguimiento();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    BlocProvider.of<MiUbicacionBloc>(context).cancelarSeguimiento();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +35,7 @@ class Sucursales extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () => Navigator.pushNamed(context, '/sucursales'),
+            onPressed: () => null,
             // onPressed: () {
             //   showSearch(
             //     context: context,
