@@ -1,12 +1,19 @@
+import 'dart:convert';
+import 'package:capital24_2/src/models/comunicadoClienteModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-//import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class TarjetaComunicadoCliente extends StatefulWidget {
+  @override
   _TarjetaComunicadoClienteState createState() =>
       _TarjetaComunicadoClienteState();
+  final List<ComunicadoModel>? comunicadoModel;
+  TarjetaComunicadoCliente({this.comunicadoModel});
 }
 
 class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
@@ -31,8 +38,7 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
   }
 
   condicionComunicados(context, _screenSize) {
-    //if (widget.comunicadoModel != null && widget.comunicadoModel.isEmpty)
-    if (1 < 0) {
+    if (widget.comunicadoModel != null && widget.comunicadoModel!.isEmpty) {
       return Center(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -56,21 +62,46 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
         ),
       ));
     } else {
+      Future _reloadComunicados() async {
+        String _url = "capital24-5phdg.ondigitalocean.app";
+        String _path = "/cliente/muro/";
+        final _prefs = PreferenciasUsuario();
+        final url = Uri.https(
+          _url,
+          _path,
+        );
+
+        final headersToken = {'Authorization': 'Token ${_prefs.token}'};
+        http.Response resp = await http.get(
+          url,
+          headers: headersToken,
+        );
+        _refreshController.refreshCompleted();
+        final dataComunicado = json.decode(utf8.decode(resp.bodyBytes));
+        final comunicadosModel =
+            new ComunicadosModel.fromJsonList(dataComunicado);
+
+        setState(() {
+          widget.comunicadoModel!.clear();
+          widget.comunicadoModel!.addAll(comunicadosModel.items);
+        });
+
+        return comunicadosModel.items;
+      }
+
       return SmartRefresher(
         controller: _refreshController,
         enablePullDown: true,
-        onRefresh: null,
-        //child: (widget.comunicadoModel != null)
-        child: (1 == 1)
+        onRefresh: _reloadComunicados,
+        child: (widget.comunicadoModel != null)
             ? ListView.builder(
                 addRepaintBoundaries: false,
                 physics: BouncingScrollPhysics(),
-                //itemCount: widget.comunicadoModel.length,
-                itemCount: 1,
+                itemCount: widget.comunicadoModel!.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
-                  // widget.comunicadoModel[index].comunicadoId =
-                  //     '${widget.comunicadoModel[index].getImagenComunicado()}-comunicadoId-${widget.comunicadoModel[index].runtimeType}';
+                  widget.comunicadoModel![index].comunicadoIdCliente =
+                      '${widget.comunicadoModel![index].getImagenComunicado()}-comunicadoId-${widget.comunicadoModel![index].runtimeType}';
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 5.0),
                     child: Column(
@@ -78,12 +109,13 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
                         GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, '/homeClienteDetalle');
-                              //  arguments: widget.comunicadoModel[index]);
+                                  context, '/homeClienteDetalle',
+                                  arguments: widget.comunicadoModel![index]);
                             },
                             child: Hero(
-                              //tag: widget.comunicadoModel[index].comunicadoId,
-                              tag: "Helo",
+                              tag: widget
+                                  .comunicadoModel![index].comunicadoIdCliente
+                                  .toString(),
                               child: SingleChildScrollView(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20.0),
@@ -103,11 +135,9 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
                                                 //es una clase que nos ayuda a importar imagenes
                                                 placeholder:
                                                     "images/load_2.gif", //que imagen aparece en tiempos de carga, este es válido solo si nuestra clase FadeInImage.assetNetwork
-                                                // image: widget
-                                                //     .comunicadoModel[index]
-                                                //     .getImagenComunicado(),
-                                                image:
-                                                    "https://gn10.sfo3.digitaloceanspaces.com/gn10/intranet/bienestar/2021/06/21/WhatsApp_Image_2021-06-21_at_10.04.32.jpeg",
+                                                image: widget
+                                                    .comunicadoModel![index]
+                                                    .getImagenComunicado(),
 
                                                 fit: BoxFit.cover,
                                                 width: double.infinity,
@@ -148,17 +178,20 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
                                                     Container(
                                                       width: 300.0,
                                                       child: Text(
-                                                        "widget.comunicadoModel[index].tipo",
+                                                        widget
+                                                            .comunicadoModel![
+                                                                index]
+                                                            .tipo
+                                                            .toString(),
                                                         style: TextStyle(
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.red
-                                                            // color: widget
-                                                            //     .comunicadoModel[
-                                                            //         index]
-                                                            //     .getColorComunicado(),
-                                                            ),
+                                                          fontSize: 16.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: widget
+                                                              .comunicadoModel![
+                                                                  index]
+                                                              .getColorComunicado(),
+                                                        ),
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -170,7 +203,11 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
                                                           const EdgeInsets.only(
                                                               top: 4.0),
                                                       child: Text(
-                                                        "widget.comunicadoModel[index].nombre",
+                                                        widget
+                                                            .comunicadoModel![
+                                                                index]
+                                                            .nombre
+                                                            .toString(),
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w300,
@@ -195,24 +232,12 @@ class _TarjetaComunicadoClienteState extends State<TarjetaComunicadoCliente> {
                                                       children: <Widget>[
                                                         Container(
                                                           child: Text(
-                                                            'Vence el '
-                                                            // +
-                                                            // DateFormat.MMMd('es_MX').format(
-                                                            //     DateFormat(
-                                                            //             "dd/MM/yyyy",
-                                                            //             "es_MX")
-                                                            //                                                                      // .parse(widget
-                                                            //            .comunicadoModel[
-                                                            //                index]
-                                                            //     .fechaFinal)),
-                                                            ,
+                                                            'Vence el ${DateFormat.MMMd('es_MX').format(DateFormat("dd/MM/yyyy", "es_MX").parse(widget.comunicadoModel![index].fechaFinal.toString()))}',
                                                             style: TextStyle(
-                                                              color:
-                                                                  Colors.blue,
-                                                              // color: widget
-                                                              //     .comunicadoModel[
-                                                              //         index]
-                                                              //     .getColorComunicado(),
+                                                              color: widget
+                                                                  .comunicadoModel![
+                                                                      index]
+                                                                  .getColorComunicado(),
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,

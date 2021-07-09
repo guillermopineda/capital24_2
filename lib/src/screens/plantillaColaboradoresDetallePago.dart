@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/models/plantillaColaboradoresModel.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -83,66 +84,68 @@ class PlantillaColaboradoresDetallePago extends StatelessWidget {
   }
 
   SizedBox cajaPagos(context, Size _screenSize) {
-    // final PlantillaColaboradoresModel plantillaColaboradoresModel =
-    //     ModalRoute.of(context).settings.arguments;
+    final PlantillaColaboradoresModel plantillaColaboradoresModel =
+        ModalRoute.of(context)!.settings.arguments
+            as PlantillaColaboradoresModel;
 
-    // if (plantillaColaboradoresModel.pagos.isEmpty) {
-    //   return SizedBox(
-    //     height: _screenSize.height * .1,
-    //     child: mostrarPago(context),
-    //   );
-    // } else {
-    return SizedBox(
-      height: _screenSize.height * .2,
-      child: mostrarPago(context),
-    );
+    if (plantillaColaboradoresModel.pagos!.isEmpty) {
+      return SizedBox(
+        height: _screenSize.height * .1,
+        child: mostrarPago(context),
+      );
+    } else {
+      return SizedBox(
+        height: _screenSize.height * .2,
+        child: mostrarPago(context),
+      );
+    }
+  }
+
+  mostrarPago(context) {
+    final PlantillaColaboradoresModel plantillaColaboradoresModel =
+        ModalRoute.of(context)!.settings.arguments
+            as PlantillaColaboradoresModel;
+    if (plantillaColaboradoresModel.pagos!.isEmpty) {
+      return ListTile(
+        title: Text(
+          "Sin información disponible",
+          textAlign: TextAlign.left,
+        ),
+        subtitle: Text("Aún no se han registrados pagos"),
+      );
+    } else {
+      return ListView.builder(
+          physics: BouncingScrollPhysics(),
+          itemCount: plantillaColaboradoresModel.pagos!.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ListTile(
+                    title: Text(
+                      plantillaColaboradoresModel.pagos![index].mesAnio
+                          .toString(),
+                      textAlign: TextAlign.left,
+                    ),
+                    trailing: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: Theme.of(context).dividerColor,
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, '/plantillaColaboradoresPagoDetalleDesglose',
+                          arguments: plantillaColaboradoresModel.pagos![index]);
+                    },
+                  ),
+                  Divider(
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ],
+              ),
+            );
+          });
+    }
   }
 }
-
-mostrarPago(context) {
-  // final PlantillaColaboradoresModel plantillaColaboradoresModel =
-  //     ModalRoute.of(context).settings.arguments;
-  // if (plantillaColaboradoresModel.pagos.isEmpty) {
-  //   return ListTile(
-  //     title: Text(
-  //       "Sin información disponible",
-  //       textAlign: TextAlign.left,
-  //     ),
-  //     subtitle: Text("Aún no se han registrados pagos"),
-  //   );
-  // } else {
-  return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: 3, //plantillaColaboradoresModel.pagos.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'plantillaColaboradoresModel.pagos[index].mesAnio',
-                  textAlign: TextAlign.left,
-                ),
-                trailing: Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Theme.of(context).dividerColor,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, '/plantillaColaboradoresPagoDetalleDesglose');
-                  // ,
-                  // arguments: plantillaColaboradoresModel.pagos[index]);
-                },
-              ),
-              Divider(
-                color: Theme.of(context).dividerColor,
-              ),
-            ],
-          ),
-        );
-      });
-}
-  //}
-//}

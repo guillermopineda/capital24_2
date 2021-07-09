@@ -1,7 +1,16 @@
+import 'dart:io';
+
+import 'package:capital24_2/src/models/nominaModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
 
 class NominaPagoDetalle extends StatefulWidget {
   static const String routeName = '/desglosePagoDetalle';
@@ -9,6 +18,7 @@ class NominaPagoDetalle extends StatefulWidget {
 }
 
 class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
+  final _prefs = PreferenciasUsuario();
   bool showSpinner = false;
 
   void setSpinnerstatus(bool status) {
@@ -19,6 +29,9 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
 
   @override
   Widget build(BuildContext context) {
+    final DesglosePagoModel desglosesPagoModel =
+        ModalRoute.of(context)!.settings.arguments as DesglosePagoModel;
+    var f = NumberFormat('#,###,###.0#', 'en_US');
     final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -75,13 +88,17 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
           maintainBottomViewPadding: true,
           child: ListView.builder(
               physics: BouncingScrollPhysics(),
-              itemCount: 1, // desglosesPagoModel.pagos.length,
+              itemCount: desglosesPagoModel.pagos!.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: ExpansionTile(
                       title: Text(
-                        ' "Periodo " + desglosesPagoModel.pagos[index].proceso + " " +desglosesPagoModel.pagos[index].periodo.toString()',
+                        "Periodo " +
+                            desglosesPagoModel.pagos![index].proceso
+                                .toString() +
+                            " " +
+                            desglosesPagoModel.pagos![index].periodo.toString(),
                         style: TextStyle(fontSize: 16.0),
                         textAlign: TextAlign.left,
                       ),
@@ -90,52 +107,57 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
                         color: Theme.of(context).dividerColor,
                       ),
                       children: <Widget>[
-                         Divider(
+                        Divider(
                           color: Theme.of(context).dividerColor,
                         ),
-                         Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                             ListTile(
+                            ListTile(
                               subtitle: Text(
                                 "Banco Colaborador",
                                 textAlign: TextAlign.left,
                               ),
-                              title:
-                                  Text("desglosesPagoModel.pagos[index].banco"),
+                              title: Text(desglosesPagoModel.pagos![index].banco
+                                  .toString()),
                             ),
-                             ListTile(
+                            ListTile(
                               subtitle: Text(
                                 "Cuenta Colaborador",
                                 textAlign: TextAlign.left,
                               ),
-                              title: Text(
-                                  "desglosesPagoModel.pagos[index].cuenta"),
+                              title: Text(desglosesPagoModel
+                                  .pagos![index].cuenta
+                                  .toString()),
                             ),
-                             ListTile(
+                            ListTile(
                               subtitle: Text(
                                 "Clabe Colaborador",
                                 textAlign: TextAlign.left,
                               ),
-                              title: Text(
-                                  "desglosesPagoModel.pagos[index].cuentaClabe"),
+                              title: Text(desglosesPagoModel
+                                  .pagos![index].cuentaClabe
+                                  .toString()),
                             ),
-                             ListTile(
+                            ListTile(
                               subtitle: Text(
                                 "Lugar de Pago",
                                 textAlign: TextAlign.left,
                               ),
-                              title: Text(
-                                  "desglosesPagoModel.pagos[index].lugarPago"),
+                              title: Text(desglosesPagoModel
+                                  .pagos![index].lugarPago
+                                  .toString()),
                             ),
-                             ListTile(
+                            ListTile(
                               subtitle: Text(
                                 "Importe Depositado",
                                 textAlign: TextAlign.left,
                               ),
-                              title: Text(
-                                  'f.format(desglosesPagoModel.pagos[index].importe).toString()'),
+                              title: Text(f
+                                  .format(
+                                      desglosesPagoModel.pagos![index].importe)
+                                  .toString()),
                             ),
                             mostrarCFDI(context, index),
                             /*   ListTile(
@@ -152,7 +174,7 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
                                 color: Theme.of(context).dividerColor,
                               ),
                             ), */
-                             Divider(
+                            Divider(
                               color: Theme.of(context).dividerColor,
                             ),
                           ],
@@ -166,10 +188,9 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
   }
 
   mostrarCFDI(BuildContext context, int index) {
-    // final DesglosePagoModel desglosesPagoModel =
-    //     ModalRoute.of(context).settings.arguments;
-    //if(desglosesPagoModel.pagos[index].mostrarRecibo == "N"){
-    if (1 > 2) {
+    final DesglosePagoModel desglosesPagoModel =
+        ModalRoute.of(context)!.settings.arguments as DesglosePagoModel;
+    if (desglosesPagoModel.pagos![index].mostrarRecibo == "N") {
       return Container();
     } else {
       return ListTile(
@@ -185,6 +206,128 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
           color: Theme.of(context).dividerColor,
         ),
       );
+    }
+  }
+
+  Future response(BuildContext context, int index) async {
+    setSpinnerstatus(true);
+    Directory appDocDirectory =
+        await getApplicationDocumentsDirectory(); //getExternalStorageDirectory
+    Dio dio = Dio();
+    final DesglosePagoModel desglosesPagoModel =
+        ModalRoute.of(context)!.settings.arguments as DesglosePagoModel;
+    final headersToken = {
+      'Authorization': 'Token ${_prefs.token}',
+    };
+    final recibo = desglosesPagoModel.pagos![index].recibo.toString();
+    http.Response response =
+        await http.get(Uri.parse(recibo), headers: headersToken);
+    final etiquetaRecibo =
+        '${desglosesPagoModel.mesAnio}. Proceso: ${desglosesPagoModel.pagos![index].proceso}. Periodo: ${desglosesPagoModel.pagos![index].periodo.toString()}';
+
+    if (Platform.isAndroid) {
+      if (response.statusCode == 200) {
+        if (await canLaunch(recibo)) {
+          await launch(
+            recibo,
+            headers: headersToken,
+          );
+        }
+        setSpinnerstatus(false);
+      } else {
+        showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (BuildContext context) {
+              final _screenSize = MediaQuery.of(context).size;
+              return AlertDialog(
+                backgroundColor: Theme.of(context).backgroundColor,
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                content: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: _screenSize.height * .01),
+                    Text(
+                      "Aún no se ha generado CFDI",
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1!.color),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: _screenSize.height * .01),
+                    Text(
+                      "Por favor realiza tu consulta en otro momento",
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1!.color),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: _screenSize.height * .03),
+                    Icon(FontAwesomeIcons.fileInvoiceDollar,
+                        color: Theme.of(context).dividerColor, size: 50),
+                  ],
+                ),
+              );
+            });
+      }
+      setSpinnerstatus(false);
+    } else {
+      if (Platform.isIOS) {
+        if (response.statusCode == 200) {
+          Response request = await dio.download(
+              recibo, (appDocDirectory.path + '/' + '$etiquetaRecibo.pdf'),
+              options: Options(headers: headersToken));
+
+          print(request.statusCode);
+          print(appDocDirectory.path);
+
+          setSpinnerstatus(false);
+          return request;
+        } else {
+          showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (BuildContext context) {
+                final _screenSize = MediaQuery.of(context).size;
+                return AlertDialog(
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  content: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: _screenSize.height * .01),
+                      Text(
+                        "Aún no se ha generado CFDI",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: _screenSize.height * .01),
+                      Text(
+                        "Por favor realiza tu consulta en otro momento",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: _screenSize.height * .03),
+                      Icon(FontAwesomeIcons.fileInvoiceDollar,
+                          color: Theme.of(context).dividerColor, size: 50),
+                    ],
+                  ),
+                );
+              });
+
+          setSpinnerstatus(false);
+        }
+      }
     }
   }
 }

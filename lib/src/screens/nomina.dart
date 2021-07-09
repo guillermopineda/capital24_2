@@ -1,3 +1,5 @@
+import 'package:capital24_2/src/models/nominaModel.dart';
+import 'package:capital24_2/src/providers/NominaProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appNominaEmpleado.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +52,23 @@ class _NominaState extends State<Nomina> {
   }
 
   Widget _selectorPeriodos() {
-    // final _screenSize = MediaQuery.of(context).size;
+    final _screenSize = MediaQuery.of(context).size;
 
-    return AppNominaEmpleado();
+    return FutureBuilder(
+      future: desglosesPagoProvider.getDesglosePago(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return AppNominaEmpleado(
+              desglosesPagoModel: snapshot.data as List<DesglosePagoModel>);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
   }
 }

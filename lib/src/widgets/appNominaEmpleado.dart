@@ -1,8 +1,11 @@
+import 'package:capital24_2/src/models/nominaModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppNominaEmpleado extends StatefulWidget {
   _AppNominaEmpleadoState createState() => _AppNominaEmpleadoState();
+  final List<DesglosePagoModel>? desglosesPagoModel;
+  AppNominaEmpleado({this.desglosesPagoModel});
 }
 
 class _AppNominaEmpleadoState extends State<AppNominaEmpleado> {
@@ -56,8 +59,7 @@ class _AppNominaEmpleadoState extends State<AppNominaEmpleado> {
   }
 
   SizedBox cajaPagos(Size _screenSize) {
-    //if (widget.desglosesPagoModel.length == 0) {
-    if (1 < 0) {
+    if (widget.desglosesPagoModel!.length == 0) {
       return SizedBox(
         height: _screenSize.height * .1,
         child: mostrarPago(),
@@ -71,8 +73,7 @@ class _AppNominaEmpleadoState extends State<AppNominaEmpleado> {
   }
 
   mostrarPago() {
-    // if (widget.desglosesPagoModel.length == 0) {
-    if (1 > 2) {
+    if (widget.desglosesPagoModel!.length == 0) {
       return ListTile(
         title: Text(
           "Sin información disponible",
@@ -83,7 +84,7 @@ class _AppNominaEmpleadoState extends State<AppNominaEmpleado> {
     } else {
       return ListView.builder(
           physics: BouncingScrollPhysics(),
-          itemCount: 1, //widget.desglosesPagoModel.length,
+          itemCount: widget.desglosesPagoModel!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               child: Column(
@@ -92,7 +93,7 @@ class _AppNominaEmpleadoState extends State<AppNominaEmpleado> {
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      "widget.desglosesPagoModel[index].mesAnio",
+                      widget.desglosesPagoModel![index].mesAnio.toString(),
                       textAlign: TextAlign.left,
                     ),
                     trailing: Icon(
@@ -100,10 +101,8 @@ class _AppNominaEmpleadoState extends State<AppNominaEmpleado> {
                       color: Theme.of(context).dividerColor,
                     ),
                     onTap: () {
-                      Navigator.pushNamed(
-                        context, '/desglosePagoDetalle',
-                        //arguments: widget.desglosesPagoModel[index]
-                      );
+                      Navigator.pushNamed(context, '/desglosePagoDetalle',
+                          arguments: widget.desglosesPagoModel![index]);
                     },
                   ),
                   Divider(

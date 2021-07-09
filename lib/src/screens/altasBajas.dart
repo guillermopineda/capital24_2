@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/providers/AltasBajasProvider.dart';
 import 'package:capital24_2/src/widgets/appAltasBajas.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
@@ -62,18 +63,17 @@ class AltasBajas extends StatelessWidget {
   }
 
   Widget _graficaAltasBajas() {
-    // return FutureBuilder(
-    //     future: headcountProvider.getHeadcountNegocio(),
-    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //       if (snapshot.hasData) {
-    return AppAltasBajas(); //altasBajasModel: snapshot.data);
-    // } else {
-    //   return Center(
-    //       child: Image.asset(
-    //     "images/load_2.gif",
-    //   ));
-    // }
+    return FutureBuilder(
+        future: headcountProvider.getHeadcountNegocio(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return AppAltasBajas(altasBajasModel: snapshot.data);
+          } else {
+            return Center(
+                child: Image.asset(
+              "images/load_2.gif",
+            ));
+          }
+        });
   }
-  //);
 }
-//}

@@ -1,11 +1,13 @@
 import 'package:capital24_2/src/models/capitalBenefits/serviciosCapitalBenefitsModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CapitalPartnersDirectorioDetalle extends StatelessWidget {
   static const String routeName = '/capitalPartnersDirectorioDetalle';
-
+  final _prefs = PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
     final TduServicios descuento =
@@ -111,11 +113,10 @@ class CapitalPartnersDirectorioDetalle extends StatelessWidget {
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 

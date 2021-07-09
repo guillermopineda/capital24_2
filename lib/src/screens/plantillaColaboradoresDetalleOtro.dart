@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/models/plantillaColaboradoresModel.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -83,67 +84,68 @@ class PlantillaColaboradoresDetalleOtro extends StatelessWidget {
   }
 
   SizedBox cajaOtros(context, Size _screenSize) {
-    //       final PlantillaColaboradoresModel plantillaColaboradoresModel =
-    //     ModalRoute.of(context).settings.arguments;
+    final PlantillaColaboradoresModel plantillaColaboradoresModel =
+        ModalRoute.of(context)!.settings.arguments
+            as PlantillaColaboradoresModel;
 
-    // if (plantillaColaboradoresModel.otros.isEmpty) {
-    //   return SizedBox(
-    //     height: _screenSize.height * .1,
-    //     child: mostrarOtro(context),
-    //   );
-    // } else {
-    return SizedBox(
-      height: _screenSize.height * .2,
-      child: mostrarOtro(context),
-    );
+    if (plantillaColaboradoresModel.otros!.isEmpty) {
+      return SizedBox(
+        height: _screenSize.height * .1,
+        child: mostrarOtro(context),
+      );
+    } else {
+      return SizedBox(
+        height: _screenSize.height * .2,
+        child: mostrarOtro(context),
+      );
+    }
+  }
+
+  mostrarOtro(context) {
+    final PlantillaColaboradoresModel plantillaColaboradoresModel =
+        ModalRoute.of(context)!.settings.arguments
+            as PlantillaColaboradoresModel;
+    if (plantillaColaboradoresModel.otros!.isEmpty) {
+      return ListTile(
+        title: Text(
+          "Sin información disponible",
+          textAlign: TextAlign.left,
+        ),
+        subtitle: Text("Aún no se han registrados pagos"),
+      );
+    } else {
+      return ListView.builder(
+          physics: BouncingScrollPhysics(),
+          itemCount: plantillaColaboradoresModel.otros!.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ListTile(
+                    title: Text(
+                      plantillaColaboradoresModel.otros![index].mesAnio
+                          .toString(),
+                      textAlign: TextAlign.left,
+                    ),
+                    trailing: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: Theme.of(context).dividerColor,
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, '/plantillaColaboradoresDetalleOtroDesglose',
+                          arguments: plantillaColaboradoresModel.otros![index]);
+                    },
+                  ),
+                  Divider(
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ],
+              ),
+            );
+          });
+    }
   }
 }
-
-mostrarOtro(context) {
-  //      final PlantillaColaboradoresModel plantillaColaboradoresModel =
-  //     ModalRoute.of(context).settings.arguments;
-  // if (plantillaColaboradoresModel.otros.isEmpty) {
-  //   return ListTile(
-  //     title: Text(
-  //       "Sin información disponible",
-  //       textAlign: TextAlign.left,
-  //     ),
-  //     subtitle: Text("Aún no se han registrados pagos"),
-  //   );
-  // } else {
-  return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: 5, //plantillaColaboradoresModel.otros.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  ' plantillaColaboradoresModel.otros[index].mesAnio',
-                  textAlign: TextAlign.left,
-                ),
-                trailing: Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Theme.of(context).dividerColor,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, '/plantillaColaboradoresDetalleOtroDesglose');
-                  // ,
-                  //     arguments: plantillaColaboradoresModel.otros[index]);
-                },
-              ),
-              Divider(
-                color: Theme.of(context).dividerColor,
-              ),
-            ],
-          ),
-        );
-      });
-}
-//   }
-// }
-// }

@@ -1,14 +1,16 @@
+import 'package:capital24_2/src/models/plantillaColaboradoresModel.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PlantillaColaboradoresDetalleOtroDesglose extends StatelessWidget {
   static const String routeName = '/plantillaColaboradoresDetalleOtroDesglose';
 
   @override
   Widget build(BuildContext context) {
-    // final Otros plantillaColaboradoresModel =
-    //     ModalRoute.of(context).settings.arguments;
-    // var f = NumberFormat('#,###,###.0#', 'en_US');
+    final Otros plantillaColaboradoresModel =
+        ModalRoute.of(context)!.settings.arguments as Otros;
+    var f = NumberFormat('#,###,###.0#', 'en_US');
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -23,18 +25,19 @@ class PlantillaColaboradoresDetalleOtroDesglose extends StatelessWidget {
       endDrawer: HamburguesaClienteEspejo(),
       body: ListView.builder(
           physics: BouncingScrollPhysics(),
-          itemCount: 5, //plantillaColaboradoresModel.otros.length,
+          itemCount: plantillaColaboradoresModel.otros!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: ExpansionTile(
                   title: Text(
-                    "hola",
-                    // "Periodo " +
-                    //     plantillaColaboradoresModel.otros[index].proceso +
-                    //     " " +
-                    //     plantillaColaboradoresModel.otros[index].periodo
-                    //         .toString(),
+                    "Periodo " +
+                        plantillaColaboradoresModel.otros![index].proceso
+                            .toString() +
+                        " " +
+                        plantillaColaboradoresModel.otros![index].periodo
+                            .toString()
+                            .toString(),
                     style: TextStyle(fontSize: 16.0),
                     textAlign: TextAlign.left,
                   ),
@@ -55,44 +58,46 @@ class PlantillaColaboradoresDetalleOtroDesglose extends StatelessWidget {
                             "Banco Colaborador",
                             textAlign: TextAlign.left,
                           ),
-                          title: Text(
-                              'plantillaColaboradoresModel.otros[index].banco'),
+                          title: Text(plantillaColaboradoresModel
+                              .otros![index].banco
+                              .toString()),
                         ),
                         ListTile(
                           subtitle: Text(
                             "Cuenta Colaborador",
                             textAlign: TextAlign.left,
                           ),
-                          title: Text(
-                              'plantillaColaboradoresModel.otros[index].cuenta'),
+                          title: Text(plantillaColaboradoresModel
+                              .otros![index].cuenta
+                              .toString()),
                         ),
                         ListTile(
                           subtitle: Text(
                             "Clabe Colaborador",
                             textAlign: TextAlign.left,
                           ),
-                          title: Text(
-                              'plantillaColaboradoresModel.otros[index].cuentaClabe'),
+                          title: Text(plantillaColaboradoresModel
+                              .otros![index].cuentaClabe
+                              .toString()),
                         ),
                         ListTile(
                           subtitle: Text(
                             "Lugar de Pago",
                             textAlign: TextAlign.left,
                           ),
-                          title: Text(
-                              'plantillaColaboradoresModel.otros[index].lugarPago'),
+                          title: Text(plantillaColaboradoresModel
+                              .otros![index].lugarPago
+                              .toString()),
                         ),
                         ListTile(
                           subtitle: Text(
                             "Importe Depositado",
                             textAlign: TextAlign.left,
                           ),
-                          title: Text("yuju"
-                              // f
-                              //   .format(plantillaColaboradoresModel
-                              //       .otros[index].importe)
-                              //   .toString()
-                              ),
+                          title: Text(f
+                              .format(plantillaColaboradoresModel
+                                  .otros![index].importe)
+                              .toString()),
                         ),
                         Divider(
                           color: Theme.of(context).dividerColor,

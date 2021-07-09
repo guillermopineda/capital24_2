@@ -1,8 +1,16 @@
+import 'package:capital24_2/src/models/comunicadoClienteModel.dart';
+import 'package:capital24_2/src/models/cumpleanioClienteModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/ComunicadoClienteProvider.dart';
+import 'package:capital24_2/src/providers/CumpleanioClienteProvider.dart';
+import 'package:capital24_2/src/utils/Tema.dart';
 import 'package:capital24_2/src/widgets/appCumpleaniosCliente.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaCliente.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaEmpleado.dart';
 import 'package:capital24_2/src/widgets/appTarjetaComunicadosCliente.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class HomeCliente extends StatefulWidget {
   static const String routeName = '/homeCliente';
@@ -10,10 +18,14 @@ class HomeCliente extends StatefulWidget {
 }
 
 class _HomeClienteState extends State<HomeCliente> {
+  final _prefs = PreferenciasUsuario();
+  bool shouldPop = true;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: null,
+      onWillPop: () async {
+        return shouldPop;
+      },
       child: Scaffold(
         appBar: AppBar(
           title: Text("Mi Muro"),
@@ -53,11 +65,51 @@ class _HomeClienteState extends State<HomeCliente> {
   }
 
   usuarioHamburguesa() {
-    return HamburguesaCliente();
+    if (_prefs.tipoUsuario == 'empleado') {
+      return HamburguesaEmpleado();
+    } else {
+      return HamburguesaCliente();
+    }
   }
 
   Widget _muroTarjetas() {
-    return TarjetaComunicadoCliente();
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+      future: comunicadoProvider.getComunicado(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return TarjetaComunicadoCliente(
+              comunicadoModel: snapshot.data as List<ComunicadoModel>);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
+  }
+
+  Widget _muroCumpleanio() {
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+      future: cumpleanioProvider.getCumpleanio(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return AlertaCumpleaniosCliente(
+              cumpleanioModel: snapshot.data as List<CumpleanioModel>);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
   }
 
   void _listaCumpleanios(context) {
@@ -69,11 +121,8 @@ class _HomeClienteState extends State<HomeCliente> {
         });
   }
 
-  Widget _muroCumpleanio() {
-    return AlertaCumpleaniosCliente();
-  }
-
   void _cambioTema() {
+    TemaSwitch _tema = Provider.of<TemaSwitch>(context, listen: false);
     final _screenSize = MediaQuery.of(context).size;
     showDialog(
         context: context,
@@ -110,7 +159,7 @@ class _HomeClienteState extends State<HomeCliente> {
                               ),
                             ],
                           ),
-                          onTap: () => null,
+                          onTap: () => _tema.setTema(miTema),
                         ),
                         GestureDetector(
                           child: Column(
@@ -128,7 +177,7 @@ class _HomeClienteState extends State<HomeCliente> {
                               ),
                             ],
                           ),
-                          onTap: () => null,
+                          onTap: () => _tema.setTema(miTemaObscuro),
                         )
                       ],
                     ),

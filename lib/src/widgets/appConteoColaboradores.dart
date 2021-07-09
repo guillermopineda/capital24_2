@@ -1,15 +1,17 @@
+import 'package:capital24_2/src/models/altasBajasModel.dart';
 import 'package:flutter/material.dart';
 
 class AppConteoColaboradores extends StatefulWidget {
   @override
   _AppConteoColaboradoresState createState() => _AppConteoColaboradoresState();
+  final IndicadorNegocioModel? headcountModel;
+  AppConteoColaboradores({this.headcountModel});
 }
 
 class _AppConteoColaboradoresState extends State<AppConteoColaboradores>
     with SingleTickerProviderStateMixin {
   late Animation animation;
   late AnimationController animationController;
-  //IndicadorNegocioModel headcountModel;
 
   @override
   void initState() {
@@ -17,10 +19,10 @@ class _AppConteoColaboradoresState extends State<AppConteoColaboradores>
     animationController =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
 
-    animation = IntTween(
-            begin: 0, end: 526) //widget.headcountModel.numeroEmpleados ?? 0)
-        .animate(CurvedAnimation(
-            parent: animationController, curve: Curves.easeOut));
+    animation =
+        IntTween(begin: 0, end: widget.headcountModel!.numeroEmpleados ?? 0)
+            .animate(CurvedAnimation(
+                parent: animationController, curve: Curves.easeOut));
 
     animationController.forward();
   }

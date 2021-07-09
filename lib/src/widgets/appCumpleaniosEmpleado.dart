@@ -1,7 +1,13 @@
+import 'package:capital24_2/src/models/cumpleanioEmpleadoModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AlertaCumpleaniosEmpleado extends StatelessWidget {
+  final List<CumpleanioModel>? cumpleanioModel;
+
+  AlertaCumpleaniosEmpleado({
+    this.cumpleanioModel,
+  });
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -30,8 +36,7 @@ class AlertaCumpleaniosEmpleado extends StatelessWidget {
   }
 
   diaCumpleanio(context) {
-    //if ("cumpleanioModel.isEmpty") {
-    if (1 > 2) {
+    if (cumpleanioModel!.isEmpty) {
       return ListTile(
         title: Text(
           "Sin cumpleaños que celebrar",
@@ -48,13 +53,14 @@ class AlertaCumpleaniosEmpleado extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
                 title: Text(
-                  "cumpleanioModel[index].nombre",
+                  cumpleanioModel![index].nombre.toString(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: TextStyle(color: Theme.of(context).accentColor),
                 ),
                 contentPadding: EdgeInsets.zero,
-                trailing: Text("cumpleanioModel[index].fechaNacimiento",
+                trailing: Text(
+                    cumpleanioModel![index].fechaNacimiento.toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(

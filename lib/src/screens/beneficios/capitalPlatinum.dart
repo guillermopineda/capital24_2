@@ -1,15 +1,19 @@
 import 'package:capital24_2/src/models/capitalBenefits/capitalPlatinumModel.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/capitalPlatinumProvider.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/CapitalPlatinumProvider.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appTarjetaCapitalPlatinum.dart';
 import 'package:flutter/material.dart';
 
 class CapitalPlatinum extends StatefulWidget {
   static const String routeName = '/capitalPlatinum';
+
   _CapitalPlatinumState createState() => _CapitalPlatinumState();
 }
 
 class _CapitalPlatinumState extends State<CapitalPlatinum> {
+  final _prefs = PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -47,11 +51,10 @@ class _CapitalPlatinumState extends State<CapitalPlatinum> {
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 

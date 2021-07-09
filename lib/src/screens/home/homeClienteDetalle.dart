@@ -1,36 +1,33 @@
+import 'package:capital24_2/src/models/comunicadoClienteModel.dart';
 import 'package:flutter/material.dart';
 
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeClienteDetalle extends StatelessWidget {
   static const String routeName = '/homeClienteDetalle';
   @override
   Widget build(BuildContext context) {
+    final ComunicadoModel comunicadoModel =
+        ModalRoute.of(context)!.settings.arguments as ComunicadoModel;
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: CustomScrollView(
           slivers: <Widget>[
-            //_crearAppBar(context,comunicadoModel),
-            _crearAppBar(context),
+            _crearAppBar(context, comunicadoModel),
             SliverList(
                 delegate: SliverChildListDelegate([
               SizedBox(height: 10.0),
-              //_nombreComunicado(context,comunicadoModel),
-              //_descripcionComunicado(context,comunicadoModel),
-              _nombreComunicado(context),
-              _descripcionComunicado(context),
+              _nombreComunicado(context, comunicadoModel),
+              _descripcionComunicado(context, comunicadoModel),
             ]))
           ],
         ));
   }
 
-  Widget _crearAppBar(BuildContext context) {
+  Widget _crearAppBar(BuildContext context, ComunicadoModel comunicadoModel) {
     return SliverAppBar(
       stretch: true,
       stretchTriggerOffset: 150,
-      // onStretchTrigger: () {
-      //   return;
-      // },
       elevation: 2.0,
       backgroundColor: Colors.grey.shade400,
       expandedHeight: 200,
@@ -40,7 +37,7 @@ class HomeClienteDetalle extends StatelessWidget {
         stretchModes: [StretchMode.zoomBackground],
         centerTitle: true,
         title: Text(
-          "comunicadoModel.nombre",
+          comunicadoModel.nombre.toString(),
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Theme.of(context).backgroundColor,
@@ -49,8 +46,7 @@ class HomeClienteDetalle extends StatelessWidget {
         ),
         background: FadeInImage.assetNetwork(
           placeholder: "images/load_2.gif",
-          //image: comunicadoModel.getImagenDetalle(),
-          image: "images/logo.png",
+          image: comunicadoModel.getImagenDetalle(),
           fadeInDuration: Duration(milliseconds: 150),
           fit: BoxFit.cover,
         ),
@@ -58,22 +54,22 @@ class HomeClienteDetalle extends StatelessWidget {
     );
   }
 
-  Widget _nombreComunicado(BuildContext context) {
+  Widget _nombreComunicado(
+      BuildContext context, ComunicadoModel comunicadoModel) {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
           Hero(
-            tag: "comunicadoModel.comunicadoId",
+            tag: comunicadoModel.comunicadoIdCliente.toString(),
             child: Container(
               height: _screenSize.height * .2,
               width: _screenSize.width * .45,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(
-                  //image: NetworkImage(comunicadoModel.getImagenComunicado()),
-                  image: NetworkImage('images/logo.png'),
+                  image: NetworkImage(comunicadoModel.getImagenComunicado()),
                   fit: BoxFit.fill,
                   height: 150.0,
                 ),
@@ -86,7 +82,7 @@ class HomeClienteDetalle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "comunicadoModel.nombre",
+                comunicadoModel.nombre.toString(),
                 style: Theme.of(context).textTheme.headline6,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
@@ -98,8 +94,7 @@ class HomeClienteDetalle extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Theme.of(context).dividerColor),
                 )),
-                //onTap: () => _launchEnlace(context, comunicadoModel),
-                onTap: () => _launchEnlace(context),
+                onTap: () => _launchEnlace(context, comunicadoModel),
               ),
             ],
           ))
@@ -108,12 +103,13 @@ class HomeClienteDetalle extends StatelessWidget {
     );
   }
 
-  Widget _descripcionComunicado(BuildContext context) {
+  Widget _descripcionComunicado(
+      BuildContext context, ComunicadoModel comunicadoModel) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
       child: Column(
         children: [
-          Text("comunicadoModel.descripcion",
+          Text(comunicadoModel.descripcion.toString(),
               textAlign: TextAlign.justify,
               style: TextStyle(
                   fontSize: 16.0,
@@ -123,12 +119,13 @@ class HomeClienteDetalle extends StatelessWidget {
     );
   }
 
-  Future<void> _launchEnlace(BuildContext context) async {
-    // final webasismed = '${comunicadoModel.urlReferencia}';
-    // if (await canLaunch(webasismed)) {
-    //   await launch(webasismed);
-    // } else {
-    //   throw 'No es posible enviar al sitio $webasismed';
-    // }
+  Future<void> _launchEnlace(
+      BuildContext context, ComunicadoModel comunicadoModel) async {
+    final webasismed = '${comunicadoModel.urlReferencia}';
+    if (await canLaunch(webasismed)) {
+      await launch(webasismed);
+    } else {
+      throw 'No es posible enviar al sitio $webasismed';
+    }
   }
 }

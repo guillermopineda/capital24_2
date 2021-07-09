@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/providers/KardexEmpleadoProvider.dart';
 import 'package:capital24_2/src/widgets/appCalendarioKardexEmpleado.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,17 @@ class KardexEmpleado extends StatelessWidget {
   }
 
   Widget _calendarioKardex() {
-    return CalendarioKardexEmpleado();
+    return FutureBuilder(
+        future: listaKardexEmpleadoProvider.getKardex(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return CalendarioKardexEmpleado(kardexEmpleadoModel: snapshot.data);
+          } else {
+            return Center(
+                child: Image.asset(
+              "images/load_2.gif",
+            ));
+          }
+        });
   }
 }

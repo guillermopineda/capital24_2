@@ -1,5 +1,5 @@
-import 'package:capital24_2/src/providers/capitalBenefits/localizacionCapitalBenefitsProvider.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/serviciosCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/LocalizacionCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/ServiciosCapitalBenefitsProvider.dart';
 import 'package:capital24_2/src/screens/beneficios/capitalPartnersCercanos.dart';
 import 'package:capital24_2/src/screens/beneficios/capitalPartnersDirectorio.dart';
 import 'package:flutter/material.dart';

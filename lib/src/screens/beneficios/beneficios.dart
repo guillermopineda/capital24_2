@@ -1,9 +1,12 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Beneficios extends StatelessWidget {
   static const String routeName = '/beneficios';
+  final _prefs = PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -49,11 +52,10 @@ class Beneficios extends StatelessWidget {
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 

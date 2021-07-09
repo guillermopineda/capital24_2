@@ -1,25 +1,38 @@
+import 'package:capital24_2/src/models/kardexEmpleadoModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarioKardexEmpleado extends StatefulWidget {
-  // const CalendarioKardexEmpleado({this.kardexEmpleadoModel});
   _CalendarioKardexEmpleadoState createState() =>
       _CalendarioKardexEmpleadoState();
+
+  final List<KardexEmpleadoModel>? kardexEmpleadoModel;
+  CalendarioKardexEmpleado({this.kardexEmpleadoModel});
 }
 
 class _CalendarioKardexEmpleadoState extends State<CalendarioKardexEmpleado> {
+  CalendarController? _calendarController;
   List<dynamic>? _selectedEvents;
 
   void initState() {
     super.initState();
+    _calendarController = CalendarController();
     _selectedEvents = [];
+  }
+
+  @override
+  void dispose() {
+    _calendarController!.dispose();
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
+    List kardexEmpleadoModel = widget.kardexEmpleadoModel as List;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -54,41 +67,41 @@ class _CalendarioKardexEmpleadoState extends State<CalendarioKardexEmpleado> {
               thickness: 1.5,
             )),
             TableCalendar(
-              firstDay: DateTime.utc(1990, 1, 1),
-              lastDay: DateTime.utc(2025, 12, 31),
-              focusedDay: DateTime.now(),
-              // events: {
-              //   for (int i = 0; i < kardexEmpleadoModel.length; i++)
-              //     DateFormat("dd/MM/yyyy", "en_US")
-              //         .parse(widget.kardexEmpleadoModel[i].fecha): [
-              //       widget.kardexEmpleadoModel[i].marca
-              //     ],
-              // },
-              formatAnimationDuration: Duration(milliseconds: 200),
+              events: {
+                for (int i = 0; i < kardexEmpleadoModel.length; i++)
+                  DateFormat("dd/MM/yyyy", "en_US")
+                      .parse(widget.kardexEmpleadoModel![i].fecha.toString()): [
+                    widget.kardexEmpleadoModel![i].marca
+                  ],
+              },
+              initialSelectedDay: DateTime.now(),
+              formatAnimation: FormatAnimation.slide,
               availableGestures: AvailableGestures.all,
               startingDayOfWeek: StartingDayOfWeek.sunday,
-              calendarFormat: CalendarFormat.month,
+              calendarController: _calendarController,
               locale: 'es_MX',
               calendarStyle: CalendarStyle(
+                  markersPositionTop: null,
+                  markersPositionBottom: null,
                   markersAlignment: Alignment.center,
+                  highlightSelected: true,
                   outsideDaysVisible: false,
-                  weekendTextStyle:
-                      TextStyle(color: Theme.of(context).accentColor),
-                  defaultTextStyle:
-                      TextStyle(color: Theme.of(context).accentColor),
-                  todayDecoration:
-                      BoxDecoration(color: Theme.of(context).primaryColor),
-                  selectedDecoration:
-                      BoxDecoration(color: Theme.of(context).accentColor),
-                  selectedTextStyle: TextStyle(
+                  weekendStyle: TextStyle(color: Theme.of(context).accentColor),
+                  weekdayStyle: TextStyle(color: Theme.of(context).accentColor),
+                  outsideWeekendStyle: TextStyle(
+                    color: Theme.of(context).accentColor,
+                  ),
+                  todayColor: Theme.of(context).primaryColor,
+                  selectedColor: Theme.of(context).accentColor,
+                  selectedStyle: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).backgroundColor)),
               headerStyle: HeaderStyle(
-                titleTextFormatter: (date, locale) =>
-                    DateFormat.MMMM("es_MX").add_y().format(date),
-                titleCentered: true,
+                centerHeaderTitle: true,
                 formatButtonVisible: false,
+                titleTextBuilder: (date, locale) =>
+                    DateFormat.MMMM("es_MX").add_y().format(date),
                 titleTextStyle: TextStyle(
                     fontSize: 18.0, color: Theme.of(context).dividerColor),
                 leftChevronIcon: Icon(
@@ -104,12 +117,12 @@ class _CalendarioKardexEmpleadoState extends State<CalendarioKardexEmpleado> {
                 weekendStyle: TextStyle(color: Theme.of(context).dividerColor),
                 weekdayStyle: TextStyle(color: Theme.of(context).dividerColor),
               ),
-              // onDaySelected: (DateTime date, DateTime events) {
-              //   setState(() {
-              //     _selectedEvents = events;
-              //   });
-              // },
-              calendarBuilders: CalendarBuilders(
+              onDaySelected: (DateTime date, List events, List noEvents) {
+                setState(() {
+                  _selectedEvents = events;
+                });
+              },
+              builders: CalendarBuilders(
                   singleMarkerBuilder: (context, date, events) {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -216,8 +229,7 @@ class _CalendarioKardexEmpleadoState extends State<CalendarioKardexEmpleado> {
   _dias() {
     final _screenSize = MediaQuery.of(context).size;
 
-    //if (widget.kardexEmpleadoModel.isEmpty) {
-    if (1 > 0) {
+    if (widget.kardexEmpleadoModel!.isEmpty) {
       return Center(
         child: Container(
           child: Column(

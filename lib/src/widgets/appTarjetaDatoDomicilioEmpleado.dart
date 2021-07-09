@@ -1,7 +1,11 @@
+import 'package:capital24_2/src/models/InformacionDomicilioModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppTarjetaDatoDomicilioEmpleado extends StatelessWidget {
+  final DatoDomicilioEmpleadoModel? datoDomicilioEmpleadoModel;
+
+  AppTarjetaDatoDomicilioEmpleado({this.datoDomicilioEmpleadoModel});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,53 +48,53 @@ class AppTarjetaDatoDomicilioEmpleado extends StatelessWidget {
                               "Calle",
                               textAlign: TextAlign.left,
                             ),
-                            title: Text(
-                                "datoDomicilioEmpleadoModel.calle ?? " "")),
+                            title:
+                                Text(datoDomicilioEmpleadoModel!.calle ?? "")),
                         ListTile(
                             subtitle: Text(
                               "Número Exterior",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoDomicilioEmpleadoModel.numeroExterior ?? "
-                                "")),
+                                datoDomicilioEmpleadoModel!.numeroExterior ??
+                                    "")),
                         ListTile(
                             subtitle: Text(
                               "Número Interior",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoDomicilioEmpleadoModel.numeroInterior ?? "
-                                "")),
+                                datoDomicilioEmpleadoModel!.numeroInterior ??
+                                    "")),
                         ListTile(
                             subtitle: Text(
                               "Colonia",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoDomicilioEmpleadoModel.colonia ?? " "")),
+                                datoDomicilioEmpleadoModel!.colonia ?? "")),
                         ListTile(
                             subtitle: Text(
                               "Población",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoDomicilioEmpleadoModel.municipio ?? " "")),
+                                datoDomicilioEmpleadoModel!.municipio ?? "")),
                         ListTile(
                             subtitle: Text(
                               "Código Postal",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoDomicilioEmpleadoModel.codigoPostal ?? "
-                                "")),
+                                datoDomicilioEmpleadoModel!.codigoPostal ??
+                                    "")),
                         ListTile(
                             subtitle: Text(
                               "Estado",
                               textAlign: TextAlign.left,
                             ),
-                            title: Text(
-                                "datoDomicilioEmpleadoModel.estado ?? " "")),
+                            title:
+                                Text(datoDomicilioEmpleadoModel!.estado ?? "")),
                         Divider(
                           color: Theme.of(context).dividerColor,
                         ),

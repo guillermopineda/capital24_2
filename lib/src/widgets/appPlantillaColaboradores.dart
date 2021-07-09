@@ -1,7 +1,10 @@
+import 'package:capital24_2/src/models/plantillaColaboradoresModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppTarjetaPlantillaColaboradores extends StatelessWidget {
+  final List<PlantillaColaboradoresModel>? plantillaColaboradoresModel;
+  AppTarjetaPlantillaColaboradores({this.plantillaColaboradoresModel});
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -16,8 +19,7 @@ class AppTarjetaPlantillaColaboradores extends StatelessWidget {
 
   plantillaPersonal(context) {
     final _screenSize = MediaQuery.of(context).size;
-    // if (plantillaColaboradoresModel.isEmpty) {
-    if (1 < 0) {
+    if (plantillaColaboradoresModel!.isEmpty) {
       return Center(
         child: Container(
           child: Column(
@@ -44,7 +46,7 @@ class AppTarjetaPlantillaColaboradores extends StatelessWidget {
       return ListView.builder(
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
-          itemCount: 3,
+          itemCount: plantillaColaboradoresModel!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -53,9 +55,9 @@ class AppTarjetaPlantillaColaboradores extends StatelessWidget {
                   GestureDetector(
                     child: new ListTile(
                       subtitle: Text(
-                          '"ID: " + plantillaColaboradoresModel[index].numeroEmpleado.toString()'),
+                          'ID: ${plantillaColaboradoresModel![index].numeroEmpleado.toString()}'),
                       title: Text(
-                        'plantillaColaboradoresModel[index].nombre',
+                        plantillaColaboradoresModel![index].nombre.toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -66,8 +68,8 @@ class AppTarjetaPlantillaColaboradores extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.pushNamed(
-                          context, '/plantillaColaboradoresDetalle');
-                      // arguments: plantillaColaboradoresModel[index]);
+                          context, '/plantillaColaboradoresDetalle',
+                          arguments: plantillaColaboradoresModel![index]);
                     },
                   ),
                   new Divider(

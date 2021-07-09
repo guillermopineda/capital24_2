@@ -1,3 +1,7 @@
+import 'package:capital24_2/src/bloc/login/LoginBloc.dart';
+import 'package:capital24_2/src/providers/login/LoginClienteProvider.dart';
+import 'package:capital24_2/src/providers/login/Provider.dart';
+import 'package:capital24_2/src/utils/Utilerias.dart';
 import 'package:capital24_2/src/widgets/appButton.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +21,11 @@ class _LoginClienteState extends State<LoginCliente> {
   FocusNode? _focusNode;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
+  final loginsClienteProvider = new LoginsClienteProvider();
+
   @override
   void initState() {
     super.initState();
-
     _focusNode = FocusNode();
     _clienteUsuarioController = TextEditingController();
     _clienteNipController = TextEditingController();
@@ -29,7 +34,6 @@ class _LoginClienteState extends State<LoginCliente> {
   @override
   void dispose() {
     super.dispose();
-
     _focusNode!.dispose();
     _clienteUsuarioController.dispose();
     _clienteNipController.dispose();
@@ -37,6 +41,7 @@ class _LoginClienteState extends State<LoginCliente> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = ProviderLogin.of(context);
     final _screenSize = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async => false,
@@ -66,6 +71,8 @@ class _LoginClienteState extends State<LoginCliente> {
                               color: Theme.of(context).dividerColor,
                             ),
                             onTap: () {
+                              bloc.changeUsernameCliente("           ");
+                              bloc.changePasswordCliente("           ");
                               Navigator.pop(context);
                             },
                           )
@@ -79,9 +86,9 @@ class _LoginClienteState extends State<LoginCliente> {
                     SizedBox(
                       height: _screenSize.height * .05,
                     ),
-                    _clienteUsuarioLogin(),
-                    _clienteNipLogin(),
-                    _botonClienteLogin(),
+                    _clienteUsuarioLogin(bloc),
+                    _clienteNipLogin(bloc),
+                    _botonClienteLogin(bloc),
                   ],
                 ),
               ),
@@ -90,41 +97,71 @@ class _LoginClienteState extends State<LoginCliente> {
     );
   }
 
-  Widget _clienteUsuarioLogin() {
-    return AppFormField(
-      hintText: "Ingresa tu Usuario",
-      labelText: "Usuario",
-      iconData: Icon(FontAwesomeIcons.user),
-      onChanged: null,
-      obscureText: false,
-      controller: _clienteUsuarioController,
-      textCapitalization: TextCapitalization.none,
-      focusNode: _focusNode,
-      maxLength: 16,
-      errorText: null,
-    );
-  }
-
-  Widget _clienteNipLogin() {
-    return AppFormField(
-      hintText: "9 Caracteres",
-      labelText: "Contraseña",
-      iconData: Icon(FontAwesomeIcons.lock),
-      onChanged: null,
-      obscureText: true,
-      controller: _clienteNipController,
-      textCapitalization: TextCapitalization.none,
-      focusNode: null,
-      maxLength: 9,
-      errorText: null,
-    );
-  }
-
-  Widget _botonClienteLogin() {
-    return AppButton(
-        name: 'Ingresar',
-        onPressed: () {
-          Navigator.pushNamed(context, '/homeCliente');
+  Widget _clienteUsuarioLogin(LoginBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.usernameClienteStream,
+        builder: (context, snapshot) {
+          return AppFormField(
+            hintText: "Ingresa tu Usuario",
+            labelText: "Usuario",
+            iconData: Icon(FontAwesomeIcons.user),
+            onChanged: bloc.changeUsernameCliente,
+            obscureText: false,
+            controller: _clienteUsuarioController,
+            textCapitalization: TextCapitalization.none,
+            focusNode: _focusNode,
+            maxLength: 16,
+            errorText:
+                snapshot.error != null ? snapshot.error.toString() : null,
+          );
         });
+  }
+
+  Widget _clienteNipLogin(LoginBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.passwordClienteStream,
+        builder: (context, snapshot) {
+          return AppFormField(
+            hintText: "9 Caracteres",
+            labelText: "Contraseña",
+            iconData: Icon(FontAwesomeIcons.lock),
+            onChanged: bloc.changePasswordCliente,
+            obscureText: true,
+            controller: _clienteNipController,
+            textCapitalization: TextCapitalization.none,
+            focusNode: null,
+            maxLength: 9,
+            errorText:
+                snapshot.error != null ? snapshot.error.toString() : null,
+          );
+        });
+  }
+
+  Widget _botonClienteLogin(LoginBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.loginClienteStream,
+        builder: (context, snapshot) {
+          return AppButton(
+            name: 'Ingresar',
+            onPressed:
+                snapshot.hasData ? () => _loginCliente(bloc, context) : null,
+          );
+        });
+  }
+
+  Future _loginCliente(LoginBloc bloc, BuildContext context) async {
+    print('---------');
+    print('UsernameCliente: ${bloc.usernameCliente}');
+    print('PasswordCliente: ${bloc.passwordCliente}');
+    print('---------');
+    Map info = await loginsClienteProvider.loginCliente(
+        bloc.usernameCliente, bloc.passwordCliente);
+
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, '/homeCliente');
+    } else {
+      mostarAlerta(
+          context, 'Por favor ingresa correctamente el usuario y/o contraseña');
+    }
   }
 }

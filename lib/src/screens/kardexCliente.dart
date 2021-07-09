@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/providers/KardexClienteProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appKardexCliente.dart';
 import 'package:flutter/material.dart';
@@ -38,21 +39,20 @@ class KardexCliente extends StatelessWidget {
   }
 
   Widget _selectorPeriodosKardex(context) {
-    // final _screenSize = MediaQuery.of(context).size;
-    // return FutureBuilder(
-    //     future: kardexClienteProvider.getKardexCliente(),
-    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //       if (snapshot.hasData) {
-    return AppKardexCliente(); //kardexClienteModel: snapshot.data);
-    // } else {
-    //   return Center(
-    //       child: Container(
-    //           height: _screenSize.height * .85,
-    //           child: Image.asset(
-    //             "images/load_2.gif",
-    //           )));
-    // }
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+        future: kardexClienteProvider.getKardexCliente(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return AppKardexCliente(kardexClienteModel: snapshot.data);
+          } else {
+            return Center(
+                child: Container(
+                    height: _screenSize.height * .85,
+                    child: Image.asset(
+                      "images/load_2.gif",
+                    )));
+          }
+        });
   }
-  //);
 }
-//}

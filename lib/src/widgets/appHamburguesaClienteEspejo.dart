@@ -1,3 +1,5 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/login/Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -8,8 +10,10 @@ class HamburguesaClienteEspejo extends StatefulWidget {
 }
 
 class _HamburguesaClienteEspejoState extends State<HamburguesaClienteEspejo> {
+  final _prefs = PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
+    final bloc = ProviderLogin.of(context);
     return Drawer(
       elevation: 40.0,
       child: ListView(
@@ -144,6 +148,9 @@ class _HamburguesaClienteEspejoState extends State<HamburguesaClienteEspejo> {
                 color: Theme.of(context).dividerColor,
               ),
               onTap: () {
+                _prefs.deletePrefs();
+                bloc.changeUsernameCliente("                  ");
+                bloc.changePasswordCliente("                  ");
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/loginInicio', (Route<dynamic> route) => false);
               }),

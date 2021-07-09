@@ -1,7 +1,10 @@
+import 'package:capital24_2/src/models/kardexClienteModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppKardexCliente extends StatelessWidget {
+  final AnioKardexModel? kardexClienteModel;
+  AppKardexCliente({this.kardexClienteModel});
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -44,7 +47,7 @@ class AppKardexCliente extends StatelessWidget {
                             height: _screenSize.height * .3,
                             child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
-                                itemCount: 5, //kardexClienteModel.datos.length,
+                                itemCount: kardexClienteModel!.datos!.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Container(
                                     child: Column(
@@ -54,7 +57,9 @@ class AppKardexCliente extends StatelessWidget {
                                       children: [
                                         ListTile(
                                           title: Text(
-                                            'kardexClienteModel.datos[index].mes',
+                                            kardexClienteModel!
+                                                .datos![index].mes
+                                                .toString(),
                                             textAlign: TextAlign.left,
                                           ),
                                           trailing: Icon(
@@ -64,10 +69,9 @@ class AppKardexCliente extends StatelessWidget {
                                           ),
                                           onTap: () {
                                             Navigator.pushNamed(context,
-                                                '/kardexClienteDetalle');
-                                            // ,
-                                            // arguments: kardexClienteModel
-                                            //     .datos[index]);
+                                                '/kardexClienteDetalle',
+                                                arguments: kardexClienteModel!
+                                                    .datos![index]);
                                           },
                                         ),
                                         Divider(

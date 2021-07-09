@@ -1,8 +1,11 @@
 //import 'dart:convert';
 
+import 'dart:convert';
+
+import 'package:capital24_2/src/models/kardexClienteModel.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class KardexClienteDetalle extends StatelessWidget {
@@ -68,277 +71,275 @@ class KardexClienteDetalle extends StatelessWidget {
   }
 
   _graficaKardex(context) {
-    // final MesKardex kardexClienteModel =
-    //     ModalRoute.of(context).settings.arguments;
+    final MesKardex kardexClienteModel =
+        ModalRoute.of(context)!.settings.arguments as MesKardex;
     final _screenSize = MediaQuery.of(context).size;
-    // var mes = kardexClienteModel.mes;
+    var mes = kardexClienteModel.mes;
 
-    // if (kardexClienteModel.valores[0].total == 0 &&
-    //     kardexClienteModel.valores[1].total == 0 &&
-    //     kardexClienteModel.valores[2].total == 0 &&
-    //     kardexClienteModel.valores[3].total == 0 &&
-    //     kardexClienteModel.valores[4].total == 0 &&
-    //     kardexClienteModel.valores[5].total == 0 &&
-    //     kardexClienteModel.valores[6].total == 0 &&
-    //     kardexClienteModel.valores[7].total == 0 &&
-    //     kardexClienteModel.valores[8].total == 0) {
-    return Center(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              //"Durante $mes no se registraron ausentismos o incapacidades de los colaboradores",
-              "Durante no se registraron ausentismos o incapacidades de los colaboradores",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color),
-            ),
-            SizedBox(
-              height: _screenSize.height * .05,
-            ),
-            Icon(FontAwesomeIcons.calendarCheck,
-                color: Theme.of(context).dividerColor, size: 45)
-          ],
+    if (kardexClienteModel.valores![0].total == 0 &&
+        kardexClienteModel.valores![1].total == 0 &&
+        kardexClienteModel.valores![2].total == 0 &&
+        kardexClienteModel.valores![3].total == 0 &&
+        kardexClienteModel.valores![4].total == 0 &&
+        kardexClienteModel.valores![5].total == 0 &&
+        kardexClienteModel.valores![6].total == 0 &&
+        kardexClienteModel.valores![7].total == 0 &&
+        kardexClienteModel.valores![8].total == 0) {
+      return Center(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                "Durante $mes no se registraron ausentismos o incapacidades de los colaboradores",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color),
+              ),
+              SizedBox(
+                height: _screenSize.height * .05,
+              ),
+              Icon(FontAwesomeIcons.calendarCheck,
+                  color: Theme.of(context).dividerColor, size: 45)
+            ],
+          ),
         ),
-      ),
-    );
-    // } else {
-    //   final incidenciasKardex = [
-    //         for (int i = 0; i < kardexClienteModel.valores.length; i++)
-    //           kardexClienteModel.valores[i].marca
-    //       ] ??
-    //       [];
-    //   for (int i = 0; i < kardexClienteModel.valores.length; i++) {
-    //     incAccidenteTotal() {
-    //       if (kardexClienteModel.valores[0].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[0].total;
-    //       }
-    //     }
+      );
+    } else {
+      final incidenciasKardex = [
+        for (int i = 0; i < kardexClienteModel.valores!.length; i++)
+          kardexClienteModel.valores![i].marca
+      ];
+      for (int i = 0; i < kardexClienteModel.valores!.length; i++) {
+        incAccidenteTotal() {
+          if (kardexClienteModel.valores![0].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![0].total;
+          }
+        }
 
-    //     incAccidenteMarca() {
-    //       if (kardexClienteModel.valores[0].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[0].marca;
-    //       }
-    //     }
+        incAccidenteMarca() {
+          if (kardexClienteModel.valores![0].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![0].marca;
+          }
+        }
 
-    //     permisoSGTotal() {
-    //       if (kardexClienteModel.valores[1].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[1].total;
-    //       }
-    //     }
+        permisoSGTotal() {
+          if (kardexClienteModel.valores![1].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![1].total;
+          }
+        }
 
-    //     permisoSGMarca() {
-    //       if (kardexClienteModel.valores[1].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[1].marca;
-    //       }
-    //     }
+        permisoSGMarca() {
+          if (kardexClienteModel.valores![1].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![1].marca;
+          }
+        }
 
-    //     incapacidadEGTotal() {
-    //       if (kardexClienteModel.valores[2].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[2].total;
-    //       }
-    //     }
+        incapacidadEGTotal() {
+          if (kardexClienteModel.valores![2].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![2].total;
+          }
+        }
 
-    //     incapacidadEGMarca() {
-    //       if (kardexClienteModel.valores[2].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[2].marca;
-    //       }
-    //     }
+        incapacidadEGMarca() {
+          if (kardexClienteModel.valores![2].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![2].marca;
+          }
+        }
 
-    //     faltasTotal() {
-    //       if (kardexClienteModel.valores[3].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[3].total;
-    //       }
-    //     }
+        faltasTotal() {
+          if (kardexClienteModel.valores![3].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![3].total;
+          }
+        }
 
-    //     faltasMarca() {
-    //       if (kardexClienteModel.valores[3].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[3].marca;
-    //       }
-    //     }
+        faltasMarca() {
+          if (kardexClienteModel.valores![3].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![3].marca;
+          }
+        }
 
-    //     incEnlaceTotal() {
-    //       if (kardexClienteModel.valores[4].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[4].total;
-    //       }
-    //     }
+        incEnlaceTotal() {
+          if (kardexClienteModel.valores![4].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![4].total;
+          }
+        }
 
-    //     incEnlaceMarca() {
-    //       if (kardexClienteModel.valores[4].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[4].marca;
-    //       }
-    //     }
+        incEnlaceMarca() {
+          if (kardexClienteModel.valores![4].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![4].marca;
+          }
+        }
 
-    //     incMatTotal() {
-    //       if (kardexClienteModel.valores[5].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[5].total;
-    //       }
-    //     }
+        incMatTotal() {
+          if (kardexClienteModel.valores![5].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![5].total;
+          }
+        }
 
-    //     incMatMarca() {
-    //       if (kardexClienteModel.valores[5].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[5].marca;
-    //       }
-    //     }
+        incMatMarca() {
+          if (kardexClienteModel.valores![5].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![5].marca;
+          }
+        }
 
-    //     permisoCGTotal() {
-    //       if (kardexClienteModel.valores[6].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[6].total;
-    //       }
-    //     }
+        permisoCGTotal() {
+          if (kardexClienteModel.valores![6].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![6].total;
+          }
+        }
 
-    //     permisoCGMarca() {
-    //       if (kardexClienteModel.valores[6].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[6].marca;
-    //       }
-    //     }
+        permisoCGMarca() {
+          if (kardexClienteModel.valores![6].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![6].marca;
+          }
+        }
 
-    //     diaSTotal() {
-    //       if (kardexClienteModel.valores[7].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[7].total;
-    //       }
-    //     }
+        diaSTotal() {
+          if (kardexClienteModel.valores![7].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![7].total;
+          }
+        }
 
-    //     diaSMarca() {
-    //       if (kardexClienteModel.valores[7].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[7].marca;
-    //       }
-    //     }
+        diaSMarca() {
+          if (kardexClienteModel.valores![7].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![7].marca;
+          }
+        }
 
-    //     vacacionesTotal() {
-    //       if (kardexClienteModel.valores[8].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[8].total;
-    //       }
-    //     }
+        vacacionesTotal() {
+          if (kardexClienteModel.valores![8].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![8].total;
+          }
+        }
 
-    //     vacacionesMarca() {
-    //       if (kardexClienteModel.valores[8].total == 0) {
-    //         return [];
-    //       } else {
-    //         return kardexClienteModel.valores[8].marca;
-    //       }
-    //     }
+        vacacionesMarca() {
+          if (kardexClienteModel.valores![8].total == 0) {
+            return [];
+          } else {
+            return kardexClienteModel.valores![8].marca;
+          }
+        }
 
-    //     return Container(child: Echarts(theme: 'light', option: '''
-    //     {
+        return Container(child: Echarts(theme: 'light', option: '''
+        {
 
-    // tooltip: {
-    //     show: false
-    // },
-    // legend: {
-    //     show:false,
-    //     orient: 'vertical',
-    //     left: 'left',
-    //     data: ${jsonEncode(incidenciasKardex)},
-    // },
-    // series: [
-    //     {
-    //         name: 'Circulo',
-    //         type: 'pie',
-    //         avoidLabelOverlap: false,
-    //         center: ['50%', '40%'],
-    //         radius: ['75%','50%'],
-    //         data: [
-    //           {
-    //           name: ${jsonEncode(incAccidenteMarca())},
-    //           value: ${jsonEncode(incAccidenteTotal())}
-    //          },
-    //          {
-    //           name: ${jsonEncode(permisoSGMarca())},
-    //           value: ${jsonEncode(permisoSGTotal())}
-    //           },
-    //           {
-    //           name: ${jsonEncode(incapacidadEGMarca())},
-    //           value: ${jsonEncode(incapacidadEGTotal())}
-    //           },
+    tooltip: {
+        show: false
+    },
+    legend: {
+        show:false,
+        orient: 'vertical',
+        left: 'left',
+        data: ${jsonEncode(incidenciasKardex)},
+    },
+    series: [
+        {
+            name: 'Circulo',
+            type: 'pie',
+            avoidLabelOverlap: false,
+            center: ['50%', '40%'],
+            radius: ['75%','50%'],
+            data: [
+              {
+              name: ${jsonEncode(incAccidenteMarca())},
+              value: ${jsonEncode(incAccidenteTotal())}
+             },
+             {
+              name: ${jsonEncode(permisoSGMarca())},
+              value: ${jsonEncode(permisoSGTotal())}
+              },
+              {
+              name: ${jsonEncode(incapacidadEGMarca())},
+              value: ${jsonEncode(incapacidadEGTotal())}
+              },
 
-    //           {
-    //           name: ${jsonEncode(incEnlaceMarca())},
-    //           value: ${jsonEncode(incEnlaceTotal())}
-    //           },
-    //           {
-    //           name: ${jsonEncode(incMatMarca())},
-    //           value: ${jsonEncode(incMatTotal())}
-    //           },
-    //           {
-    //           name: ${jsonEncode(permisoCGMarca())},
-    //           value: ${jsonEncode(permisoCGTotal())}
-    //           },
-    //           {
-    //           name: ${jsonEncode(faltasMarca())},
-    //           value: ${jsonEncode(faltasTotal())}
-    //           },
-    //           {
-    //           name: ${jsonEncode(diaSMarca())},
-    //           value: ${jsonEncode(diaSTotal())}
-    //           },
-    //           {
-    //           name: ${jsonEncode(vacacionesMarca())},
-    //           value: ${jsonEncode(vacacionesTotal())}
-    //           },
+              {
+              name: ${jsonEncode(incEnlaceMarca())},
+              value: ${jsonEncode(incEnlaceTotal())}
+              },
+              {
+              name: ${jsonEncode(incMatMarca())},
+              value: ${jsonEncode(incMatTotal())}
+              },
+              {
+              name: ${jsonEncode(permisoCGMarca())},
+              value: ${jsonEncode(permisoCGTotal())}
+              },
+              {
+              name: ${jsonEncode(faltasMarca())},
+              value: ${jsonEncode(faltasTotal())}
+              },
+              {
+              name: ${jsonEncode(diaSMarca())},
+              value: ${jsonEncode(diaSTotal())}
+              },
+              {
+              name: ${jsonEncode(vacacionesMarca())},
+              value: ${jsonEncode(vacacionesTotal())}
+              },
 
-    //         ],
-    //         labelLine: {
-    //             show: false
-    //             },
-    //         label: {
-    //             show: false,
-    //             formatter: '{c} DÍAS {b} {d}%',
-    //             position: 'center'
-    //         },
-    //         emphasis: {
-    //             label: {
-    //                 show: true,
-    //                 fontSize: '16',
-    //                 fontWeight: 'bold',
-    //                 formatter: '{b}({d}%) = {c} DÍA',
-    //                 color: '#003C71'
+            ],
+            labelLine: {
+                show: false
+                },
+            label: {
+                show: false,
+                formatter: '{c} DÍAS {b} {d}%',
+                position: 'center'
+            },
+            emphasis: {
+                label: {
+                    show: true,
+                    fontSize: '16',
+                    fontWeight: 'bold',
+                    formatter: '{b}({d}%) = {c} DÍA',
+                    color: '#003C71'
 
-    //             }
-    //         }
-    //     }
-    // ]
+                }
+            }
+        }
+    ]
 
-    //     }
-    //     '''));
-    //   }
-    // }
+        }
+        '''));
+      }
+    }
   }
 }

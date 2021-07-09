@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/providers/InformacionLaboralProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appTarjetaDatoLaboralEmpleado.dart';
 import 'package:capital24_2/src/widgets/appTarjetaDatoServiciosEmpleado.dart';
@@ -55,14 +56,42 @@ class _InformacionLaboralState extends State<InformacionLaboral> {
   }
 
   Widget _datoLaboral() {
-    // final _screenSize = MediaQuery.of(context).size;
-
-    return AppTarjetaDatoLaboralEmpleado();
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+      future: datoLaboralEmpleadoProvider.getDatoLaboral(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return AppTarjetaDatoLaboralEmpleado(
+              datoLaboralEmpleadoModel: snapshot.data);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
   }
 
   Widget _serviciosLaboral() {
-    // final _screenSize = MediaQuery.of(context).size;
-
-    return AppTarjetaDatoServiciosEmpleado();
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+      future: datoLaboralEmpleadoProvider.getDatoLaboral(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return AppTarjetaDatoServiciosEmpleado(
+              datoLaboralEmpleadoModel: snapshot.data);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
   }
 }

@@ -1,0 +1,288 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.capitalpeople.capital24"
+4    android:versionCode="7"
+5    android:versionName="2.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="20"
+9        android:targetSdkVersion="30" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <!-- Internet -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:4:4-65
+15-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:4:21-63
+16    <!-- State -->
+17    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+17-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:6:4-73
+17-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:6:21-71
+18    <uses-permission android:name="android.permission.WAKE_LOCK" />
+18-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:7:4-67
+18-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:7:21-64
+19    <!-- Permissions options for the `location` group -->
+20    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+20-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:9:4-78
+20-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:9:21-75
+21    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+21-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:10:4-80
+21-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:10:21-77
+22    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+22-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:11:4-84
+22-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:11:21-81
+23    <!-- Include required permissions for Google Maps API to run. -->
+24    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+24-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:23:5-79
+24-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:23:22-76
+25
+26    <uses-feature
+26-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:26:5-28:35
+27        android:glEsVersion="0x00020000"
+27-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:27:9-41
+28        android:required="true" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+28-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:28:9-32
+29    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+29-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:26:5-82
+29-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:26:22-79
+30    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+30-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:26:5-110
+30-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:26:22-107
+31
+32    <application
+32-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:12:4-55:19
+33        android:name="io.flutter.app.FlutterApplication"
+33-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:13:9-57
+34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+34-->[androidx.core:core:1.3.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/22596e141ed939448a45bb52248db646/core-1.3.2/AndroidManifest.xml:24:18-86
+35        android:debuggable="true"
+36        android:icon="@mipmap/launcher_icon"
+36-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:15:9-45
+37        android:label="Capital24" >
+37-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:14:9-34
+38        <meta-data
+38-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:16:9-17:72
+39            android:name="com.google.android.geo.API_KEY"
+39-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:16:20-65
+40            android:value="AIzaSyDhZ4Kqj21ExUNzndDJsZtAC264GS4eIlQ" />
+40-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:17:15-70
+41
+42        <activity
+42-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:21:9-49:20
+43            android:name="com.capitalpeople.capital24.MainActivity"
+43-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:22:13-41
+44            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+44-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:25:13-163
+45            android:hardwareAccelerated="true"
+45-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:26:13-47
+46            android:launchMode="singleTop"
+46-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:23:13-43
+47            android:theme="@style/LaunchTheme"
+47-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:24:13-47
+48            android:windowSoftInputMode="adjustResize" >
+48-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:27:13-55
+49
+50            <!--
+51                 Specifies an Android theme to apply to this Activity as soon as
+52                 the Android process has started. This theme is visible to the user
+53                 while the Flutter UI initializes. After that, this theme continues
+54                 to determine the Window background behind the Flutter UI.
+55            -->
+56            <meta-data
+56-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:32:13-35:17
+57                android:name="io.flutter.embedding.android.NormalTheme"
+57-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:33:15-70
+58                android:resource="@style/NormalTheme" />
+58-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:34:15-52
+59            <!--
+60                 Displays an Android View that continues showing the launch screen
+61                 Drawable until Flutter paints its first frame, then this splash
+62                 screen fades out. A splash screen is useful to avoid any visual
+63                 gap between the end of Android's launch screen and the painting of
+64                 Flutter's first frame.
+65            -->
+66            <meta-data
+66-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:41:13-44:17
+67                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+67-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:42:15-79
+68                android:resource="@drawable/launch_background" />
+68-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:43:15-61
+69
+70            <intent-filter>
+70-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:45:13-48:29
+71                <action android:name="android.intent.action.MAIN" />
+71-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:46:17-68
+71-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:46:25-66
+72
+73                <category android:name="android.intent.category.LAUNCHER" />
+73-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:47:17-76
+73-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:47:27-74
+74            </intent-filter>
+75        </activity>
+76        <!--
+77             Don't delete the meta-data below.
+78             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+79        -->
+80        <meta-data
+80-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:52:9-54:33
+81            android:name="flutterEmbedding"
+81-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:53:13-44
+82            android:value="2" />
+82-->/Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/android/app/src/main/AndroidManifest.xml:54:13-30
+83
+84        <activity
+84-->[:url_launcher] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+85            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+85-->[:url_launcher] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+86            android:exported="false"
+86-->[:url_launcher] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+87            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+87-->[:url_launcher] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+88
+89        <service
+89-->[:location] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-15:56
+90            android:name="com.lyokone.location.FlutterLocationService"
+90-->[:location] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-71
+91            android:enabled="true"
+91-->[:location] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-35
+92            android:exported="false"
+92-->[:location] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+93            android:foregroundServiceType="location" /> <!-- Needs to be explicitly declared on P+ -->
+93-->[:location] /Users/guillermopineda/Desktop/flutter_avanzado/capital24_2/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-53
+94        <uses-library
+94-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:33:9-35:40
+95            android:name="org.apache.http.legacy"
+95-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:34:13-50
+96            android:required="false" />
+96-->[com.google.android.gms:play-services-maps:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/c5de8972dacd649c27c247c9e16de3ac/jetified-play-services-maps-17.0.0/AndroidManifest.xml:35:13-37
+97
+98        <service
+98-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/77da1c7a98bb35c796e9086e7ee86733/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:27:9-33:19
+99            android:name="com.google.firebase.components.ComponentDiscoveryService"
+99-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/77da1c7a98bb35c796e9086e7ee86733/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:28:13-84
+100            android:exported="false" >
+100-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/77da1c7a98bb35c796e9086e7ee86733/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:29:13-37
+101            <meta-data
+101-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/77da1c7a98bb35c796e9086e7ee86733/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:30:13-32:85
+102                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+102-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/77da1c7a98bb35c796e9086e7ee86733/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:31:17-139
+103                android:value="com.google.firebase.components.ComponentRegistrar" />
+103-->[com.google.android.gms:play-services-measurement-api:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/77da1c7a98bb35c796e9086e7ee86733/jetified-play-services-measurement-api-16.5.0/AndroidManifest.xml:32:17-82
+104            <meta-data
+104-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:32:13-34:85
+105                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+105-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:33:17-96
+106                android:value="com.google.firebase.components.ComponentRegistrar" />
+106-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:34:17-82
+107        </service>
+108
+109        <receiver
+109-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:37:9-44:20
+110            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+110-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:38:13-78
+111            android:exported="true"
+111-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:39:13-36
+112            android:permission="com.google.android.c2dm.permission.SEND" >
+112-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:40:13-73
+113            <intent-filter>
+113-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:41:13-43:29
+114                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+114-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:42:17-81
+114-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:42:25-78
+115            </intent-filter>
+116        </receiver>
+117        <!--
+118             FirebaseInstanceIdService performs security checks at runtime,
+119             no need for explicit permissions despite exported="true"
+120        -->
+121        <service
+121-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:50:9-56:19
+122            android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+122-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:51:13-77
+123            android:exported="true" >
+123-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:52:13-36
+124            <intent-filter android:priority="-500" >
+124-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:53:13-55:29
+124-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:53:28-51
+125                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+125-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:54:17-80
+125-->[com.google.firebase:firebase-iid:17.1.2] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/4300512b30ad297c5aa0745ce4b14ced/jetified-firebase-iid-17.1.2/AndroidManifest.xml:54:25-77
+126            </intent-filter>
+127        </service>
+128
+129        <activity
+129-->[com.google.android.gms:play-services-base:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/7c879cb157fab2c9a5d74c3d70fd64e3/jetified-play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+130            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+130-->[com.google.android.gms:play-services-base:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/7c879cb157fab2c9a5d74c3d70fd64e3/jetified-play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+131            android:exported="false"
+131-->[com.google.android.gms:play-services-base:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/7c879cb157fab2c9a5d74c3d70fd64e3/jetified-play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+132            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+132-->[com.google.android.gms:play-services-base:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/7c879cb157fab2c9a5d74c3d70fd64e3/jetified-play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+133
+134        <provider
+134-->[com.google.firebase:firebase-common:16.1.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/b0d34f53b82a6f6929bffdd756cce481/jetified-firebase-common-16.1.0/AndroidManifest.xml:12:9-16:39
+135            android:name="com.google.firebase.provider.FirebaseInitProvider"
+135-->[com.google.firebase:firebase-common:16.1.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/b0d34f53b82a6f6929bffdd756cce481/jetified-firebase-common-16.1.0/AndroidManifest.xml:13:13-77
+136            android:authorities="com.capitalpeople.capital24.firebaseinitprovider"
+136-->[com.google.firebase:firebase-common:16.1.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/b0d34f53b82a6f6929bffdd756cce481/jetified-firebase-common-16.1.0/AndroidManifest.xml:14:13-72
+137            android:exported="false"
+137-->[com.google.firebase:firebase-common:16.1.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/b0d34f53b82a6f6929bffdd756cce481/jetified-firebase-common-16.1.0/AndroidManifest.xml:15:13-37
+138            android:initOrder="100" />
+138-->[com.google.firebase:firebase-common:16.1.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/b0d34f53b82a6f6929bffdd756cce481/jetified-firebase-common-16.1.0/AndroidManifest.xml:16:13-36
+139
+140        <receiver
+140-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:29:9-33:20
+141            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+141-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:30:13-85
+142            android:enabled="true"
+142-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:31:13-35
+143            android:exported="false" >
+143-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:32:13-37
+144        </receiver>
+145        <receiver
+145-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:34:9-42:20
+146            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+146-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:35:13-100
+147            android:enabled="true"
+147-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:36:13-35
+148            android:exported="true"
+148-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:37:13-36
+149            android:permission="android.permission.INSTALL_PACKAGES" >
+149-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:38:13-69
+150            <intent-filter>
+150-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:39:13-41:29
+151                <action android:name="com.android.vending.INSTALL_REFERRER" />
+151-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:40:17-79
+151-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:40:25-76
+152            </intent-filter>
+153        </receiver>
+154
+155        <service
+155-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:44:9-47:40
+156            android:name="com.google.android.gms.measurement.AppMeasurementService"
+156-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:45:13-84
+157            android:enabled="true"
+157-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:46:13-35
+158            android:exported="false" />
+158-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:47:13-37
+159        <service
+159-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:48:9-52:72
+160            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+160-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:49:13-87
+161            android:enabled="true"
+161-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:50:13-35
+162            android:exported="false"
+162-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:51:13-37
+163            android:permission="android.permission.BIND_JOB_SERVICE" />
+163-->[com.google.android.gms:play-services-measurement:16.5.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/52734fbef89fe6a4942ec8522e6b4cf2/jetified-play-services-measurement-16.5.0/AndroidManifest.xml:52:13-69
+164
+165        <meta-data
+165-->[com.google.android.gms:play-services-basement:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/3c8e7eb3d21ac94d08f658f6d8a1c9f3/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+166            android:name="com.google.android.gms.version"
+166-->[com.google.android.gms:play-services-basement:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/3c8e7eb3d21ac94d08f658f6d8a1c9f3/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+167            android:value="@integer/google_play_services_version" />
+167-->[com.google.android.gms:play-services-basement:17.0.0] /Users/guillermopineda/.gradle/caches/transforms-2/files-2.1/3c8e7eb3d21ac94d08f658f6d8a1c9f3/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+168    </application>
+169
+170</manifest>

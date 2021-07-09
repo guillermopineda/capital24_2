@@ -1,4 +1,6 @@
 import 'package:capital24_2/src/models/capitalBenefits/capitalPlatinumModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
@@ -6,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CapitalPlatinumDetalle extends StatelessWidget {
   static const String routeName = '/capitalPlatinumDetalle';
+  final _prefs = PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
     final DirectorioModel listaHotDealsModel =
@@ -45,11 +48,10 @@ class CapitalPlatinumDetalle extends StatelessWidget {
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 

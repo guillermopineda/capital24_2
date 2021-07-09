@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/providers/IndicadoresNegocioProvider.dart';
 import 'package:capital24_2/src/widgets/appCostoPeriodo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
@@ -58,25 +59,23 @@ class IndicadoresNegocio extends StatelessWidget {
   }
 
   Widget _cardAcumulados(context) {
-    // final _screenSize = MediaQuery.of(context).size;
+    final _screenSize = MediaQuery.of(context).size;
 
-    // return FutureBuilder(
-    //   future: costoPeriodoProvider.getIndicadorNegocio(),
-    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //     if (snapshot.hasData) {
-    return AppCostoPeriodo(); //indicadorNegocioModel: snapshot.data);
-    // } else {
-    //   return Container(
-    //       height: _screenSize.height * .85,
-    //       child: Center(
-    //           child: Image.asset(
-    //         "images/load_2.gif",
-    //       )));
+    return FutureBuilder(
+        future: costoPeriodoProvider.getIndicadorNegocio(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return AppCostoPeriodo(indicadorNegocioModel: snapshot.data);
+          } else {
+            return Container(
+                height: _screenSize.height * .85,
+                child: Center(
+                    child: Image.asset(
+                  "images/load_2.gif",
+                )));
+          }
+        });
   }
-
-  //,
-  //   );
-  // }
 
   Widget _cardAltasBajas(BuildContext context) {
     return Container(

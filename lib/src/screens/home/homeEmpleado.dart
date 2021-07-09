@@ -1,8 +1,17 @@
+import 'package:capital24_2/src/models/comunicadoEmpleadoModel.dart';
+import 'package:capital24_2/src/models/cumpleanioEmpleadoModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/ComunicadoEmpleadoProvider.dart';
+import 'package:capital24_2/src/providers/CumpleanioEmpleadoProvider.dart';
+import 'package:capital24_2/src/utils/Tema.dart';
 import 'package:capital24_2/src/widgets/appCumpleaniosEmpleado.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaCliente.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleado.dart';
 import 'package:capital24_2/src/widgets/appTarjetaComunicadosEmpleado.dart';
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class HomeEmpleado extends StatefulWidget {
   static const String routeName = '/homeEmpleado';
@@ -10,10 +19,14 @@ class HomeEmpleado extends StatefulWidget {
 }
 
 class _HomeEmpleadoState extends State<HomeEmpleado> {
+  final _prefs = PreferenciasUsuario();
+  bool shouldPop = true;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: null,
+      onWillPop: () async {
+        return shouldPop;
+      },
       child: Scaffold(
         appBar: AppBar(
           title: Text("Mi Muro"),
@@ -53,11 +66,51 @@ class _HomeEmpleadoState extends State<HomeEmpleado> {
   }
 
   usuarioHamburguesa() {
-    return HamburguesaEmpleado();
+    if (_prefs.tipoUsuario == 'empleado') {
+      return HamburguesaEmpleado();
+    } else {
+      return HamburguesaCliente();
+    }
   }
 
   Widget _muroTarjetas() {
-    return TarjetaComunicadoEmpleado();
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+      future: comunicadoProvider.getComunicado(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return TarjetaComunicadoEmpleado(
+              comunicadoModel: snapshot.data as List<ComunicadoModel>);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
+  }
+
+  Widget _muroCumpleanio() {
+    final _screenSize = MediaQuery.of(context).size;
+    return FutureBuilder(
+      future: cumpleanioProvider.getCumpleanio(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return AlertaCumpleaniosEmpleado(
+              cumpleanioModel: snapshot.data as List<CumpleanioModel>);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
   }
 
   void _listaCumpleanios(context) {
@@ -69,11 +122,8 @@ class _HomeEmpleadoState extends State<HomeEmpleado> {
         });
   }
 
-  Widget _muroCumpleanio() {
-    return AlertaCumpleaniosEmpleado();
-  }
-
   void _cambioTema() {
+    TemaSwitch _tema = Provider.of<TemaSwitch>(context, listen: false);
     final _screenSize = MediaQuery.of(context).size;
     showDialog(
         context: context,
@@ -110,7 +160,7 @@ class _HomeEmpleadoState extends State<HomeEmpleado> {
                               ),
                             ],
                           ),
-                          onTap: () => null,
+                          onTap: () => _tema.setTema(miTema),
                         ),
                         GestureDetector(
                           child: Column(
@@ -128,7 +178,7 @@ class _HomeEmpleadoState extends State<HomeEmpleado> {
                               ),
                             ],
                           ),
-                          onTap: () => null,
+                          onTap: () => _tema.setTema(miTemaObscuro),
                         )
                       ],
                     ),

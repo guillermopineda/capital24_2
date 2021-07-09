@@ -1,14 +1,11 @@
 import 'package:capital24_2/src/bloc/mapa/mapa_bloc.dart';
 import 'package:capital24_2/src/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
-import 'package:capital24_2/src/services/traffic_service.dart';
 import 'package:capital24_2/src/widgets/appBtnMiRuta.dart';
 import 'package:capital24_2/src/widgets/appBtnSeguirUbicacion.dart';
 import 'package:capital24_2/src/widgets/appBtnUbicacion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:polyline/polyline.dart' as Poly;
 
 class Mapa extends StatefulWidget {
   static const String routeName = '/mapa';
@@ -21,7 +18,6 @@ class _MapaState extends State<Mapa> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     BlocProvider.of<MiUbicacionBloc>(context);
-    BlocProvider.of<MapaBloc>(context);
     super.initState();
   }
 
@@ -66,10 +62,11 @@ class _MapaState extends State<Mapa> with AutomaticKeepAliveClientMixin {
           initialCameraPosition: cameraPosition,
           compassEnabled: false,
           myLocationEnabled: true,
-          myLocationButtonEnabled: true,
+          myLocationButtonEnabled: false,
           zoomControlsEnabled: false,
           onMapCreated: mapaBloc.initMapa,
           polylines: mapaBloc.state.polylines.values.toSet(),
+          markers: mapaBloc.state.markers.values.toSet(),
           onCameraMove: (cameraPosition) {
             mapaBloc.add(OnMovioMapa(cameraPosition.target));
           },

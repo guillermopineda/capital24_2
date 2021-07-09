@@ -1,7 +1,11 @@
+import 'package:capital24_2/src/models/InformacionContactoModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppTarjetaDatoContactoEmpleado extends StatelessWidget {
+  final DatoContactoEmpleadoModel? datoContactoEmpleadoModel;
+
+  AppTarjetaDatoContactoEmpleado({this.datoContactoEmpleadoModel});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -45,38 +49,37 @@ class AppTarjetaDatoContactoEmpleado extends StatelessWidget {
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoContactoEmpleadoModel.telefonoOficina ?? "
-                                "")),
+                                datoContactoEmpleadoModel!.telefonoOficina ??
+                                    "")),
                         ListTile(
                             subtitle: Text(
                               "Teléfono Casa",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoContactoEmpleadoModel.telefonoCasa ?? "
-                                "")),
+                                datoContactoEmpleadoModel!.telefonoCasa ?? "")),
                         ListTile(
                             subtitle: Text(
                               "Teléfono Celular",
                               textAlign: TextAlign.left,
                             ),
                             title: Text(
-                                "datoContactoEmpleadoModel.telefonoCelular ??"
-                                "")),
+                                datoContactoEmpleadoModel!.telefonoCelular ??
+                                    "")),
                         ListTile(
                             subtitle: Text(
                               "Email Oficina",
                               textAlign: TextAlign.left,
                             ),
                             title:
-                                Text("datoContactoEmpleadoModel.email1 ??" "")),
+                                Text(datoContactoEmpleadoModel!.email1 ?? "")),
                         ListTile(
                             subtitle: Text(
                               "Teléfono Personal",
                               textAlign: TextAlign.left,
                             ),
                             title:
-                                Text("datoContactoEmpleadoModel.email2 ??" "")),
+                                Text(datoContactoEmpleadoModel!.email2 ?? " ")),
                         Divider(
                           color: Theme.of(context).dividerColor,
                         ),

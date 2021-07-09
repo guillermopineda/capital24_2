@@ -1,5 +1,7 @@
 import 'package:capital24_2/src/models/capitalBenefits/categoriaCapitalBenefitsModel.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/localizacionCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/LocalizacionCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appTarjetaCapitalPartnersCercanos.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class TduPermanentes2 extends StatefulWidget {
 
 class _TduPermanentes2State extends State<TduPermanentes2>
     with AutomaticKeepAliveClientMixin {
+  final _prefs = PreferenciasUsuario();
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
@@ -58,11 +61,10 @@ class _TduPermanentes2State extends State<TduPermanentes2>
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 

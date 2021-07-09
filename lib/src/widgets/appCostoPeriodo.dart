@@ -1,9 +1,12 @@
+import 'package:capital24_2/src/models/indicadoresNegocioModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppCostoPeriodo extends StatefulWidget {
   @override
   _AppCostoPeriodoState createState() => _AppCostoPeriodoState();
+  final List<IndicadorNegocioModel>? indicadorNegocioModel;
+  AppCostoPeriodo({this.indicadorNegocioModel});
 }
 
 class _AppCostoPeriodoState extends State<AppCostoPeriodo> {
@@ -49,8 +52,8 @@ class _AppCostoPeriodoState extends State<AppCostoPeriodo> {
                               height: _screenSize.height * .2,
                               child: ListView.builder(
                                   physics: BouncingScrollPhysics(),
-                                  itemCount: 5,
-                                  //widget.indicadorNegocioModel.length,
+                                  itemCount:
+                                      widget.indicadorNegocioModel!.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return Container(
@@ -61,10 +64,10 @@ class _AppCostoPeriodoState extends State<AppCostoPeriodo> {
                                         children: <Widget>[
                                           ListTile(
                                             title: Text(
-                                              "hola",
-                                              // widget
-                                              //     .indicadorNegocioModel[index]
-                                              //     .indicadorNegocio,
+                                              widget
+                                                  .indicadorNegocioModel![index]
+                                                  .indicadorNegocio
+                                                  .toString(),
                                               textAlign: TextAlign.left,
                                             ),
                                             trailing: Icon(
@@ -74,12 +77,10 @@ class _AppCostoPeriodoState extends State<AppCostoPeriodo> {
                                             ),
                                             onTap: () {
                                               Navigator.pushNamed(
-                                                context,
-                                                '/costoPeriodo',
-                                                // arguments: widget
-                                                //         .indicadorNegocioModel[
-                                                //     index]
-                                              );
+                                                  context, '/costoPeriodo',
+                                                  arguments: widget
+                                                          .indicadorNegocioModel![
+                                                      index]);
                                             },
                                           ),
                                           Divider(

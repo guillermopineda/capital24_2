@@ -1,11 +1,16 @@
+import 'package:capital24_2/src/models/otrosModel.dart';
+import 'package:capital24_2/src/providers/OtrosProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppOtrosEmpleado extends StatefulWidget {
   _AppOtrosEmpleadoState createState() => _AppOtrosEmpleadoState();
+  final List<DesgloseOtroModel>? desglosesOtroModel;
+  AppOtrosEmpleado({this.desglosesOtroModel});
 }
 
 class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
+  DesglosesOtroProvider repo = DesglosesOtroProvider();
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -56,8 +61,7 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
   }
 
   SizedBox cajaOtros(Size _screenSize) {
-    // if (widget.desglosesOtroModel.isEmpty) {
-    if (1 > 0) {
+    if (widget.desglosesOtroModel!.isEmpty) {
       return SizedBox(
         height: _screenSize.height * .1,
         child: mostrarOtro(),
@@ -71,8 +75,7 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
   }
 
   mostrarOtro() {
-    //if (widget.desglosesOtroModel.isEmpty) {
-    if (1 < 0) {
+    if (widget.desglosesOtroModel!.isEmpty) {
       return ListTile(
         title: Text(
           "Sin información disponible",
@@ -83,7 +86,7 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
     } else {
       return ListView.builder(
           physics: BouncingScrollPhysics(),
-          itemCount: 1, //widget.desglosesOtroModel.length,
+          itemCount: widget.desglosesOtroModel!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               child: Column(
@@ -92,7 +95,7 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      "widget.desglosesOtroModel[index].mesAnio",
+                      widget.desglosesOtroModel![index].mesAnio.toString(),
                       textAlign: TextAlign.left,
                     ),
                     trailing: Icon(
@@ -100,8 +103,8 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
                       color: Theme.of(context).dividerColor,
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, '/desgloseOtrosDetalle');
-                      //",arguments: widget.desglosesOtroModel[index]");
+                      Navigator.pushNamed(context, '/desgloseOtrosDetalle',
+                          arguments: widget.desglosesOtroModel![index]);
                     },
                   ),
                   Divider(

@@ -1,5 +1,7 @@
 import 'package:capital24_2/src/models/capitalBenefits/categoriaCapitalBenefitsModel.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/serviciosCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/ServiciosCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appTarjetaCapitalPartnersPermanentes.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +14,10 @@ class TduPermanentes1 extends StatefulWidget {
 
 class _TduPermanentes1State extends State<TduPermanentes1>
     with AutomaticKeepAliveClientMixin {
+  final _prefs = PreferenciasUsuario();
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
+    super.build(context);
     final serviciosTduProvider = Provider.of<ServiciosTduProvider>(context);
 
     final _screenSize = MediaQuery.of(context).size;
@@ -55,11 +58,10 @@ class _TduPermanentes1State extends State<TduPermanentes1>
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 

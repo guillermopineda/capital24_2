@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/providers/AltasBajasProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appRotacionPersonal.dart';
 import 'package:flutter/material.dart';
@@ -64,17 +65,17 @@ class RotacionPersonal extends StatelessWidget {
   }
 
   Widget _grafica() {
-    // return FutureBuilder(
-    //     future: headcountProvider.getHeadcountNegocio(),
-    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //       if (snapshot.hasData) {
-    return AppRotacionPersonal(); //rotacionModel: snapshot.data);
-    // } else {
-    //   return Center(child: Image.asset( "images/load_2.gif",));
-    // }
+    return FutureBuilder(
+        future: headcountProvider.getHeadcountNegocio(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return AppRotacionPersonal(rotacionModel: snapshot.data);
+          } else {
+            return Center(
+                child: Image.asset(
+              "images/load_2.gif",
+            ));
+          }
+        });
   }
-  //*);
 }
-
-
-//}

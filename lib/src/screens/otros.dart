@@ -1,3 +1,5 @@
+import 'package:capital24_2/src/models/otrosModel.dart';
+import 'package:capital24_2/src/providers/OtrosProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appOtrosEmpleado.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +52,23 @@ class _OtrosState extends State<Otros> {
   }
 
   Widget _selectorOtros() {
-    // final _screenSize = MediaQuery.of(context).size;
+    final _screenSize = MediaQuery.of(context).size;
 
-    return AppOtrosEmpleado();
+    return FutureBuilder(
+      future: desglosesOtroProvider.getDesgloseOtro(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return AppOtrosEmpleado(
+              desglosesOtroModel: snapshot.data as List<DesgloseOtroModel>);
+        } else {
+          return Container(
+              height: _screenSize.height * .85,
+              child: Center(
+                  child: Image.asset(
+                "images/load_2.gif",
+              )));
+        }
+      },
+    );
   }
 }

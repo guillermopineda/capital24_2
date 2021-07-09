@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "596829906915",
+    "firebase_url": "https://capital24-flutter.firebaseio.com",
+    "project_id": "capital24-flutter",
+    "storage_bucket": "capital24-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596829906915:android:c7dfcb2f09cfa693c522d6",
+        "android_client_info": {
+          "package_name": "com.capitalpeople.capital24"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596829906915-oqi3q927fltarb1qckfucve9c8pfqqhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capitalpeople.capital24",
+            "certificate_hash": "64d669a1ca837d19f979fcfdf833bf8f2918d19d"
+          }
+        },
+        {
+          "client_id": "596829906915-tgpm2mnusaimrs37ui8ddju1e8od1r4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnPX9ldMl4OChMHg7yXvTCkjRJOZBnOAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596829906915-tgpm2mnusaimrs37ui8ddju1e8od1r4f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "596829906915-l0j31j2l6g44tadfukojqlb9g7jr47d5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.capitalpeople.capital24"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

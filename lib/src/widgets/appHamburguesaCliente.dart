@@ -1,3 +1,5 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/providers/login/Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -5,9 +7,12 @@ class HamburguesaCliente extends StatefulWidget {
   _HamburguesaClienteState createState() => _HamburguesaClienteState();
 }
 
+final _prefs = PreferenciasUsuario();
+
 class _HamburguesaClienteState extends State<HamburguesaCliente> {
   @override
   Widget build(BuildContext context) {
+    final bloc = ProviderLogin.of(context);
     return Drawer(
         elevation: 40.0,
         child: ListView(children: <Widget>[
@@ -82,8 +87,6 @@ class _HamburguesaClienteState extends State<HamburguesaCliente> {
           Divider(
             height: 10.0,
           ),
-          // mostrarOtros(context,snapshot),
-
           ListTile(
               title: Text("Vencimiento de Contratos"),
               trailing: Icon(
@@ -100,7 +103,6 @@ class _HamburguesaClienteState extends State<HamburguesaCliente> {
           Divider(
             height: 10.0,
           ),
-
           ListTile(
               title: Text("Beneficios"),
               trailing: Icon(
@@ -114,7 +116,6 @@ class _HamburguesaClienteState extends State<HamburguesaCliente> {
               onTap: () {
                 Navigator.pushNamed(context, '/beneficios');
               }),
-
           Divider(
             height: 10.0,
           ),
@@ -145,6 +146,9 @@ class _HamburguesaClienteState extends State<HamburguesaCliente> {
                 color: Theme.of(context).dividerColor,
               ),
               onTap: () {
+                _prefs.deletePrefs();
+                bloc.changeUsernameCliente("                  ");
+                bloc.changePasswordCliente("                  ");
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/loginInicio', (Route<dynamic> route) => false);
               }),

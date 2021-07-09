@@ -1,3 +1,5 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Asismed extends StatelessWidget {
   static const String routeName = '/asismed';
+  final _prefs = PreferenciasUsuario();
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +59,10 @@ class Asismed extends StatelessWidget {
   }
 
   usuarioHamburguesa() {
-    //if (_prefs.tipoUsuario == 'empleado') {
-    if (1 > 0) {
+    if (_prefs.tipoUsuario == 'empleado') {
       return HamburguesaEmpleadoEspejo();
     } else {
-      return; //HamburguesaClienteEspejo();
+      return HamburguesaClienteEspejo();
     }
   }
 
