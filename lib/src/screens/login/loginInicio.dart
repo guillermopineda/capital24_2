@@ -1,3 +1,4 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,6 +84,7 @@ class __LoginInicioState extends State<LoginInicio> {
   }
 
   Widget _botonEmpleado() {
+    final _prefs = new PreferenciasUsuario();
     return AppButton(
       name: "Colaborador",
       onPressed: () {
@@ -91,11 +93,14 @@ class __LoginInicioState extends State<LoginInicio> {
         _empleadoCiaController.text = "";
         _empleadoUsuarioController.text = "";
         _empleadoNipController.text = "";
+        _prefs.tipoUsuario = 'empleado';
+        print(_prefs.tipoUsuario);
       },
     );
   }
 
   Widget _botonCliente() {
+    final _prefs = new PreferenciasUsuario();
     return AppButton(
         name: "Cliente / Aliado",
         onPressed: () {
@@ -103,6 +108,8 @@ class __LoginInicioState extends State<LoginInicio> {
           FocusScope.of(context).requestFocus(_focusNode);
           _clienteUsuarioController.text = "";
           _clienteNipController.text = "";
+          _prefs.tipoUsuario = 'cliente';
+          print(_prefs.tipoUsuario);
         });
   }
 

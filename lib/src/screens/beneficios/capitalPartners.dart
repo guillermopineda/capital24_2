@@ -1,6 +1,7 @@
-import 'package:capital24_2/src/providers/capitalBenefits/LocalizacionCapitalBenefitsProvider.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/ServiciosCapitalBenefitsProvider.dart';
-import 'package:capital24_2/src/screens/beneficios/capitalPartnersCercanos.dart';
+//import 'package:capital24_2/src/providers/capitalBenefits/LocalizacionCapitalBenefitsProvider.dart';
+//import 'package:capital24_2/src/providers/capitalBenefits/ServiciosCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/ServiciosDescuentosProvider.dart';
+//import 'package:capital24_2/src/screens/beneficios/capitalPartnersCercanos.dart';
 import 'package:capital24_2/src/screens/beneficios/capitalPartnersDirectorio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +13,11 @@ class CapitalPartners extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => ServiciosTduProvider(),
+          create: (_) => ServiciosDescuentoProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => LocalizacionTduProvider(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => LocalizacionTduProvider(),
+        // ),
       ],
       child: ChangeNotifierProvider(
         create: (_) => new _NavegacionTduPermanentesModel(),
@@ -40,7 +41,7 @@ class _PaginasTdu extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           TduPermanentes1(),
-          TduPermanentes2(),
+          // TduPermanentes2(),
         ]);
   }
 }
@@ -48,27 +49,35 @@ class _PaginasTdu extends StatelessWidget {
 class _Categorias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final navegacionTduPermanentesModel =
-        Provider.of<_NavegacionTduPermanentesModel>(context);
+    final _screenSize = MediaQuery.of(context).size;
+    // final navegacionTduPermanentesModel =
+    //     Provider.of<_NavegacionTduPermanentesModel>(context);
 
-    return BottomNavigationBar(
-        currentIndex: navegacionTduPermanentesModel.paginaActual,
-        onTap: (i) {
-          navegacionTduPermanentesModel.paginaActual =
-              i; //esta es una forma de recorrer una lista
-        },
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.store_mall_directory,
-              ),
-              label: "Directorio"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.location_on,
-              ),
-              label: "Cercános"),
-        ]);
+    return Container(
+        height: _screenSize.height * .1,
+        child: Image(
+          image: AssetImage('images/logo.png'),
+        ));
+
+    // return BottomNavigationBar(
+    //     currentIndex: navegacionTduPermanentesModel.paginaActual,
+    //     onTap: (i) {
+    //       navegacionTduPermanentesModel.paginaActual =
+    //           i; //esta es una forma de recorrer una lista
+    //     },
+    //     items: [
+
+    // BottomNavigationBarItem(
+    //     icon: Icon(
+    //       Icons.store_mall_directory,
+    //     ),
+    //     label: "Directorio"),
+    // BottomNavigationBarItem(
+    //     icon: Icon(
+    //       Icons.location_on,
+    //     ),
+    //     label: "Cercános"),
+    // ]);
   }
 }
 

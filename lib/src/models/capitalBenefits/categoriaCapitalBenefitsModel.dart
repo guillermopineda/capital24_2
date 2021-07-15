@@ -15,3 +15,11 @@ class CategoriaTduModelCercanos {
 
   CategoriaTduModelCercanos(this.icon, this.name, this.id);
 }
+
+class CategoriaDescuentoModel {
+  final IconData icon;
+  final String name;
+  final int id;
+
+  CategoriaDescuentoModel(this.icon, this.name, this.id);
+}

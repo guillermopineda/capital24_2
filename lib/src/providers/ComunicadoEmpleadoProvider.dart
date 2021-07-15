@@ -18,15 +18,18 @@ class ComunicadoProvider {
   Future<List<ComunicadoModel>> getComunicado() async {
     // ignore: unused_local_variable
     bool kisweb;
-    var topicEmpleadoGlobal =
-        _firebaseMessaging.subscribeToTopic("e" '${_prefs.tipoUsuario}');
-    print(topicEmpleadoGlobal);
     try {
       if (Platform.isIOS) {
         await _firebaseMessaging.subscribeToTopic('capital24');
+        var topicEmpleadoGlobal =
+            _firebaseMessaging.subscribeToTopic("e" '${_prefs.tipoUsuario}');
+        print(topicEmpleadoGlobal);
         kisweb = false;
       } else if (Platform.isAndroid) {
         await _firebaseMessaging.subscribeToTopic('capital24');
+        var topicEmpleadoGlobal =
+            _firebaseMessaging.subscribeToTopic("e" '${_prefs.tipoUsuario}');
+        print(topicEmpleadoGlobal);
         kisweb = false;
       } else {
         kisweb = true;

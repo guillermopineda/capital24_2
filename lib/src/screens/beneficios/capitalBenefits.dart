@@ -12,7 +12,7 @@ class CapitalBenefits extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Red Capital"),
+        title: Text("Beneficios Red Capital24"),
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {
@@ -67,7 +67,7 @@ class CapitalBenefits extends StatelessWidget {
                   color: Theme.of(context).dividerColor,
                 ),
                 title: Text(
-                  "Capital Partners",
+                  "Directorio",
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                 ),
                 trailing: new Icon(
@@ -101,7 +101,7 @@ class CapitalBenefits extends StatelessWidget {
                   color: Theme.of(context).dividerColor,
                 ),
                 title: Text(
-                  "Capital Platinum",
+                  "Descuentos",
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
                 ),
                 trailing: new Icon(

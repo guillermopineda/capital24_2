@@ -22,14 +22,10 @@ class LoginsProvider {
     };
     final url = Uri.https(_urlDato, _pathDato);
 
-    print(url);
-
     final resp =
         await http.post(url, headers: headers, body: json.encode(authData));
 
     Map<String, dynamic> decodeResp = json.decode(resp.body);
-
-    print(decodeResp);
 
     if (decodeResp.containsKey('token')) {
       _prefs.token = decodeResp['token'];
@@ -52,14 +48,13 @@ class LoginsProvider {
       'password': password,
       'returnToken': true
     };
-    final urlDatos = Uri.http(_urlDato, _pathDato);
+    final urlDatos = Uri.https(_urlDato, _pathDato);
 
     http.Response respDatos = await http.post(urlDatos,
         headers: headers, body: json.encode(authData));
 
     final dataLogin = json.decode(utf8.decode(respDatos.bodyBytes));
     final datosLoginModel = new LoginModel.fromJsonMap(dataLogin);
-    print(datosLoginModel);
 
     return datosLoginModel;
   }

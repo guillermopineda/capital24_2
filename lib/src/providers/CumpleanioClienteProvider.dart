@@ -13,7 +13,7 @@ class CumpleanioProvider {
   List<CumpleanioModel> cumpleanios = [];
 
   Future<List<CumpleanioModel>> getCumpleanio() async {
-    final url = Uri.http(_url, _path);
+    final url = Uri.https(_url, _path);
 
     final headersToken = {'Authorization': 'Token ${_prefs.token}'};
 

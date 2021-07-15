@@ -11,7 +11,7 @@ class KardexClienteProvider {
   String _path = "/cliente/kardex/";
 
   Future<AnioKardexModel> getKardexCliente() async {
-    final url = Uri.http(_url, _path);
+    final url = Uri.https(_url, _path);
     final headersToken = {'Authorization': 'Token ${_prefs.token}'};
 
     http.Response resp = await http.get(

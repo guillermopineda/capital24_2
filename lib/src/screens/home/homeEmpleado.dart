@@ -75,12 +75,13 @@ class _HomeEmpleadoState extends State<HomeEmpleado> {
 
   Widget _muroTarjetas() {
     final _screenSize = MediaQuery.of(context).size;
+    final comunicadoProvider = ComunicadoProvider();
     return FutureBuilder(
       future: comunicadoProvider.getComunicado(),
-      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+      builder: (BuildContext context,
+          AsyncSnapshot<List<ComunicadoModel>> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return TarjetaComunicadoEmpleado(
-              comunicadoModel: snapshot.data as List<ComunicadoModel>);
+          return TarjetaComunicadoEmpleado(comunicadoModel: snapshot.data);
         } else {
           return Container(
               height: _screenSize.height * .85,

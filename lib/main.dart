@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseAnalytics analytics = FirebaseAnalytics();
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = new PreferenciasUsuario();
-    if (prefs.token == 'Sin Token') {
+    if (prefs.token == 'Sin token') {
       return ProviderLogin(
         child: MultiBlocProvider(
           child: ChangeNotifierProvider<TemaSwitch>(

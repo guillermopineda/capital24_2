@@ -169,11 +169,11 @@ class _HamburguesaEmpleadoState extends State<HamburguesaEmpleado> {
                         FontAwesomeIcons.powerOff,
                         color: Theme.of(context).dividerColor,
                       ),
-                      onTap: () {
+                      onTap: () async {
                         _prefs.deletePrefs();
                         bloc.changeUsername("                  ");
                         bloc.changePassword("                  ");
-                        Navigator.pushNamedAndRemoveUntil(context,
+                        await Navigator.pushNamedAndRemoveUntil(context,
                             '/loginInicio', (Route<dynamic> route) => false);
                       }),
                   Divider(

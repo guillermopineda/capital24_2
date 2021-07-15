@@ -1,6 +1,6 @@
 import 'package:capital24_2/src/models/capitalBenefits/categoriaCapitalBenefitsModel.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/ServiciosCapitalBenefitsProvider.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/ServiciosDescuentosProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appTarjetaCapitalPartnersPermanentes.dart';
@@ -18,13 +18,14 @@ class _TduPermanentes1State extends State<TduPermanentes1>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final serviciosTduProvider = Provider.of<ServiciosTduProvider>(context);
+    final serviciosDescuentoProvider =
+        Provider.of<ServiciosDescuentoProvider>(context);
 
     final _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Capital Partners Directorio"),
+          title: Text("Categorias Beneficios"),
           centerTitle: true,
           leading: GestureDetector(
               onTap: () {
@@ -45,13 +46,16 @@ class _TduPermanentes1State extends State<TduPermanentes1>
               width: double.infinity,
             ),
             Expanded(
-              child: (serviciosTduProvider.getCategoriaTdu!.length == 0)
-                  ? Center(
-                      child: Image.asset(
-                      "images/load_2.gif",
-                    ))
-                  : AppTarjetasTduPermanentes(
-                      tdu: serviciosTduProvider.getCategoriaTdu),
+              child:
+                  (serviciosDescuentoProvider.getCategoriaDescuento!.length ==
+                          0)
+                      ? Center(
+                          child: Image.asset(
+                          "images/load_2.gif",
+                        ))
+                      : AppTarjetasTduPermanentes(
+                          descuento:
+                              serviciosDescuentoProvider.getCategoriaDescuento),
             )
           ],
         ));
@@ -73,11 +77,12 @@ class _ListaCategorias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    final serviciosTduProvider = Provider.of<ServiciosTduProvider>(context);
+    final serviciosDescuentoProvider =
+        Provider.of<ServiciosDescuentoProvider>(context);
     return ListView.builder(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: serviciosTduProvider.listaCategorias.length,
+        itemCount: serviciosDescuentoProvider.listaCategorias.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             width: _screenSize.width * .22,
@@ -85,7 +90,8 @@ class _ListaCategorias extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _CategoriaBoton(serviciosTduProvider.listaCategorias[index]),
+                _CategoriaBoton(
+                    serviciosDescuentoProvider.listaCategorias[index]),
               ],
             ),
           );
@@ -94,17 +100,18 @@ class _ListaCategorias extends StatelessWidget {
 }
 
 class _CategoriaBoton extends StatelessWidget {
-  final CategoriaTduModel categoriaTduModel;
+  final CategoriaDescuentoModel categoriaTduModel;
 
   const _CategoriaBoton(this.categoriaTduModel);
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    final serviciosTduProvider = Provider.of<ServiciosTduProvider>(context);
+    final serviciosTduProvider =
+        Provider.of<ServiciosDescuentoProvider>(context);
     return GestureDetector(
       onTap: () {
         final serviciosTduProvider =
-            Provider.of<ServiciosTduProvider>(context, listen: false);
+            Provider.of<ServiciosDescuentoProvider>(context, listen: false);
         serviciosTduProvider.selectedCategory = categoriaTduModel.id;
       },
       child: Container(

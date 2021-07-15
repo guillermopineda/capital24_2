@@ -44,8 +44,8 @@ class HomeClienteDetalle extends StatelessWidget {
             fontSize: 16.0,
           ),
         ),
-        background: FadeInImage.assetNetwork(
-          placeholder: "images/load_2.gif",
+        background: FadeInImage(
+          placeholder: AssetImage("images/load_2.gif"),
           image: comunicadoModel.getImagenDetalle(),
           fadeInDuration: Duration(milliseconds: 150),
           fit: BoxFit.cover,
@@ -69,7 +69,7 @@ class HomeClienteDetalle extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(
-                  image: NetworkImage(comunicadoModel.getImagenComunicado()),
+                  image: comunicadoModel.getImagenComunicado(),
                   fit: BoxFit.fill,
                   height: 150.0,
                 ),

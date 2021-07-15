@@ -59,19 +59,17 @@ class ComunicadoModel {
 
   getImagenComunicado() {
     if (imagenPortada == null) {
-      print("object");
-      return Image.asset('images/portada_c24.png');
+      return Image.asset('images/platinum.png');
     } else {
-      print(imagenPortada);
-      return imagenPortada;
+      return NetworkImage(imagenPortada!);
     }
   }
 
   getImagenDetalle() {
     if (imagenPoster == null) {
-      return Image.asset('images/detalle_c24.png');
+      return Image.asset('images/platinum.png');
     } else {
-      return imagenPoster;
+      return NetworkImage(imagenPoster!);
     }
   }
 }

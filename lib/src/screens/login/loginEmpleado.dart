@@ -1,4 +1,7 @@
 import 'package:capital24_2/src/bloc/login/LoginBloc.dart';
+import 'package:capital24_2/src/helpers/helpers.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/screens/home/homeEmpleado.dart';
 import 'package:capital24_2/src/utils/Utilerias.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,8 +69,10 @@ class _LoginEmpleadoState extends State<LoginEmpleado> {
                         children: <Widget>[
                           GestureDetector(
                               onTap: () {
+                                final _prefs = PreferenciasUsuario();
                                 bloc.changeUsername("                  ");
                                 bloc.changePassword("                  ");
+                                _prefs.deletePrefs();
                                 Navigator.pop(context);
                               },
                               child: Icon(Icons.arrow_back,
@@ -146,15 +151,19 @@ class _LoginEmpleadoState extends State<LoginEmpleado> {
   }
 
   Future _loginEmpleado(LoginBloc bloc, BuildContext context) async {
+    final _prefs = PreferenciasUsuario();
     print('=========');
     print('Username: ${bloc.username}');
     print('Password: ${bloc.password}');
     print('=========');
+
 /* 
     Navigator.pushReplacementNamed(context, '/muro'); */
     Map info = await loginsProvider.loginUsuario(bloc.username, bloc.password);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, '/homeEmpleado');
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/homeEmpleado', (Route<dynamic> route) => false);
+      print(_prefs.tipoUsuario);
     } else {
       mostarAlerta(
           context, 'Por favor ingresa correctamente el usuario y/o contraseña');

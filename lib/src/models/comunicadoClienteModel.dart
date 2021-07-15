@@ -58,17 +58,17 @@ class ComunicadoModel {
 
   getImagenComunicado() {
     if (imagenPortada == null) {
-      return Image.asset('images/portada_c24.png');
+      return Image.asset('images/platinum.png');
     } else {
-      return imagenPortada;
+      return NetworkImage(imagenPortada!);
     }
   }
 
   getImagenDetalle() {
     if (imagenPoster == null) {
-      return Image.asset('images/detalle_c24.png');
+      return Image.asset('images/logo.png');
     } else {
-      return imagenPoster;
+      return NetworkImage(imagenPoster!);
     }
   }
 }

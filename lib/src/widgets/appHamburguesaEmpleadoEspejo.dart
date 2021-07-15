@@ -1,7 +1,9 @@
+import 'package:capital24_2/src/helpers/helpers.dart';
 import 'package:capital24_2/src/models/informacionLaboralModel.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/providers/InformacionLaboralProvider.dart';
 import 'package:capital24_2/src/providers/login/Provider.dart';
+import 'package:capital24_2/src/screens/home/homeEmpleado.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,7 +45,8 @@ class _HamburguesaEmpleadoEspejoState extends State<HamburguesaEmpleadoEspejo> {
                         color: Theme.of(context).dividerColor,
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, '/homeEmpleado');
+                        Navigator.pushReplacement(context,
+                            navegarMapaFadeIn(context, HomeEmpleado()));
                       }),
                   Divider(
                     height: 10.0,

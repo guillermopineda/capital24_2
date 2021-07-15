@@ -16,6 +16,11 @@ class PlantillaColaboradores extends StatelessWidget {
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
               title: Text("Colaboradores"),
+              leading: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context, true);
+                  },
+                  child: Icon(Icons.arrow_back)),
               centerTitle: true,
               actions: <Widget>[
                 IconButton(

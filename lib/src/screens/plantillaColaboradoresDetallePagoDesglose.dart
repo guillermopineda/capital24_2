@@ -45,7 +45,7 @@ class _PlantillaColaboradoresPagoDetalleDesgloseState
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
             child: Icon(Icons.arrow_back)),
       ),

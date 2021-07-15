@@ -1,12 +1,14 @@
 //import 'dart:convert';
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:capital24_2/src/models/kardexClienteModel.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:universal_echarts/universal_echarts.dart';
 
 class KardexClienteDetalle extends StatelessWidget {
   static const String routeName = '/kardexClienteDetalle';
@@ -257,7 +259,12 @@ class KardexClienteDetalle extends StatelessWidget {
           }
         }
 
-        return Container(child: Echarts(theme: 'light', option: '''
+        // ignore: unused_local_variable
+        bool kisweb;
+        try {
+          if (Platform.isIOS || Platform.isAndroid) {
+            kisweb = false;
+            return Container(child: Echarts(theme: 'light', option: '''
         {
 
     tooltip: {
@@ -339,6 +346,96 @@ class KardexClienteDetalle extends StatelessWidget {
 
         }
         '''));
+          } else {
+            kisweb = true;
+          }
+        } catch (e) {
+          kisweb = true;
+        }
+        return Center(
+          child: Container(child: UniversalEcharts.drawChart('''
+        {
+
+    tooltip: {
+        show: false
+    },
+    legend: {
+        show:false,
+        orient: 'vertical',
+        left: 'left',
+        data: ${jsonEncode(incidenciasKardex)},
+    },
+    series: [
+        {
+            name: 'Circulo',
+            type: 'pie',
+            avoidLabelOverlap: false,
+            center: ['50%', '40%'],
+            radius: ['75%','50%'],
+            data: [
+              {
+              name: ${jsonEncode(incAccidenteMarca())},
+              value: ${jsonEncode(incAccidenteTotal())}
+             },
+             {
+              name: ${jsonEncode(permisoSGMarca())},
+              value: ${jsonEncode(permisoSGTotal())}
+              },
+              {
+              name: ${jsonEncode(incapacidadEGMarca())},
+              value: ${jsonEncode(incapacidadEGTotal())}
+              },
+
+              {
+              name: ${jsonEncode(incEnlaceMarca())},
+              value: ${jsonEncode(incEnlaceTotal())}
+              },
+              {
+              name: ${jsonEncode(incMatMarca())},
+              value: ${jsonEncode(incMatTotal())}
+              },
+              {
+              name: ${jsonEncode(permisoCGMarca())},
+              value: ${jsonEncode(permisoCGTotal())}
+              },
+              {
+              name: ${jsonEncode(faltasMarca())},
+              value: ${jsonEncode(faltasTotal())}
+              },
+              {
+              name: ${jsonEncode(diaSMarca())},
+              value: ${jsonEncode(diaSTotal())}
+              },
+              {
+              name: ${jsonEncode(vacacionesMarca())},
+              value: ${jsonEncode(vacacionesTotal())}
+              },
+
+            ],
+            labelLine: {
+                show: false
+                },
+            label: {
+                show: false,
+                formatter: '{c} DÍAS {b} {d}%',
+                position: 'center'
+            },
+            emphasis: {
+                label: {
+                    show: true,
+                    fontSize: '16',
+                    fontWeight: 'bold',
+                    formatter: '{b}({d}%) = {c} DÍA',
+                    color: '#003C71'
+
+                }
+            }
+        }
+    ]
+
+        }
+        ''')),
+        );
       }
     }
   }

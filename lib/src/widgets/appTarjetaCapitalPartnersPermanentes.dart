@@ -1,27 +1,28 @@
-import 'package:capital24_2/src/models/capitalBenefits/serviciosCapitalBenefitsModel.dart';
+import 'package:capital24_2/src/models/capitalBenefits/descuentosCapitalModel.dart';
 import 'package:flutter/material.dart';
 
 class AppTarjetasTduPermanentes extends StatelessWidget {
-  final List<TduServicios>? tdu;
+  final List<DescuentoCapitalModel>? descuento;
 
-  const AppTarjetasTduPermanentes({this.tdu});
+  const AppTarjetasTduPermanentes({this.descuento});
 
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
         physics: BouncingScrollPhysics(),
-        itemCount: this.tdu?.length,
+        itemCount: this.descuento?.length,
         itemBuilder: (BuildContext context, int index) {
-          return _TarjetaDescuento(descuento: this.tdu?[index], index: index);
+          return _TarjetaDescuento(
+              descuentoCapital: this.descuento?[index], index: index);
         });
   }
 }
 
 class _TarjetaDescuento extends StatelessWidget {
-  final TduServicios? descuento;
+  final DescuentoCapitalModel? descuentoCapital;
   final int? index;
 
-  const _TarjetaDescuento({this.descuento, this.index});
+  const _TarjetaDescuento({this.descuentoCapital, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _TarjetaDescuento extends StatelessWidget {
         new GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, '/capitalPartnersDirectorioDetalle',
-                arguments: this.descuento);
+                arguments: this.descuentoCapital);
           },
           child: ClipRRect(
             child: Container(
@@ -42,10 +43,10 @@ class _TarjetaDescuento extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       _LogosTdu(
-                        descuento: descuento!,
+                        descuentoCapital: descuentoCapital!,
                       ),
                       _Separador(),
-                      _DescripcionTdu(descuento: descuento!),
+                      _DescripcionTdu(descuentoCapital: descuentoCapital!),
                       _Flecha(),
                     ],
                   ),
@@ -60,26 +61,26 @@ class _TarjetaDescuento extends StatelessWidget {
 }
 
 class _LogosTdu extends StatelessWidget {
-  final TduServicios? descuento;
+  final DescuentoCapitalModel? descuentoCapital;
   final int? index;
 
-  const _LogosTdu({this.descuento, this.index});
+  const _LogosTdu({this.descuentoCapital, this.index});
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    descuento!.comercio?.unicoId =
-        '${descuento!.comercio!.getImagenDirectorio()}-tarjetaDirectorio-${descuento!.comercio?.id}';
+    descuentoCapital!.unicoId =
+        '${descuentoCapital!.logo}-tarjetaDirectorio-${descuentoCapital!.id}';
 
     return Hero(
-      tag: descuento!.comercio!.unicoId as Object,
+      tag: descuentoCapital!.unicoId as Object,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: Container(
           color: Colors.white,
           child: SingleChildScrollView(
-            child: FadeInImage.assetNetwork(
-              image: descuento!.comercio?.getImagenDirectorio(),
+            child: FadeInImage?.assetNetwork(
+              image: descuentoCapital!.getImagenLogo(),
               placeholder: "images/load_2.gif",
               height: _screenSize.height * .17,
               width: _screenSize.width * .30,
@@ -107,10 +108,10 @@ class _Separador extends StatelessWidget {
 }
 
 class _DescripcionTdu extends StatelessWidget {
-  final TduServicios? descuento;
+  final DescuentoCapitalModel? descuentoCapital;
   final int? index;
 
-  const _DescripcionTdu({this.descuento, this.index});
+  const _DescripcionTdu({this.descuentoCapital, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -122,14 +123,14 @@ class _DescripcionTdu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            descuento?.comercio!.nombre as String,
+            descuentoCapital?.nombreEstablecimiento as String,
             style: TextStyle(
                 color: Theme.of(context).dividerColor, fontSize: 20.0),
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),
           Text(
-            descuento?.beneficio!.promocorta as String,
+            descuentoCapital?.marcaEstablecimeinto as String,
             style: TextStyle(
                 color: Theme.of(context).accentColor,
                 fontSize: 16.0,

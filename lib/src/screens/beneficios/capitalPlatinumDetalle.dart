@@ -1,4 +1,4 @@
-import 'package:capital24_2/src/models/capitalBenefits/capitalPlatinumModel.dart';
+import 'package:capital24_2/src/models/capitalBenefits/descuentosCapitalModel.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
@@ -11,12 +11,12 @@ class CapitalPlatinumDetalle extends StatelessWidget {
   final _prefs = PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
-    final DirectorioModel listaHotDealsModel =
-        ModalRoute.of(context)!.settings.arguments as DirectorioModel;
+    final DescuentoCapitalModel listaDescuentoModel =
+        ModalRoute.of(context)!.settings.arguments as DescuentoCapitalModel;
     final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Capital Platinum Detalle"),
+          title: Text("Beneficios Detalle"),
           centerTitle: true,
           leading: GestureDetector(
               onTap: () {
@@ -37,8 +37,8 @@ class CapitalPlatinumDetalle extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: _screenSize.height * .10),
-                    _carruselImagenes(context, listaHotDealsModel),
-                    _paginaWeb(context, listaHotDealsModel),
+                    _carruselImagenes(context, listaDescuentoModel),
+                    _paginaWeb(context, listaDescuentoModel),
                   ],
                 ),
               )
@@ -56,7 +56,7 @@ class CapitalPlatinumDetalle extends StatelessWidget {
   }
 
   Widget _carruselImagenes(
-      BuildContext context, DirectorioModel listaHotDealsModel) {
+      BuildContext context, DescuentoCapitalModel listaDescuentoModel) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
         width: double.infinity,
@@ -73,54 +73,40 @@ class CapitalPlatinumDetalle extends StatelessWidget {
           showIndicator: true,
           indicatorBgPadding: 7.0,
           images: [
-            _cardPromo(context, listaHotDealsModel),
-            _cardTerminos(context, listaHotDealsModel),
+            _cardPromo(context, listaDescuentoModel),
+            _cardTerminos(context, listaDescuentoModel),
           ],
         ));
   }
 
-  Widget _cardPromo(BuildContext context, DirectorioModel listaHotDealsModel) {
-    final size = MediaQuery.of(context).size;
+  Widget _cardPromo(
+      BuildContext context, DescuentoCapitalModel listaDescuentoModel) {
     return Container(
         child: Stack(children: <Widget>[
       Row(children: <Widget>[]),
-      Center(
-        child: Image.network(
-          listaHotDealsModel.beneficio?.hotdeal?.imagenes?[1]
-              .getImagenHotDeal(),
-          width: size.width * .95,
-          height: size.height * .5,
-        ),
-      ),
+      Center(child: listaDescuentoModel.getImagenVipA(context)),
     ]));
   }
 
   Widget _cardTerminos(
-      BuildContext context, DirectorioModel listaHotDealsModel) {
-    final size = MediaQuery.of(context).size;
+      BuildContext context, DescuentoCapitalModel listaDescuentoModel) {
     return Container(
         child: Stack(children: <Widget>[
       Row(children: <Widget>[]),
-      Center(
-        child: Image.network(
-          listaHotDealsModel.beneficio?.hotdeal?.imagenes?[2]
-              .getImagenHotDeal(),
-          width: size.width * .95,
-          height: size.height * .5,
-        ),
-      ),
+      Center(child: listaDescuentoModel.getImagenVipB(context)),
     ]));
   }
 
-  Widget _paginaWeb(BuildContext context, DirectorioModel listaHotDealsModel) {
+  Widget _paginaWeb(
+      BuildContext context, DescuentoCapitalModel listaDescuentoModel) {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child:
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         SizedBox(width: 10.0),
         GestureDetector(
-          onTap: () => _launchWeb(listaHotDealsModel),
-          child: Text(listaHotDealsModel.comercio!.paginaWeb!,
+          onTap: () => _launchWeb(listaDescuentoModel),
+          child: Text(listaDescuentoModel.paginaWeb!,
               style: TextStyle(
                 color: Theme.of(context).dividerColor,
                 fontSize: 16.0,
@@ -130,8 +116,8 @@ class CapitalPlatinumDetalle extends StatelessWidget {
     );
   }
 
-  _launchWeb(DirectorioModel listaHotDealsModel) async {
-    var s = listaHotDealsModel.comercio!.paginaWeb!.replaceAll("/", "");
+  _launchWeb(DescuentoCapitalModel listaDescuentoModel) async {
+    var s = listaDescuentoModel.paginaWeb!.replaceAll("/", "");
     var t = s.indexOf(":");
     var w = s.substring(t + 1);
 

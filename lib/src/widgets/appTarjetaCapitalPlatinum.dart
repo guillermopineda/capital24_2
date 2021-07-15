@@ -1,10 +1,12 @@
-import 'package:capital24_2/src/models/capitalBenefits/capitalPlatinumModel.dart';
+import 'package:capital24_2/src/models/capitalBenefits/descuentosCapitalModel.dart';
 import 'package:flutter/material.dart';
 
 class AppTarjetasTdu extends StatelessWidget {
-  final List<DirectorioModel>? listaHotDealsModel;
+  final List<DescuentoCapitalModel>? listaDescuentoModel;
 
-  AppTarjetasTdu({this.listaHotDealsModel});
+  AppTarjetasTdu(
+      {this.listaDescuentoModel,
+      List<DescuentoCapitalModel>? descuentoProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class AppTarjetasTdu extends StatelessWidget {
                 width: double.infinity,
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
-                    itemCount: listaHotDealsModel?.length,
+                    itemCount: listaDescuentoModel?.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
@@ -34,7 +36,7 @@ class AppTarjetasTdu extends StatelessWidget {
                                 onTap: () {
                                   Navigator.pushNamed(
                                       context, '/capitalPlatinumDetalle',
-                                      arguments: listaHotDealsModel![index]);
+                                      arguments: listaDescuentoModel![index]);
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20.0),
@@ -49,12 +51,9 @@ class AppTarjetasTdu extends StatelessWidget {
                                           child: new Stack(
                                             children: <Widget>[
                                               FadeInImage(
-                                                image: NetworkImage(
-                                                    listaHotDealsModel?[index]
-                                                        .beneficio
-                                                        ?.hotdeal
-                                                        ?.imagenes?[0]
-                                                        .getImagenHotDeal()),
+                                                image:
+                                                    listaDescuentoModel![index]
+                                                        .getImagenVip(),
                                                 placeholder: AssetImage(
                                                     "images/load_2.gif"),
                                                 fit: BoxFit.fill,

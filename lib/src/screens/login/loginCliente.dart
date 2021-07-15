@@ -1,4 +1,5 @@
 import 'package:capital24_2/src/bloc/login/LoginBloc.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/providers/login/LoginClienteProvider.dart';
 import 'package:capital24_2/src/providers/login/Provider.dart';
 import 'package:capital24_2/src/utils/Utilerias.dart';
@@ -71,9 +72,12 @@ class _LoginClienteState extends State<LoginCliente> {
                               color: Theme.of(context).dividerColor,
                             ),
                             onTap: () {
+                              final _prefs = PreferenciasUsuario();
                               bloc.changeUsernameCliente("           ");
                               bloc.changePasswordCliente("           ");
+                              _prefs.deletePrefs();
                               Navigator.pop(context);
+                              print('Preferencias =${_prefs.tipoUsuario}');
                             },
                           )
                         ],
@@ -150,15 +154,18 @@ class _LoginClienteState extends State<LoginCliente> {
   }
 
   Future _loginCliente(LoginBloc bloc, BuildContext context) async {
+    final _prefs = PreferenciasUsuario();
     print('---------');
     print('UsernameCliente: ${bloc.usernameCliente}');
     print('PasswordCliente: ${bloc.passwordCliente}');
     print('---------');
+    print(_prefs.tipoUsuario);
     Map info = await loginsClienteProvider.loginCliente(
         bloc.usernameCliente, bloc.passwordCliente);
 
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, '/homeCliente');
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/homeCliente', (Route<dynamic> route) => false);
     } else {
       mostarAlerta(
           context, 'Por favor ingresa correctamente el usuario y/o contraseña');

@@ -1,6 +1,6 @@
-import 'package:capital24_2/src/models/capitalBenefits/capitalPlatinumModel.dart';
+import 'package:capital24_2/src/models/capitalBenefits/descuentosCapitalModel.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
-import 'package:capital24_2/src/providers/capitalBenefits/CapitalPlatinumProvider.dart';
+import 'package:capital24_2/src/providers/capitalBenefits/DescuentosProvider.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
 import 'package:capital24_2/src/widgets/appTarjetaCapitalPlatinum.dart';
@@ -20,7 +20,7 @@ class _CapitalPlatinumState extends State<CapitalPlatinum> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Capital Platinum"),
+          title: Text("Muro Beneficios"),
           centerTitle: true,
           leading: GestureDetector(
               onTap: () {
@@ -60,13 +60,13 @@ class _CapitalPlatinumState extends State<CapitalPlatinum> {
 
   Widget _beneficioEspecial() {
     final _screenSize = MediaQuery.of(context).size;
-    final hotDealProvider = ListaHotDealsProvider();
+    final descuentoProvider = DescuentosCapitalProvider();
     return FutureBuilder(
-      future: hotDealProvider.getHotDeal(),
+      future: descuentoProvider.getDescuentoPlatinum(),
       builder: (BuildContext context,
-          AsyncSnapshot<List<DirectorioModel>> snapshot) {
+          AsyncSnapshot<List<DescuentoCapitalModel>> snapshot) {
         if (snapshot.hasData) {
-          return AppTarjetasTdu(listaHotDealsModel: snapshot.data);
+          return AppTarjetasTdu(listaDescuentoModel: snapshot.data);
         } else {
           return Container(
             height: _screenSize.height * .85,

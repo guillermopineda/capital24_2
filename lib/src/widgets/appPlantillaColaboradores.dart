@@ -67,7 +67,7 @@ class AppTarjetaPlantillaColaboradores extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pushNamed(
+                      Navigator.pushReplacementNamed(
                           context, '/plantillaColaboradoresDetalle',
                           arguments: plantillaColaboradoresModel![index]);
                     },

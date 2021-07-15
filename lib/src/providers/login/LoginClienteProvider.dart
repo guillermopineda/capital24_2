@@ -49,7 +49,7 @@ class LoginsClienteProvider {
       'password': passwordCliente,
       'returnToken': true
     };
-    final urlDatos = Uri.http(_urlDato, _pathDato);
+    final urlDatos = Uri.https(_urlDato, _pathDato);
 
     http.Response respDatos = await http.post(urlDatos,
         headers: headers, body: json.encode(authData));

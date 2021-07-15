@@ -13,7 +13,7 @@ class PlantillaColaboradoresDetalleOtro extends StatelessWidget {
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/plantillaColaboradoresDetalle');
             },
             child: Icon(Icons.arrow_back)),
       ),
