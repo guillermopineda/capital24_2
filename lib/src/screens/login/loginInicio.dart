@@ -1,4 +1,6 @@
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appSiCliente.dart';
+import 'package:capital24_2/src/widgets/appSiEmpleado.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -46,45 +48,51 @@ class __LoginInicioState extends State<LoginInicio> {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                SizedBox(height: _screenSize.height * .15),
-                AppLogo(),
-                SizedBox(height: _screenSize.height * .05),
-                _botonEmpleado(),
-                _botonCliente(),
-                SizedBox(height: _screenSize.height * .05),
-                GestureDetector(
-                  child: Text(
-                    'Crear cuenta nueva',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        decoration: TextDecoration.underline,
-                        decorationStyle: TextDecorationStyle.solid),
-                  ),
-                  onTap: () => _launchNuevoRegistro(),
-                )
-              ],
+    final _prefs = PreferenciasUsuario();
+    if (_prefs.tipoUsuario == 'empleado') {
+      return SiEmpleado();
+    } else if (_prefs.tipoUsuario == 'cliente') {
+      return SiCliente();
+    } else {
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(height: _screenSize.height * .15),
+                  AppLogo(),
+                  SizedBox(height: _screenSize.height * .05),
+                  _botonEmpleado(),
+                  _botonCliente(),
+                  SizedBox(height: _screenSize.height * .05),
+                  GestureDetector(
+                    child: Text(
+                      'Crear cuenta nueva',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          decoration: TextDecoration.underline,
+                          decorationStyle: TextDecorationStyle.solid),
+                    ),
+                    onTap: () => _launchNuevoRegistro(),
+                  )
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   Widget _botonEmpleado() {
-    final _prefs = new PreferenciasUsuario();
     return AppButton(
       name: "Colaborador",
       onPressed: () {
@@ -93,14 +101,11 @@ class __LoginInicioState extends State<LoginInicio> {
         _empleadoCiaController.text = "";
         _empleadoUsuarioController.text = "";
         _empleadoNipController.text = "";
-        _prefs.tipoUsuario = 'empleado';
-        print(_prefs.tipoUsuario);
       },
     );
   }
 
   Widget _botonCliente() {
-    final _prefs = new PreferenciasUsuario();
     return AppButton(
         name: "Cliente / Aliado",
         onPressed: () {
@@ -108,8 +113,6 @@ class __LoginInicioState extends State<LoginInicio> {
           FocusScope.of(context).requestFocus(_focusNode);
           _clienteUsuarioController.text = "";
           _clienteNipController.text = "";
-          _prefs.tipoUsuario = 'cliente';
-          print(_prefs.tipoUsuario);
         });
   }
 

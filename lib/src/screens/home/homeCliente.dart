@@ -7,6 +7,8 @@ import 'package:capital24_2/src/utils/Tema.dart';
 import 'package:capital24_2/src/widgets/appCumpleaniosCliente.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaCliente.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:capital24_2/src/widgets/appTarjetaComunicadosCliente.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,46 +24,54 @@ class _HomeClienteState extends State<HomeCliente> {
   bool shouldPop = true;
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return shouldPop;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Mi Muro"),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                FontAwesomeIcons.birthdayCake,
-              ),
-              onPressed: () => _listaCumpleanios(context),
-              autofocus: false,
-            )
-          ],
-        ),
-        drawer: usuarioHamburguesa(),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(FontAwesomeIcons.paintBrush),
-          //onPressed: ()=> _tema.setTema(miTemaObscuro),
-          onPressed: () => _cambioTema(),
-        ),
-        body: SafeArea(
-          bottom: true,
-          maintainBottomViewPadding: true,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  _muroTarjetas(),
-                ],
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'empleado') {
+        return NoEmpleado();
+      } else {
+        return WillPopScope(
+          onWillPop: () async {
+            return shouldPop;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text("Mi Muro"),
+              centerTitle: true,
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.birthdayCake,
+                  ),
+                  onPressed: () => _listaCumpleanios(context),
+                  autofocus: false,
+                )
+              ],
+            ),
+            drawer: usuarioHamburguesa(),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(FontAwesomeIcons.paintBrush),
+              //onPressed: ()=> _tema.setTema(miTemaObscuro),
+              onPressed: () => _cambioTema(),
+            ),
+            body: SafeArea(
+              bottom: true,
+              maintainBottomViewPadding: true,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      _muroTarjetas(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      }
+    }
   }
 
   usuarioHamburguesa() {

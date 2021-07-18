@@ -1,5 +1,8 @@
 import 'package:capital24_2/src/models/plantillaColaboradoresModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -7,31 +10,41 @@ class PlantillaColaboradoresDetalleOtro extends StatelessWidget {
   static const String routeName = '/plantillaColaboradoresDetalleOtro';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Otros Pagos Colaborador"),
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/plantillaColaboradoresDetalle');
-            },
-            child: Icon(Icons.arrow_back)),
-      ),
-      endDrawer: HamburguesaClienteEspejo(),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 15.0),
-        children: <Widget>[
-          SizedBox(
-            height: 15.0,
+    final _prefs = PreferenciasUsuario();
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'empleado') {
+        return NoEmpleado();
+      } else {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Otros Pagos Colaborador"),
+            centerTitle: true,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, '/plantillaColaboradoresDetalle');
+                },
+                child: Icon(Icons.arrow_back)),
           ),
-          _selectorPeriodos(context),
-          SizedBox(
-            height: 20.0,
+          endDrawer: HamburguesaClienteEspejo(),
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            children: <Widget>[
+              SizedBox(
+                height: 15.0,
+              ),
+              _selectorPeriodos(context),
+              SizedBox(
+                height: 20.0,
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        );
+      }
+    }
   }
 
   Widget _selectorPeriodos(context) {

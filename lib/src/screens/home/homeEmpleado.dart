@@ -7,6 +7,8 @@ import 'package:capital24_2/src/utils/Tema.dart';
 import 'package:capital24_2/src/widgets/appCumpleaniosEmpleado.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaCliente.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoCliente.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:capital24_2/src/widgets/appTarjetaComunicadosEmpleado.dart';
 import 'package:flutter/material.dart';
 
@@ -23,46 +25,54 @@ class _HomeEmpleadoState extends State<HomeEmpleado> {
   bool shouldPop = true;
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return shouldPop;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Mi Muro"),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                FontAwesomeIcons.birthdayCake,
-              ),
-              onPressed: () => _listaCumpleanios(context),
-              autofocus: false,
-            )
-          ],
-        ),
-        drawer: usuarioHamburguesa(),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(FontAwesomeIcons.paintBrush),
-          //onPressed: ()=> _tema.setTema(miTemaObscuro),
-          onPressed: () => _cambioTema(),
-        ),
-        body: SafeArea(
-          bottom: true,
-          maintainBottomViewPadding: true,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  _muroTarjetas(),
-                ],
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'cliente') {
+        return NoCliente();
+      } else {
+        return WillPopScope(
+          onWillPop: () async {
+            return shouldPop;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text("Mi Muro"),
+              centerTitle: true,
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.birthdayCake,
+                  ),
+                  onPressed: () => _listaCumpleanios(context),
+                  autofocus: false,
+                )
+              ],
+            ),
+            drawer: usuarioHamburguesa(),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(FontAwesomeIcons.paintBrush),
+              //onPressed: ()=> _tema.setTema(miTemaObscuro),
+              onPressed: () => _cambioTema(),
+            ),
+            body: SafeArea(
+              bottom: true,
+              maintainBottomViewPadding: true,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      _muroTarjetas(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      }
+    }
   }
 
   usuarioHamburguesa() {

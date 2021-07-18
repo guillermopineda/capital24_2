@@ -1,5 +1,8 @@
 import 'package:capital24_2/src/models/plantillaColaboradoresModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -9,60 +12,69 @@ class PlantillaColaboradoresDetalle extends StatelessWidget {
   static const String routeName = '/plantillaColaboradoresDetalle';
   @override
   Widget build(BuildContext context) {
+    final _prefs = PreferenciasUsuario();
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          title: Text("Kiosco Colaborador"),
-          centerTitle: true,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/colaboradores');
-              },
-              child: Icon(Icons.arrow_back)),
-        ),
-        endDrawer: HamburguesaClienteEspejo(),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: SizedBox(
-            height: _screenSize.height * .85,
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: _screenSize.height * .03,
-                    ),
-                    _plantillaPersonal(context),
-                    SizedBox(
-                      height: _screenSize.height * .03,
-                    ),
-                    _plantillaLaboral(context),
-                    SizedBox(
-                      height: _screenSize.height * .03,
-                    ),
-                    _plantillaContacto(context),
-                    SizedBox(
-                      height: _screenSize.height * .03,
-                    ),
-                    _plantillaDomicilio(context),
-                    SizedBox(
-                      height: _screenSize.height * .03,
-                    ),
-                    _detallePagos(context),
-                    SizedBox(
-                      height: _screenSize.height * .03,
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'empleado') {
+        return NoEmpleado();
+      } else {
+        return Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            appBar: AppBar(
+              title: Text("Kiosco Colaborador"),
+              centerTitle: true,
+              leading: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/colaboradores');
+                  },
+                  child: Icon(Icons.arrow_back)),
+            ),
+            endDrawer: HamburguesaClienteEspejo(),
+            body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: SizedBox(
+                height: _screenSize.height * .85,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: _screenSize.height * .03,
+                        ),
+                        _plantillaPersonal(context),
+                        SizedBox(
+                          height: _screenSize.height * .03,
+                        ),
+                        _plantillaLaboral(context),
+                        SizedBox(
+                          height: _screenSize.height * .03,
+                        ),
+                        _plantillaContacto(context),
+                        SizedBox(
+                          height: _screenSize.height * .03,
+                        ),
+                        _plantillaDomicilio(context),
+                        SizedBox(
+                          height: _screenSize.height * .03,
+                        ),
+                        _detallePagos(context),
+                        SizedBox(
+                          height: _screenSize.height * .03,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-        ));
+              ),
+            ));
+      }
+    }
   }
 
   Widget _plantillaPersonal(BuildContext context) {

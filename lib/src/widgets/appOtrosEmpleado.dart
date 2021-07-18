@@ -61,7 +61,7 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
   }
 
   SizedBox cajaOtros(Size _screenSize) {
-    if (widget.desglosesOtroModel!.isEmpty) {
+    if (widget.desglosesOtroModel!.length == 0) {
       return SizedBox(
         height: _screenSize.height * .1,
         child: mostrarOtro(),
@@ -75,7 +75,7 @@ class _AppOtrosEmpleadoState extends State<AppOtrosEmpleado> {
   }
 
   mostrarOtro() {
-    if (widget.desglosesOtroModel!.isEmpty) {
+    if (widget.desglosesOtroModel!.length == 0) {
       return ListTile(
         title: Text(
           "Sin información disponible",

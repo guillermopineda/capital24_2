@@ -1,4 +1,7 @@
 import 'package:capital24_2/src/models/comunicadoClienteModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appNoEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -7,21 +10,30 @@ class HomeClienteDetalle extends StatelessWidget {
   static const String routeName = '/homeClienteDetalle';
   @override
   Widget build(BuildContext context) {
+    final _prefs = PreferenciasUsuario();
     final ComunicadoModel comunicadoModel =
         ModalRoute.of(context)!.settings.arguments as ComunicadoModel;
-    return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: CustomScrollView(
-          slivers: <Widget>[
-            _crearAppBar(context, comunicadoModel),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              SizedBox(height: 10.0),
-              _nombreComunicado(context, comunicadoModel),
-              _descripcionComunicado(context, comunicadoModel),
-            ]))
-          ],
-        ));
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'empleado') {
+        return NoEmpleado();
+      } else {
+        return Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            body: CustomScrollView(
+              slivers: <Widget>[
+                _crearAppBar(context, comunicadoModel),
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  SizedBox(height: 10.0),
+                  _nombreComunicado(context, comunicadoModel),
+                  _descripcionComunicado(context, comunicadoModel),
+                ]))
+              ],
+            ));
+      }
+    }
   }
 
   Widget _crearAppBar(BuildContext context, ComunicadoModel comunicadoModel) {

@@ -9,6 +9,7 @@ import 'package:capital24_2/src/screens/home/homeEmpleado.dart';
 import 'package:capital24_2/src/screens/login/loginInicio.dart';
 import 'package:capital24_2/src/utils/Tema.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -17,9 +18,17 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: 'AIzaSyBnPX9ldMl4OChMHg7yXvTCkjRJOZBnOAI',
+          appId: '1:596829906915:ios:403dca1fc03c140dc522d6',
+          messagingSenderId: '596829906915',
+          projectId: 'capital24-flutter'));
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
   await NotificacionesPushProvider.initializeApp();
+
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 

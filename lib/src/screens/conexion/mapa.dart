@@ -1,8 +1,11 @@
 import 'package:capital24_2/src/bloc/mapa/mapa_bloc.dart';
 import 'package:capital24_2/src/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appBtnMiRuta.dart';
 import 'package:capital24_2/src/widgets/appBtnSeguirUbicacion.dart';
 import 'package:capital24_2/src/widgets/appBtnUbicacion.dart';
+import 'package:capital24_2/src/widgets/appNoCliente.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -27,24 +30,33 @@ class _MapaState extends State<Mapa> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-      body: BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
-          builder: (_, state) => crearMapa(state)),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          BtnUbicacion(),
-          BtnSeguirUbicacion(),
-          BtnMiRuta(),
-          // GestureDetector(
-          //   onTap: () {
-          //     calcularDestino(context);
-          //   },
-          //   child: Icon(FontAwesomeIcons.accusoft),
-          // )
-        ],
-      ),
-    );
+    final _prefs = PreferenciasUsuario();
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'cliente') {
+        return NoCliente();
+      } else {
+        return Scaffold(
+          body: BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
+              builder: (_, state) => crearMapa(state)),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              BtnUbicacion(),
+              BtnSeguirUbicacion(),
+              BtnMiRuta(),
+              // GestureDetector(
+              //   onTap: () {
+              //     calcularDestino(context);
+              //   },
+              //   child: Icon(FontAwesomeIcons.accusoft),
+              // )
+            ],
+          ),
+        );
+      }
+    }
   }
 
   Widget crearMapa(MiUbicacionState state) {

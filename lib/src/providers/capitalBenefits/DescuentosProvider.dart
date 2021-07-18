@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class DescuentosCapitalProvider {
   final _prefs = PreferenciasUsuario();
   String _url = "capital24-5phdg.ondigitalocean.app";
-  String _path = "/descuentos/giro/6/";
+  String _path = "/descuentos/";
   List<DescuentoCapitalModel> descuentos = [];
 
   Future<List<DescuentoCapitalModel>> getDescuentoPlatinum() async {

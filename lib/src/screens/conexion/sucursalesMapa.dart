@@ -1,3 +1,6 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
+import 'package:capital24_2/src/widgets/appNoCliente.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,31 +18,40 @@ class _SucursalesMapaState extends State<SucursalesMapa> {
   String tipoMapa = 'streets';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Mapa - Cercános'),
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back)),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.my_location),
-            onPressed: () {
-              mapController.move((LatLng(19.6976575, -99.2229489)), 16);
-            },
-          )
-        ],
-      ),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SafeArea(
-          bottom: true,
-          maintainBottomViewPadding: true,
-          child: _crearFlutterMap()),
-      floatingActionButton: _botonFlotanteRuta(),
-    );
+    final _prefs = PreferenciasUsuario();
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'cliente') {
+        return NoCliente();
+      } else {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Mapa - Cercános'),
+            centerTitle: true,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back)),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.my_location),
+                onPressed: () {
+                  mapController.move((LatLng(19.6976575, -99.2229489)), 16);
+                },
+              )
+            ],
+          ),
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SafeArea(
+              bottom: true,
+              maintainBottomViewPadding: true,
+              child: _crearFlutterMap()),
+          floatingActionButton: _botonFlotanteRuta(),
+        );
+      }
+    }
   }
 
   Widget _botonFlotanteRuta() {

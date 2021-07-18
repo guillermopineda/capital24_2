@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class DesglosesOtroProvider {
   final _prefs = PreferenciasUsuario();
   String _url = "capital24-5phdg.ondigitalocean.app";
-  String _path = "/empleado/desglose-de-pagos/otros";
+  String _path = "/empleado/desglose-de-pagos/otros/";
 
   Future<List<DesgloseOtroModel>> getDesgloseOtro() async {
     final url = Uri.https(_url, _path);
@@ -21,7 +21,7 @@ class DesglosesOtroProvider {
 
     final dataOtros = json.decode(utf8.decode(resp.bodyBytes));
     final desglosesOtros = new ListaDesgloseOtroModel.fromJsonList(dataOtros);
-
+    print(dataOtros);
     return desglosesOtros.items!.toList();
   }
 }

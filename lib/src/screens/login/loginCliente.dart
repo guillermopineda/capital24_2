@@ -4,6 +4,8 @@ import 'package:capital24_2/src/providers/login/LoginClienteProvider.dart';
 import 'package:capital24_2/src/providers/login/Provider.dart';
 import 'package:capital24_2/src/utils/Utilerias.dart';
 import 'package:capital24_2/src/widgets/appButton.dart';
+import 'package:capital24_2/src/widgets/appSiCliente.dart';
+import 'package:capital24_2/src/widgets/appSiEmpleado.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,63 +44,70 @@ class _LoginClienteState extends State<LoginCliente> {
 
   @override
   Widget build(BuildContext context) {
+    final _prefs = PreferenciasUsuario();
     final bloc = ProviderLogin.of(context);
     final _screenSize = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Form(
-            key: _formkey,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    SizedBox(
-                      height: _screenSize.height * .05,
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          GestureDetector(
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Theme.of(context).dividerColor,
-                            ),
-                            onTap: () {
-                              final _prefs = PreferenciasUsuario();
-                              bloc.changeUsernameCliente("           ");
-                              bloc.changePasswordCliente("           ");
-                              _prefs.deletePrefs();
-                              Navigator.pop(context);
-                              print('Preferencias =${_prefs.tipoUsuario}');
-                            },
-                          )
-                        ],
+    if (_prefs.tipoUsuario == 'empleado') {
+      return SiEmpleado();
+    } else if (_prefs.tipoUsuario == 'cliente') {
+      return SiCliente();
+    } else {
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Form(
+              key: _formkey,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SizedBox(
+                        height: _screenSize.height * .05,
                       ),
-                    ),
-                    SizedBox(
-                      height: _screenSize.height * .05,
-                    ),
-                    AppLogo(),
-                    SizedBox(
-                      height: _screenSize.height * .05,
-                    ),
-                    _clienteUsuarioLogin(bloc),
-                    _clienteNipLogin(bloc),
-                    _botonClienteLogin(bloc),
-                  ],
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            GestureDetector(
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Theme.of(context).dividerColor,
+                              ),
+                              onTap: () {
+                                final _prefs = PreferenciasUsuario();
+                                bloc.changeUsernameCliente("           ");
+                                bloc.changePasswordCliente("           ");
+                                _prefs.deletePrefs();
+                                Navigator.pop(context);
+                                print('Preferencias =${_prefs.tipoUsuario}');
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: _screenSize.height * .05,
+                      ),
+                      AppLogo(),
+                      SizedBox(
+                        height: _screenSize.height * .05,
+                      ),
+                      _clienteUsuarioLogin(bloc),
+                      _clienteNipLogin(bloc),
+                      _botonClienteLogin(bloc),
+                    ],
+                  ),
                 ),
-              ),
-            )),
-      ),
-    );
+              )),
+        ),
+      );
+    }
   }
 
   Widget _clienteUsuarioLogin(LoginBloc bloc) {
@@ -166,6 +175,8 @@ class _LoginClienteState extends State<LoginCliente> {
     if (info['ok']) {
       Navigator.pushNamedAndRemoveUntil(
           context, '/homeCliente', (Route<dynamic> route) => false);
+      _prefs.tipoUsuario = 'empleado';
+      print(_prefs.tipoUsuario);
     } else {
       mostarAlerta(
           context, 'Por favor ingresa correctamente el usuario y/o contraseña');

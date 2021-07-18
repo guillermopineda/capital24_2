@@ -1,6 +1,7 @@
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,49 +14,53 @@ class Asismed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Asismed"),
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back)),
-      ),
-      endDrawer: usuarioHamburguesa(),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: _screenSize.height * .03,
-                ),
-                _cardNotas(context),
-                SizedBox(
-                  height: _screenSize.height * .03,
-                ),
-                _cardTelAsismed(context),
-                SizedBox(
-                  height: _screenSize.height * .03,
-                ),
-                _cardPhoneAsismed(context),
-                SizedBox(
-                  height: _screenSize.height * .03,
-                ),
-                _cardWebAsismed(context),
-                SizedBox(
-                  height: _screenSize.height * .03,
-                ),
-              ],
-            ),
-          ]),
-    );
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("Asismed"),
+          centerTitle: true,
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back)),
+        ),
+        endDrawer: usuarioHamburguesa(),
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: _screenSize.height * .03,
+                  ),
+                  _cardNotas(context),
+                  SizedBox(
+                    height: _screenSize.height * .03,
+                  ),
+                  _cardTelAsismed(context),
+                  SizedBox(
+                    height: _screenSize.height * .03,
+                  ),
+                  _cardPhoneAsismed(context),
+                  SizedBox(
+                    height: _screenSize.height * .03,
+                  ),
+                  _cardWebAsismed(context),
+                  SizedBox(
+                    height: _screenSize.height * .03,
+                  ),
+                ],
+              ),
+            ]),
+      );
+    }
   }
 
   usuarioHamburguesa() {

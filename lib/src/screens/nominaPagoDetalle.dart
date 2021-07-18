@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:capital24_2/src/models/nominaModel.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoCliente.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,134 +35,142 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
         ModalRoute.of(context)!.settings.arguments as DesglosePagoModel;
     var f = NumberFormat('#,###,###.0#', 'en_US');
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text("Detalle Mis Pagos"),
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back)),
-      ),
-      endDrawer: HamburguesaEmpleadoEspejo(),
-      body: ModalProgressHUD(
-        progressIndicator: AlertDialog(
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'cliente') {
+        return NoCliente();
+      } else {
+        return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
-          elevation: 5.0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: _screenSize.height * .01),
-              Text(
-                "Descargando CFDI",
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: _screenSize.height * .01),
-              Text(
-                "Por favor consulta la descarga en tu dispositivo",
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: _screenSize.height * .03),
-              Icon(FontAwesomeIcons.fileDownload,
-                  color: Theme.of(context).dividerColor, size: 50),
-              SizedBox(height: _screenSize.height * .03),
-              Container(
-                  width: _screenSize.width * .5,
-                  child: LinearProgressIndicator(
-                    backgroundColor: Theme.of(context).dividerColor,
-                  ))
-            ],
+          appBar: AppBar(
+            title: Text("Detalle Mis Pagos"),
+            centerTitle: true,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back)),
           ),
-        ),
-        inAsyncCall: showSpinner,
-        child: SafeArea(
-          bottom: true,
-          maintainBottomViewPadding: true,
-          child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: desglosesPagoModel.pagos!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: ExpansionTile(
-                      title: Text(
-                        "Periodo " +
-                            desglosesPagoModel.pagos![index].proceso
-                                .toString() +
-                            " " +
-                            desglosesPagoModel.pagos![index].periodo.toString(),
-                        style: TextStyle(fontSize: 16.0),
-                        textAlign: TextAlign.left,
-                      ),
-                      trailing: Icon(
-                        Icons.expand_more,
-                        color: Theme.of(context).dividerColor,
-                      ),
-                      children: <Widget>[
-                        Divider(
-                          color: Theme.of(context).dividerColor,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
+          endDrawer: HamburguesaEmpleadoEspejo(),
+          body: ModalProgressHUD(
+            progressIndicator: AlertDialog(
+              backgroundColor: Theme.of(context).backgroundColor,
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: _screenSize.height * .01),
+                  Text(
+                    "Descargando CFDI",
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyText1!.color),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: _screenSize.height * .01),
+                  Text(
+                    "Por favor consulta la descarga en tu dispositivo",
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyText1!.color),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: _screenSize.height * .03),
+                  Icon(FontAwesomeIcons.fileDownload,
+                      color: Theme.of(context).dividerColor, size: 50),
+                  SizedBox(height: _screenSize.height * .03),
+                  Container(
+                      width: _screenSize.width * .5,
+                      child: LinearProgressIndicator(
+                        backgroundColor: Theme.of(context).dividerColor,
+                      ))
+                ],
+              ),
+            ),
+            inAsyncCall: showSpinner,
+            child: SafeArea(
+              bottom: true,
+              maintainBottomViewPadding: true,
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: desglosesPagoModel.pagos!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: ExpansionTile(
+                          title: Text(
+                            "Periodo " +
+                                desglosesPagoModel.pagos![index].proceso
+                                    .toString() +
+                                " " +
+                                desglosesPagoModel.pagos![index].periodo
+                                    .toString(),
+                            style: TextStyle(fontSize: 16.0),
+                            textAlign: TextAlign.left,
+                          ),
+                          trailing: Icon(
+                            Icons.expand_more,
+                            color: Theme.of(context).dividerColor,
+                          ),
                           children: <Widget>[
-                            ListTile(
-                              subtitle: Text(
-                                "Banco Colaborador",
-                                textAlign: TextAlign.left,
-                              ),
-                              title: Text(desglosesPagoModel.pagos![index].banco
-                                  .toString()),
+                            Divider(
+                              color: Theme.of(context).dividerColor,
                             ),
-                            ListTile(
-                              subtitle: Text(
-                                "Cuenta Colaborador",
-                                textAlign: TextAlign.left,
-                              ),
-                              title: Text(desglosesPagoModel
-                                  .pagos![index].cuenta
-                                  .toString()),
-                            ),
-                            ListTile(
-                              subtitle: Text(
-                                "Clabe Colaborador",
-                                textAlign: TextAlign.left,
-                              ),
-                              title: Text(desglosesPagoModel
-                                  .pagos![index].cuentaClabe
-                                  .toString()),
-                            ),
-                            ListTile(
-                              subtitle: Text(
-                                "Lugar de Pago",
-                                textAlign: TextAlign.left,
-                              ),
-                              title: Text(desglosesPagoModel
-                                  .pagos![index].lugarPago
-                                  .toString()),
-                            ),
-                            ListTile(
-                              subtitle: Text(
-                                "Importe Depositado",
-                                textAlign: TextAlign.left,
-                              ),
-                              title: Text(f
-                                  .format(
-                                      desglosesPagoModel.pagos![index].importe)
-                                  .toString()),
-                            ),
-                            mostrarCFDI(context, index),
-                            /*   ListTile(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  subtitle: Text(
+                                    "Banco Colaborador",
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  title: Text(desglosesPagoModel
+                                      .pagos![index].banco
+                                      .toString()),
+                                ),
+                                ListTile(
+                                  subtitle: Text(
+                                    "Cuenta Colaborador",
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  title: Text(desglosesPagoModel
+                                      .pagos![index].cuenta
+                                      .toString()),
+                                ),
+                                ListTile(
+                                  subtitle: Text(
+                                    "Clabe Colaborador",
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  title: Text(desglosesPagoModel
+                                      .pagos![index].cuentaClabe
+                                      .toString()),
+                                ),
+                                ListTile(
+                                  subtitle: Text(
+                                    "Lugar de Pago",
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  title: Text(desglosesPagoModel
+                                      .pagos![index].lugarPago
+                                      .toString()),
+                                ),
+                                ListTile(
+                                  subtitle: Text(
+                                    "Importe Depositado",
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  title: Text(f
+                                      .format(desglosesPagoModel
+                                          .pagos![index].importe)
+                                      .toString()),
+                                ),
+                                mostrarCFDI(context, index),
+                                /*   ListTile(
                               subtitle: Text("Descarga",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -174,17 +184,19 @@ class _NominaPagoDetalleState extends State<NominaPagoDetalle> {
                                 color: Theme.of(context).dividerColor,
                               ),
                             ), */
-                            Divider(
-                              color: Theme.of(context).dividerColor,
-                            ),
+                                Divider(
+                                  color: Theme.of(context).dividerColor,
+                                ),
+                              ],
+                            )
                           ],
-                        )
-                      ],
-                    ));
-              }),
-        ),
-      ),
-    );
+                        ));
+                  }),
+            ),
+          ),
+        );
+      }
+    }
   }
 
   mostrarCFDI(BuildContext context, int index) {

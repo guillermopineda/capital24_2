@@ -1,6 +1,9 @@
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/providers/IndicadoresNegocioProvider.dart';
 import 'package:capital24_2/src/widgets/appCostoPeriodo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -8,54 +11,63 @@ class IndicadoresNegocio extends StatelessWidget {
   static const String routeName = '/indicadoresNegocio';
   @override
   Widget build(BuildContext context) {
+    final _prefs = PreferenciasUsuario();
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text("Indicadores de Negocio"),
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back)),
-      ),
-      endDrawer: HamburguesaClienteEspejo(),
-      body: SafeArea(
-        bottom: true,
-        maintainBottomViewPadding: true,
-        child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: _screenSize.height * .03,
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'empleado') {
+        return NoEmpleado();
+      } else {
+        return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          appBar: AppBar(
+            title: Text("Indicadores de Negocio"),
+            centerTitle: true,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back)),
+          ),
+          endDrawer: HamburguesaClienteEspejo(),
+          body: SafeArea(
+            bottom: true,
+            maintainBottomViewPadding: true,
+            child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: _screenSize.height * .03,
+                      ),
+                      _cardAcumulados(context),
+                      SizedBox(
+                        height: _screenSize.height * .03,
+                      ),
+                      _cardAltasBajas(context),
+                      SizedBox(
+                        height: _screenSize.height * .03,
+                      ),
+                      _cardRotacionPersonal(context),
+                      SizedBox(
+                        height: _screenSize.height * .03,
+                      ),
+                      _cardHeadcount(context),
+                      SizedBox(
+                        height: _screenSize.height * .03,
+                      ),
+                    ],
                   ),
-                  _cardAcumulados(context),
-                  SizedBox(
-                    height: _screenSize.height * .03,
-                  ),
-                  _cardAltasBajas(context),
-                  SizedBox(
-                    height: _screenSize.height * .03,
-                  ),
-                  _cardRotacionPersonal(context),
-                  SizedBox(
-                    height: _screenSize.height * .03,
-                  ),
-                  _cardHeadcount(context),
-                  SizedBox(
-                    height: _screenSize.height * .03,
-                  ),
-                ],
-              ),
-            ]),
-      ),
-    );
+                ]),
+          ),
+        );
+      }
+    }
   }
 
   Widget _cardAcumulados(context) {

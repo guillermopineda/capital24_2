@@ -4,7 +4,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:capital24_2/src/models/kardexClienteModel.dart';
+import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoEmpleado.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,62 +17,73 @@ class KardexClienteDetalle extends StatelessWidget {
   static const String routeName = '/kardexClienteDetalle';
   @override
   Widget build(BuildContext context) {
+    final _prefs = PreferenciasUsuario();
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          title: Text("Kardex Detalle"),
-          centerTitle: true,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.arrow_back)),
-        ),
-        endDrawer: HamburguesaClienteEspejo(),
-        body: Center(
-            child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Column(
-                    children: [
-                      Container(
-                        width: _screenSize.width * .8,
-                        child: Text(
-                          "Consulta ausentismos e incapacidades de colaboradores",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color),
-                        ),
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      if (_prefs.tipoUsuario == 'empleado') {
+        return NoEmpleado();
+      } else {
+        return Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            appBar: AppBar(
+              title: Text("Kardex Detalle"),
+              centerTitle: true,
+              leading: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(Icons.arrow_back)),
+            ),
+            endDrawer: HamburguesaClienteEspejo(),
+            body: Center(
+                child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Container(
+                            width: _screenSize.width * .8,
+                            child: Text(
+                              "Consulta ausentismos e incapacidades de colaboradores",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.touch_app,
+                        color: Theme.of(context).dividerColor,
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.touch_app,
-                    color: Theme.of(context).dividerColor,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: _screenSize.height * .05,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 40),
-              height: _screenSize.height * .7,
-              width: double.infinity,
-              child: _graficaKardex(context),
-            ),
-          ]),
-        )));
+                ),
+                SizedBox(
+                  height: _screenSize.height * .05,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 40),
+                  height: _screenSize.height * .7,
+                  width: double.infinity,
+                  child: _graficaKardex(context),
+                ),
+              ]),
+            )));
+      }
+    }
   }
 
   _graficaKardex(context) {

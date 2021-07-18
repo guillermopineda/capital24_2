@@ -1,8 +1,8 @@
 import 'package:capital24_2/src/bloc/login/LoginBloc.dart';
-import 'package:capital24_2/src/helpers/helpers.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
-import 'package:capital24_2/src/screens/home/homeEmpleado.dart';
 import 'package:capital24_2/src/utils/Utilerias.dart';
+import 'package:capital24_2/src/widgets/appSiCliente.dart';
+import 'package:capital24_2/src/widgets/appSiEmpleado.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,59 +43,66 @@ class _LoginEmpleadoState extends State<LoginEmpleado> {
 
   @override
   Widget build(BuildContext context) {
+    final _prefs = PreferenciasUsuario();
     final bloc = ProviderLogin.of(context);
     final _screenSize = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Form(
-            key: _formkey,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    SizedBox(
-                      height: _screenSize.height * .05,
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          GestureDetector(
-                              onTap: () {
-                                final _prefs = PreferenciasUsuario();
-                                bloc.changeUsername("                  ");
-                                bloc.changePassword("                  ");
-                                _prefs.deletePrefs();
-                                Navigator.pop(context);
-                              },
-                              child: Icon(Icons.arrow_back,
-                                  color: Theme.of(context).dividerColor)),
-                        ],
+    if (_prefs.tipoUsuario == 'empleado') {
+      return SiEmpleado();
+    } else if (_prefs.tipoUsuario == 'cliente') {
+      return SiCliente();
+    } else {
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Form(
+              key: _formkey,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SizedBox(
+                        height: _screenSize.height * .05,
                       ),
-                    ),
-                    SizedBox(
-                      height: _screenSize.height * .05,
-                    ),
-                    AppLogo(),
-                    SizedBox(
-                      height: _screenSize.height * .05,
-                    ),
-                    _empleadoUsuarioLogin(bloc),
-                    _empleadoNipLogin(bloc),
-                    _botonEmpleadoLogin(bloc),
-                  ],
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            GestureDetector(
+                                onTap: () {
+                                  final _prefs = PreferenciasUsuario();
+                                  bloc.changeUsername("                  ");
+                                  bloc.changePassword("                  ");
+                                  _prefs.deletePrefs();
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(Icons.arrow_back,
+                                    color: Theme.of(context).dividerColor)),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: _screenSize.height * .05,
+                      ),
+                      AppLogo(),
+                      SizedBox(
+                        height: _screenSize.height * .05,
+                      ),
+                      _empleadoUsuarioLogin(bloc),
+                      _empleadoNipLogin(bloc),
+                      _botonEmpleadoLogin(bloc),
+                    ],
+                  ),
                 ),
-              ),
-            )),
-      ),
-    );
+              )),
+        ),
+      );
+    }
   }
 
   Widget _empleadoUsuarioLogin(LoginBloc bloc) {
@@ -156,13 +163,14 @@ class _LoginEmpleadoState extends State<LoginEmpleado> {
     print('Username: ${bloc.username}');
     print('Password: ${bloc.password}');
     print('=========');
-
+    print(_prefs.tipoUsuario);
 /* 
     Navigator.pushReplacementNamed(context, '/muro'); */
     Map info = await loginsProvider.loginUsuario(bloc.username, bloc.password);
     if (info['ok']) {
       Navigator.pushNamedAndRemoveUntil(
           context, '/homeEmpleado', (Route<dynamic> route) => false);
+      _prefs.tipoUsuario = 'empleado';
       print(_prefs.tipoUsuario);
     } else {
       mostarAlerta(

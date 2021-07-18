@@ -2,6 +2,7 @@ import 'package:capital24_2/src/models/capitalBenefits/descuentosCapitalModel.da
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaClienteEspejo.dart';
 import 'package:capital24_2/src/widgets/appHamburguesaEmpleadoEspejo.dart';
+import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,37 +15,41 @@ class CapitalPlatinumDetalle extends StatelessWidget {
     final DescuentoCapitalModel listaDescuentoModel =
         ModalRoute.of(context)!.settings.arguments as DescuentoCapitalModel;
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Beneficios Detalle"),
-          centerTitle: true,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.arrow_back)),
-        ),
-        endDrawer: usuarioHamburguesa(),
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: SafeArea(
-          bottom: true,
-          maintainBottomViewPadding: true,
-          child: Stack(
-            children: <Widget>[
-              SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: _screenSize.height * .10),
-                    _carruselImagenes(context, listaDescuentoModel),
-                    _paginaWeb(context, listaDescuentoModel),
-                  ],
-                ),
-              )
-            ],
+    if (_prefs.tipoUsuario == '') {
+      return NoLogin();
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Beneficios Detalle"),
+            centerTitle: true,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back)),
           ),
-        ));
+          endDrawer: usuarioHamburguesa(),
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SafeArea(
+            bottom: true,
+            maintainBottomViewPadding: true,
+            child: Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: _screenSize.height * .10),
+                      _carruselImagenes(context, listaDescuentoModel),
+                      _paginaWeb(context, listaDescuentoModel),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ));
+    }
   }
 
   usuarioHamburguesa() {
