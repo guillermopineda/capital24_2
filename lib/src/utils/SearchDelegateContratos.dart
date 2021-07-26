@@ -67,7 +67,7 @@ class VencimientoSearch extends SearchDelegate {
       ));
     } else {
       final colaboradores = vencimientoContratosModel;
-      final listaSugerida = (query.isEmpty)
+      final listaSugerida = (query.length == 0)
           ? []
           : colaboradores!
               .where(
@@ -133,7 +133,7 @@ class VencimientoSearch extends SearchDelegate {
     } else {
       final colaboradores = vencimientoContratosModel;
 
-      final listaSugerida = (query.isEmpty)
+      final listaSugerida = (query.length == 0)
           ? []
           : colaboradores!
               .where(

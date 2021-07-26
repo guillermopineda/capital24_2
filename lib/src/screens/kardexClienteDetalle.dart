@@ -11,7 +11,7 @@ import 'package:capital24_2/src/widgets/appNoLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:universal_echarts/universal_echarts.dart';
+//import 'package:universal_echarts/universal_echarts.dart';
 
 class KardexClienteDetalle extends StatelessWidget {
   static const String routeName = '/kardexClienteDetalle';
@@ -367,88 +367,122 @@ class KardexClienteDetalle extends StatelessWidget {
           kisweb = true;
         }
         return Center(
-          child: Container(child: UniversalEcharts.drawChart('''
-        {
+          child: Container(
+            width: _screenSize.width * .8,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "El contenido de esta sección es visible únicamente en la app Capital24 iOS y Android",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      fontSize: 40.0),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.appStoreIos,
+                      size: 48,
+                      color: Theme.of(context).dividerColor,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      FontAwesomeIcons.googlePlay,
+                      size: 46,
+                      color: Theme.of(context).dividerColor,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            //         child: UniversalEcharts.drawChart('''
+            //     {
 
-    tooltip: {
-        show: false
-    },
-    legend: {
-        show:false,
-        orient: 'vertical',
-        left: 'left',
-        data: ${jsonEncode(incidenciasKardex)},
-    },
-    series: [
-        {
-            name: 'Circulo',
-            type: 'pie',
-            avoidLabelOverlap: false,
-            center: ['50%', '40%'],
-            radius: ['75%','50%'],
-            data: [
-              {
-              name: ${jsonEncode(incAccidenteMarca())},
-              value: ${jsonEncode(incAccidenteTotal())}
-             },
-             {
-              name: ${jsonEncode(permisoSGMarca())},
-              value: ${jsonEncode(permisoSGTotal())}
-              },
-              {
-              name: ${jsonEncode(incapacidadEGMarca())},
-              value: ${jsonEncode(incapacidadEGTotal())}
-              },
+            // tooltip: {
+            //     show: false
+            // },
+            // legend: {
+            //     show:false,
+            //     orient: 'vertical',
+            //     left: 'left',
+            //     data: ${jsonEncode(incidenciasKardex)},
+            // },
+            // series: [
+            //     {
+            //         name: 'Circulo',
+            //         type: 'pie',
+            //         avoidLabelOverlap: false,
+            //         center: ['50%', '40%'],
+            //         radius: ['75%','50%'],
+            //         data: [
+            //           {
+            //           name: ${jsonEncode(incAccidenteMarca())},
+            //           value: ${jsonEncode(incAccidenteTotal())}
+            //          },
+            //          {
+            //           name: ${jsonEncode(permisoSGMarca())},
+            //           value: ${jsonEncode(permisoSGTotal())}
+            //           },
+            //           {
+            //           name: ${jsonEncode(incapacidadEGMarca())},
+            //           value: ${jsonEncode(incapacidadEGTotal())}
+            //           },
 
-              {
-              name: ${jsonEncode(incEnlaceMarca())},
-              value: ${jsonEncode(incEnlaceTotal())}
-              },
-              {
-              name: ${jsonEncode(incMatMarca())},
-              value: ${jsonEncode(incMatTotal())}
-              },
-              {
-              name: ${jsonEncode(permisoCGMarca())},
-              value: ${jsonEncode(permisoCGTotal())}
-              },
-              {
-              name: ${jsonEncode(faltasMarca())},
-              value: ${jsonEncode(faltasTotal())}
-              },
-              {
-              name: ${jsonEncode(diaSMarca())},
-              value: ${jsonEncode(diaSTotal())}
-              },
-              {
-              name: ${jsonEncode(vacacionesMarca())},
-              value: ${jsonEncode(vacacionesTotal())}
-              },
+            //           {
+            //           name: ${jsonEncode(incEnlaceMarca())},
+            //           value: ${jsonEncode(incEnlaceTotal())}
+            //           },
+            //           {
+            //           name: ${jsonEncode(incMatMarca())},
+            //           value: ${jsonEncode(incMatTotal())}
+            //           },
+            //           {
+            //           name: ${jsonEncode(permisoCGMarca())},
+            //           value: ${jsonEncode(permisoCGTotal())}
+            //           },
+            //           {
+            //           name: ${jsonEncode(faltasMarca())},
+            //           value: ${jsonEncode(faltasTotal())}
+            //           },
+            //           {
+            //           name: ${jsonEncode(diaSMarca())},
+            //           value: ${jsonEncode(diaSTotal())}
+            //           },
+            //           {
+            //           name: ${jsonEncode(vacacionesMarca())},
+            //           value: ${jsonEncode(vacacionesTotal())}
+            //           },
 
-            ],
-            labelLine: {
-                show: false
-                },
-            label: {
-                show: false,
-                formatter: '{c} DÍAS {b} {d}%',
-                position: 'center'
-            },
-            emphasis: {
-                label: {
-                    show: true,
-                    fontSize: '16',
-                    fontWeight: 'bold',
-                    formatter: '{b}({d}%) = {c} DÍA',
-                    color: '#003C71'
+            //         ],
+            //         labelLine: {
+            //             show: false
+            //             },
+            //         label: {
+            //             show: false,
+            //             formatter: '{c} DÍAS {b} {d}%',
+            //             position: 'center'
+            //         },
+            //         emphasis: {
+            //             label: {
+            //                 show: true,
+            //                 fontSize: '16',
+            //                 fontWeight: 'bold',
+            //                 formatter: '{b}({d}%) = {c} DÍA',
+            //                 color: '#003C71'
 
-                }
-            }
-        }
-    ]
+            //             }
+            //         }
+            //     }
+            // ]
 
-        }
-        ''')),
+            //     }
+            //     ''')
+          ),
         );
       }
     }

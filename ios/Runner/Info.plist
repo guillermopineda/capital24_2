@@ -25,14 +25,11 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Compartir siempre localización (Recomendado)</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Compartir localización siempre?</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Es necesario compartir el acceso a la localización</string>
+	<string>¿Compartir localización siempre?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Compartir localización solo en uso de App</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

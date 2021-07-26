@@ -36,7 +36,7 @@ class AlertaCumpleaniosCliente extends StatelessWidget {
   }
 
   diaCumpleanio(context) {
-    if (cumpleanioModel!.isEmpty) {
+    if (cumpleanioModel!.length == 0) {
       return ListTile(
         title: Text(
           "Sin cumpleaños que celebrar",

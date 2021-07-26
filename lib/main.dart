@@ -1,5 +1,5 @@
-import 'package:capital24_2/src/bloc/mapa/mapa_bloc.dart';
-import 'package:capital24_2/src/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
+// import 'package:capital24_2/src/bloc/mapa/mapa_bloc.dart';
+// import 'package:capital24_2/src/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 import 'package:capital24_2/src/preferences/PreferenciasUsuario.dart';
 import 'package:capital24_2/src/providers/login/Provider.dart';
 import 'package:capital24_2/src/providers/services/NotificacionesProviders.dart';
@@ -11,7 +11,7 @@ import 'package:capital24_2/src/utils/Tema.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -62,27 +62,37 @@ class _MyAppState extends State<MyApp> {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = new PreferenciasUsuario();
     if (prefs.token == 'Sin token') {
+      // return ProviderLogin(
+      //   child: MultiBlocProvider(
+      //     child: ChangeNotifierProvider<TemaSwitch>(
+      //         create: (context) => TemaSwitch(miTema),
+      //         child: NoLoginApp(analytics)),
+      //     providers: [
+      //       BlocProvider(create: (_) => MiUbicacionBloc()),
+      //       BlocProvider(create: (_) => MapaBloc()),
+      //     ],
+      //   ),
+      // );
       return ProviderLogin(
-        child: MultiBlocProvider(
           child: ChangeNotifierProvider<TemaSwitch>(
-              create: (context) => TemaSwitch(miTema),
-              child: NoLoginApp(analytics)),
-          providers: [
-            BlocProvider(create: (_) => MiUbicacionBloc()),
-            BlocProvider(create: (_) => MapaBloc()),
-          ],
-        ),
-      );
+        create: (context) => TemaSwitch(miTema),
+        child: NoLoginApp(analytics),
+      ));
     } else {
+      // return ProviderLogin(
+      //     child: MultiBlocProvider(
+      //   child: ChangeNotifierProvider<TemaSwitch>(
+      //       create: (context) => TemaSwitch(miTema),
+      //       child: OkLoginApp(analytics)),
+      //   providers: [
+      //     BlocProvider(create: (_) => MiUbicacionBloc()),
+      //     BlocProvider(create: (_) => MapaBloc()),
+      //   ],
+      // ));
       return ProviderLogin(
-          child: MultiBlocProvider(
-        child: ChangeNotifierProvider<TemaSwitch>(
-            create: (context) => TemaSwitch(miTema),
-            child: OkLoginApp(analytics)),
-        providers: [
-          BlocProvider(create: (_) => MiUbicacionBloc()),
-          BlocProvider(create: (_) => MapaBloc()),
-        ],
+          child: ChangeNotifierProvider<TemaSwitch>(
+        create: (context) => TemaSwitch(miTema),
+        child: OkLoginApp(analytics),
       ));
     }
   }

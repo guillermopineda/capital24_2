@@ -681,7 +681,7 @@ getDatoSueldo(context) {
 _mostrarOtros(context) {
   final PlantillaColaboradoresModel plantillaColaboradoresModel =
       ModalRoute.of(context)!.settings.arguments as PlantillaColaboradoresModel;
-  if (plantillaColaboradoresModel.otros!.isEmpty) {
+  if (plantillaColaboradoresModel.otros!.length == 0) {
     return Container();
   } else {
     return ListTile(

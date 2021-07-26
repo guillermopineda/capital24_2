@@ -100,7 +100,7 @@ class PlantillaColaboradoresDetallePago extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments
             as PlantillaColaboradoresModel;
 
-    if (plantillaColaboradoresModel.pagos!.isEmpty) {
+    if (plantillaColaboradoresModel.pagos!.length == 0) {
       return SizedBox(
         height: _screenSize.height * .1,
         child: mostrarPago(context),
@@ -117,7 +117,7 @@ class PlantillaColaboradoresDetallePago extends StatelessWidget {
     final PlantillaColaboradoresModel plantillaColaboradoresModel =
         ModalRoute.of(context)!.settings.arguments
             as PlantillaColaboradoresModel;
-    if (plantillaColaboradoresModel.pagos!.isEmpty) {
+    if (plantillaColaboradoresModel.pagos!.length == 0) {
       return ListTile(
         title: Text(
           "Sin información disponible",

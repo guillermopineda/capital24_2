@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:universal_echarts/universal_echarts.dart';
+//import 'package:universal_echarts/universal_echarts.dart';
 
 class AppHeadcount extends StatelessWidget {
   final IndicadorNegocioModel? headcountModel;
@@ -15,7 +15,7 @@ class AppHeadcount extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
-    if (headcountModel!.datos!.isEmpty) {
+    if (headcountModel!.datos!.length == 0) {
       return Center(
         child: Container(
           child: Column(
@@ -198,71 +198,103 @@ class AppHeadcount extends StatelessWidget {
       return Center(
         child: Container(
           width: _screenSize.width * .5,
-          child: UniversalEcharts.drawChart(('''
-      {
-        legend: {},
-        tooltip: {
-          trigger: 'axis',
-          axisPointer:{
-            type: 'shadow'
-          }
-        },
-        color: ['#5ce1e6','#cb6ce6'],
-        grid: {
-          left: '15%',
-          right:'10%'
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: true,
-          axisTick: {show: false},
-          data: [
-            'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
-            ]
-        },
-        yAxis: {
-          type: 'value',
-          gridIndex: 0,
-          splitLine:{
-            show:false,
-            },
-          axisTick:{
-            show:false,
-            },
-          axisLine:{
-            color: '#AEE099',
-            },
-          splitNumber:5,
-          splitArea: {
-            show: true,
-            areaStyle: {
-              color: [
-                'rgba(250,250,250,0.0)', 'rgba(217,217,214,0.1)'
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "El contenido de esta sección es visible únicamente en la app Capital24 iOS y Android",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontSize: 40.0),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.appStoreIos,
+                    size: 48,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    FontAwesomeIcons.googlePlay,
+                    size: 46,
+                    color: Theme.of(context).dividerColor,
+                  ),
                 ],
-            },
-          }
-        },
-        series:[
-   
-           {
-            name: ${jsonEncode(nombreAnioActual)},
-            type: 'bar',
-            barGap: 0,
-            data: ${jsonEncode(dataAnioActual)}
-          },
-          {
-            name: ${jsonEncode(nombreAnioAnterior)},
-            type: 'bar',
-            barGap: 0,
-            data: ${jsonEncode(dataAnioAnterior)}
-          }
-          
-          
-        ]
+              ),
+            ],
+          ),
+          //     child: UniversalEcharts.drawChart(('''
+          // {
+          //   legend: {},
+          //   tooltip: {
+          //     trigger: 'axis',
+          //     axisPointer:{
+          //       type: 'shadow'
+          //     }
+          //   },
+          //   color: ['#5ce1e6','#cb6ce6'],
+          //   grid: {
+          //     left: '15%',
+          //     right:'10%'
+          //   },
+          //   xAxis: {
+          //     type: 'category',
+          //     boundaryGap: true,
+          //     axisTick: {show: false},
+          //     data: [
+          //       'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
+          //       ]
+          //   },
+          //   yAxis: {
+          //     type: 'value',
+          //     gridIndex: 0,
+          //     splitLine:{
+          //       show:false,
+          //       },
+          //     axisTick:{
+          //       show:false,
+          //       },
+          //     axisLine:{
+          //       color: '#AEE099',
+          //       },
+          //     splitNumber:5,
+          //     splitArea: {
+          //       show: true,
+          //       areaStyle: {
+          //         color: [
+          //           'rgba(250,250,250,0.0)', 'rgba(217,217,214,0.1)'
+          //           ],
+          //       },
+          //     }
+          //   },
+          //   series:[
 
-      }
-      
-      ''')),
+          //      {
+          //       name: ${jsonEncode(nombreAnioActual)},
+          //       type: 'bar',
+          //       barGap: 0,
+          //       data: ${jsonEncode(dataAnioActual)}
+          //     },
+          //     {
+          //       name: ${jsonEncode(nombreAnioAnterior)},
+          //       type: 'bar',
+          //       barGap: 0,
+          //       data: ${jsonEncode(dataAnioAnterior)}
+          //     }
+
+          //   ]
+
+          // }
+
+          // ''')),
         ),
       );
     }

@@ -28,7 +28,7 @@ class PlantillaColaboradores extends StatelessWidget {
                   title: Text("Colaboradores"),
                   leading: GestureDetector(
                       onTap: () {
-                        Navigator.pop(context, true);
+                        Navigator.pushNamed(context, '/homeCliente');
                       },
                       child: Icon(Icons.arrow_back)),
                   centerTitle: true,

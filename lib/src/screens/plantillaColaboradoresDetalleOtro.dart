@@ -101,7 +101,7 @@ class PlantillaColaboradoresDetalleOtro extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments
             as PlantillaColaboradoresModel;
 
-    if (plantillaColaboradoresModel.otros!.isEmpty) {
+    if (plantillaColaboradoresModel.otros!.length == 0) {
       return SizedBox(
         height: _screenSize.height * .1,
         child: mostrarOtro(context),
@@ -118,7 +118,7 @@ class PlantillaColaboradoresDetalleOtro extends StatelessWidget {
     final PlantillaColaboradoresModel plantillaColaboradoresModel =
         ModalRoute.of(context)!.settings.arguments
             as PlantillaColaboradoresModel;
-    if (plantillaColaboradoresModel.otros!.isEmpty) {
+    if (plantillaColaboradoresModel.otros!.length == 0) {
       return ListTile(
         title: Text(
           "Sin información disponible",

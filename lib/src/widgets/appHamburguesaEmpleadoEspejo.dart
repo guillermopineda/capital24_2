@@ -116,22 +116,22 @@ class _HamburguesaEmpleadoEspejoState extends State<HamburguesaEmpleadoEspejo> {
                   Divider(
                     height: 10.0,
                   ),
-                  ListTile(
-                      title: Text("Conexión Remota"),
-                      leading: Icon(
-                        Icons.keyboard_arrow_left,
-                        color: Theme.of(context).dividerColor,
-                      ),
-                      trailing: Icon(
-                        FontAwesomeIcons.mapMarkedAlt,
-                        color: Theme.of(context).dividerColor,
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/conexionRemota');
-                      }),
-                  Divider(
-                    height: 10.0,
-                  ),
+                  // ListTile(
+                  //     title: Text("Conexión Remota"),
+                  //     leading: Icon(
+                  //       Icons.keyboard_arrow_left,
+                  //       color: Theme.of(context).dividerColor,
+                  //     ),
+                  //     trailing: Icon(
+                  //       FontAwesomeIcons.mapMarkedAlt,
+                  //       color: Theme.of(context).dividerColor,
+                  //     ),
+                  //     onTap: () {
+                  //       Navigator.pushNamed(context, '/conexionRemota');
+                  //     }),
+                  // Divider(
+                  //   height: 10.0,
+                  // ),
                   ListTile(
                       title: Text("Beneficios"),
                       leading: Icon(

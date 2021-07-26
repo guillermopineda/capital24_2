@@ -5,7 +5,7 @@ import 'package:capital24_2/src/models/altasBajasModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:universal_echarts/universal_echarts.dart';
+//import 'package:universal_echarts/universal_echarts.dart';
 
 class AppRotacionPersonal extends StatelessWidget {
   final IndicadorNegocioModel? rotacionModel;
@@ -15,7 +15,7 @@ class AppRotacionPersonal extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
-    if (rotacionModel!.datos!.isEmpty) {
+    if (rotacionModel!.datos!.length == 0) {
       return Center(
         child: Container(
           child: Column(
@@ -280,114 +280,151 @@ class AppRotacionPersonal extends StatelessWidget {
       } catch (e) {
         kisweb = true;
       }
-      return UniversalEcharts.drawChart((''' 
-       {
-    legend: {},
-    tooltip: {
-      formatter: function(params, ticket, callback) {
-                console.log(params)
-                var res = params[0].name;
-                for (var i = 0, l = params.length; i < l; i++) {
-                    res += '<br/><span style="color:' + params[i].color + '">\u25CF</span> '+ params[i].seriesName + ': ' + params[i].value + '%';
-                }
-                setTimeout(function() {
-                    
-                    callback(ticket, res);
-                }, 100)
-                return 'cargando';
-            },
-      trigger: 'axis',
-    },
+      return Center(
+          child: Container(
+        width: _screenSize.width * .8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "El contenido de esta sección es visible únicamente en la app Capital24 iOS y Android",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  fontSize: 40.0),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  FontAwesomeIcons.appStoreIos,
+                  size: 48,
+                  color: Theme.of(context).dividerColor,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  FontAwesomeIcons.googlePlay,
+                  size: 46,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ],
+            ),
+          ],
+        ),
 
+//       UniversalEcharts.drawChart(('''
+//        {
+//     legend: {},
+//     tooltip: {
+//       formatter: function(params, ticket, callback) {
+//                 console.log(params)
+//                 var res = params[0].name;
+//                 for (var i = 0, l = params.length; i < l; i++) {
+//                     res += '<br/><span style="color:' + params[i].color + '">\u25CF</span> '+ params[i].seriesName + ': ' + params[i].value + '%';
+//                 }
+//                 setTimeout(function() {
 
-    color: ['#FF9559','#FFCAAC'],
-    grid: {
-      left: '15%',
-      right:'15%'
-    },
-    xAxis: {
-            type: 'category',
-            boundaryGap: true,
-          
-            axisTick: {show: false},
-            data: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
-            },
-    yAxis: {type: 'value',
-            gridIndex: 0,
-            splitLine:{
-              show:true,
-            },
-            axisTick:{
-              show:true,
-            },
-            axisLabel: 
-              {
-              formatter: '{value} %'
-              },
-            axisLine:{
-              color: '#97dfe1',
-            },
-            splitNumber: 5,
-            splitArea: {
-              show: false,
-              areaStyle: {
-                color: ['rgba(250,250,250,0.0)', 'rgba(0,119,200,.2)'],
-                },
-            }
-            },
-    // Declare several bar series, each will be mapped
-    // to a column of dataset.source by default.
-    series: [
+//                     callback(ticket, res);
+//                 }, 100)
+//                 return 'cargando';
+//             },
+//       trigger: 'axis',
+//     },
 
-        {name: ${jsonEncode(nombreAnioActual)},
-          type: 'line',
-          barGap: 0,
-          data: ${jsonEncode(dataAnioActual)},
-          markPoint:{
-            label:{formatter: '{c}%'             
-                },
-            symbolSize: 75,
-            data:[
-              {type: 'max', name: 'Máximo'},
-              {type: 'min', name: 'Mínimo'}
-            ]
-          },
-          markLine:{
-             label:{formatter: '{c}%'             
-                },
-            data: [
-              {
-                type: 'average', 
-                name : 'Promedio'
-                
-                }
-            ]
-          }
-          },
-           {name: ${jsonEncode(nombreAnioAnterior)},
-          type: 'line',
-          barGap: 0,
-          data: ${jsonEncode(dataAnioAnterior)},
-          markPoint:{
-            symbolSize: 75,
-            label:{formatter: '{c}%'             
-                },
-            data:[
-              {type: 'max', name: 'Máximo'},
-              {type: 'min', name: 'Mínimo'}
-            ]
-          },
-          markLine:{
-             label:{formatter: '{c}%'             
-                },
-            data: [
-              {type: 'average', name : 'Promedio'}
-            ]
-          }
-          }
-    ]
-}
-    '''));
+//     color: ['#FF9559','#FFCAAC'],
+//     grid: {
+//       left: '15%',
+//       right:'15%'
+//     },
+//     xAxis: {
+//             type: 'category',
+//             boundaryGap: true,
+
+//             axisTick: {show: false},
+//             data: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+//             },
+//     yAxis: {type: 'value',
+//             gridIndex: 0,
+//             splitLine:{
+//               show:true,
+//             },
+//             axisTick:{
+//               show:true,
+//             },
+//             axisLabel:
+//               {
+//               formatter: '{value} %'
+//               },
+//             axisLine:{
+//               color: '#97dfe1',
+//             },
+//             splitNumber: 5,
+//             splitArea: {
+//               show: false,
+//               areaStyle: {
+//                 color: ['rgba(250,250,250,0.0)', 'rgba(0,119,200,.2)'],
+//                 },
+//             }
+//             },
+//     // Declare several bar series, each will be mapped
+//     // to a column of dataset.source by default.
+//     series: [
+
+//         {name: ${jsonEncode(nombreAnioActual)},
+//           type: 'line',
+//           barGap: 0,
+//           data: ${jsonEncode(dataAnioActual)},
+//           markPoint:{
+//             label:{formatter: '{c}%'
+//                 },
+//             symbolSize: 75,
+//             data:[
+//               {type: 'max', name: 'Máximo'},
+//               {type: 'min', name: 'Mínimo'}
+//             ]
+//           },
+//           markLine:{
+//              label:{formatter: '{c}%'
+//                 },
+//             data: [
+//               {
+//                 type: 'average',
+//                 name : 'Promedio'
+
+//                 }
+//             ]
+//           }
+//           },
+//            {name: ${jsonEncode(nombreAnioAnterior)},
+//           type: 'line',
+//           barGap: 0,
+//           data: ${jsonEncode(dataAnioAnterior)},
+//           markPoint:{
+//             symbolSize: 75,
+//             label:{formatter: '{c}%'
+//                 },
+//             data:[
+//               {type: 'max', name: 'Máximo'},
+//               {type: 'min', name: 'Mínimo'}
+//             ]
+//           },
+//           markLine:{
+//              label:{formatter: '{c}%'
+//                 },
+//             data: [
+//               {type: 'average', name : 'Promedio'}
+//             ]
+//           }
+//           }
+//     ]
+// }
+//     ''')
+      ));
     }
   }
 }

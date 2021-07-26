@@ -49,6 +49,7 @@ class __LoginInicioState extends State<LoginInicio> {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     final _prefs = PreferenciasUsuario();
+    print(_prefs.tipoUsuario);
     if (_prefs.tipoUsuario == 'empleado') {
       return SiEmpleado();
     } else if (_prefs.tipoUsuario == 'cliente') {
@@ -117,7 +118,7 @@ class __LoginInicioState extends State<LoginInicio> {
   }
 
   Future<void> _launchNuevoRegistro() async {
-    const nuevoRegistro = 'https://capital24.mx/registro/';
+    const nuevoRegistro = 'https://capital24-5phdg.ondigitalocean.app/';
     if (await canLaunch(nuevoRegistro)) {
       await launch(nuevoRegistro);
     } else {

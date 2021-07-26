@@ -85,7 +85,8 @@ class _LoginClienteState extends State<LoginCliente> {
                                 bloc.changePasswordCliente("           ");
                                 _prefs.deletePrefs();
                                 Navigator.pop(context);
-                                print('Preferencias =${_prefs.tipoUsuario}');
+                                print(
+                                    'Preferencias Cliente =${_prefs.tipoUsuario}');
                               },
                             )
                           ],
@@ -175,7 +176,7 @@ class _LoginClienteState extends State<LoginCliente> {
     if (info['ok']) {
       Navigator.pushNamedAndRemoveUntil(
           context, '/homeCliente', (Route<dynamic> route) => false);
-      _prefs.tipoUsuario = 'empleado';
+      _prefs.tipoUsuario = 'cliente';
       print(_prefs.tipoUsuario);
     } else {
       mostarAlerta(

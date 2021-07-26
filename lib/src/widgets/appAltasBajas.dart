@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:capital24_2/src/models/altasBajasModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
-import 'package:universal_echarts/universal_echarts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:universal_echarts/universal_echarts.dart';
 
 class AppAltasBajas extends StatelessWidget {
   final IndicadorNegocioModel? altasBajasModel;
@@ -12,7 +13,7 @@ class AppAltasBajas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    if (altasBajasModel!.datos!.isEmpty) {
+    if (altasBajasModel!.datos!.length == 0) {
       return Center(
         child: Container(
           child: Column(
@@ -256,95 +257,128 @@ class AppAltasBajas extends StatelessWidget {
       return Center(
         child: Container(
           width: _screenSize.width * .5,
-          child: UniversalEcharts.drawChart(('''
-      {
-       
-        legend: {
-        left: 100
-      
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer:{
-            type: 'shadow'
-          }
-        },
-        grid: {
-          left: '15%',
-          right: '5%'
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: true,
-          axisTick: {show: false},
-          data: [
-            'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
-            ]
-        },
-        yAxis: {
-          type: 'value',
-          gridIndex: 0,
-          splitLine:{
-            show:false,
-            },
-          axisTick:{
-            show:false,
-            },
-          axisLine:{
-            color: '#D9d9d6',
-            },
-          splitNumber:5,
-          splitArea: {
-            show: true,
-            areaStyle: {
-              color: [
-                'rgba(250,250,250,0.0)', 'rgba(217,217,214,0.1)'
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "El contenido de esta sección es visible únicamente en la app Capital24 iOS y Android",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontSize: 40.0),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.appStoreIos,
+                    size: 48,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    FontAwesomeIcons.googlePlay,
+                    size: 46,
+                    color: Theme.of(context).dividerColor,
+                  ),
                 ],
-            },
-          }
-        },
-        series:[
-           {
-            name: 'Altas ' + ${jsonEncode(nombreAnioActualAltas)},
-            type: 'bar',
-            barGap: 0,
-            stack: 'anio_actual', 
-            color: '#529cff',
-            data: ${jsonEncode(dataAnioActualAltas)},
-            
-          },
-          {
-            name: 'Bajas ' +${jsonEncode(nombreAnioActualBajas)},
-            type: 'bar',
-            barGap: 0,
-            stack: 'anio_actual',
-            color: '#C80077',
-            data: ${jsonEncode(dataAnioActualBajas)}
-          },
-          {
-            name: 'Altas ' +${jsonEncode(nombreAnioAnteriorAltas)},
-            color: '#E9F3FF',
-            type: 'bar',
-            barGap: 0,
-            stack: 'anio_anterior', 
-            data: ${jsonEncode(dataAnioAnteriorAltas)},
-            
-          },
-          {
-            name: 'Bajas '  +${jsonEncode(nombreAnioAnteriorBajas)},
-            type: 'bar',
-            stack: 'anio_anterior',
-            barGap: 0,
-            color: '#F8DFEE',
-            data: ${jsonEncode(dataAnioAnteriorBajas)},
-            
-          }
-     
-        ]
-        
-      }
-      
-      ''')),
+              ),
+            ],
+          ),
+          //     child: UniversalEcharts.drawChart(('''
+          // {
+
+          //   legend: {
+          //   left: 100
+
+          //   },
+          //   tooltip: {
+          //     trigger: 'axis',
+          //     axisPointer:{
+          //       type: 'shadow'
+          //     }
+          //   },
+          //   grid: {
+          //     left: '15%',
+          //     right: '5%'
+          //   },
+          //   xAxis: {
+          //     type: 'category',
+          //     boundaryGap: true,
+          //     axisTick: {show: false},
+          //     data: [
+          //       'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
+          //       ]
+          //   },
+          //   yAxis: {
+          //     type: 'value',
+          //     gridIndex: 0,
+          //     splitLine:{
+          //       show:false,
+          //       },
+          //     axisTick:{
+          //       show:false,
+          //       },
+          //     axisLine:{
+          //       color: '#D9d9d6',
+          //       },
+          //     splitNumber:5,
+          //     splitArea: {
+          //       show: true,
+          //       areaStyle: {
+          //         color: [
+          //           'rgba(250,250,250,0.0)', 'rgba(217,217,214,0.1)'
+          //           ],
+          //       },
+          //     }
+          //   },
+          //   series:[
+          //      {
+          //       name: 'Altas ' + ${jsonEncode(nombreAnioActualAltas)},
+          //       type: 'bar',
+          //       barGap: 0,
+          //       stack: 'anio_actual',
+          //       color: '#529cff',
+          //       data: ${jsonEncode(dataAnioActualAltas)},
+
+          //     },
+          //     {
+          //       name: 'Bajas ' +${jsonEncode(nombreAnioActualBajas)},
+          //       type: 'bar',
+          //       barGap: 0,
+          //       stack: 'anio_actual',
+          //       color: '#C80077',
+          //       data: ${jsonEncode(dataAnioActualBajas)}
+          //     },
+          //     {
+          //       name: 'Altas ' +${jsonEncode(nombreAnioAnteriorAltas)},
+          //       color: '#E9F3FF',
+          //       type: 'bar',
+          //       barGap: 0,
+          //       stack: 'anio_anterior',
+          //       data: ${jsonEncode(dataAnioAnteriorAltas)},
+
+          //     },
+          //     {
+          //       name: 'Bajas '  +${jsonEncode(nombreAnioAnteriorBajas)},
+          //       type: 'bar',
+          //       stack: 'anio_anterior',
+          //       barGap: 0,
+          //       color: '#F8DFEE',
+          //       data: ${jsonEncode(dataAnioAnteriorBajas)},
+
+          //     }
+
+          //   ]
+
+          // }
+
+          // ''')),
         ),
       );
     }

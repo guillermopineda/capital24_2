@@ -70,7 +70,7 @@ class IndicadoresNegocio extends StatelessWidget {
     }
   }
 
-  Widget _cardAcumulados(context) {
+  Widget _cardAcumulados(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
     return FutureBuilder(

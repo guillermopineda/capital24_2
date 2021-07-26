@@ -19,7 +19,7 @@ class AppTarjetaPlantillaColaboradores extends StatelessWidget {
 
   plantillaPersonal(context) {
     final _screenSize = MediaQuery.of(context).size;
-    if (plantillaColaboradoresModel!.isEmpty) {
+    if (plantillaColaboradoresModel!.length == 0) {
       return Center(
         child: Container(
           child: Column(

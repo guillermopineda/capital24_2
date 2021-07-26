@@ -229,7 +229,7 @@ class _CalendarioKardexEmpleadoState extends State<CalendarioKardexEmpleado> {
   _dias() {
     final _screenSize = MediaQuery.of(context).size;
 
-    if (widget.kardexEmpleadoModel!.isEmpty) {
+    if (widget.kardexEmpleadoModel!.length == 0) {
       return Center(
         child: Container(
           child: Column(

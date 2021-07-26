@@ -65,7 +65,7 @@ class ColaboradoresSearch extends SearchDelegate {
       ));
     } else {
       final colaboradores = plantillaColaboradoresModel;
-      final listaSugerida = (query.isEmpty)
+      final listaSugerida = (query.length == 0)
           ? colaboradores
           : colaboradores!
               .where(
@@ -131,7 +131,7 @@ class ColaboradoresSearch extends SearchDelegate {
       ));
     } else {
       final colaboradores = plantillaColaboradoresModel;
-      final listaSugerida = (query.isEmpty)
+      final listaSugerida = (query.length == 0)
           ? colaboradores
           : colaboradores!
               .where(

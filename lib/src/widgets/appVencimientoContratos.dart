@@ -20,7 +20,7 @@ class AppVencimientoContratos extends StatelessWidget {
 
   vencimientoContratos(context) {
     final _screenSize = MediaQuery.of(context).size;
-    if (vencimientoContratosModel!.isEmpty) {
+    if (vencimientoContratosModel!.length == 0) {
       return Center(
         child: Container(
           child: Column(
